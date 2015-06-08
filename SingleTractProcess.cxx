@@ -20,6 +20,7 @@ void SingleTractProcess::initializeScript()
     m_script += "import re\n";
     m_script += "import time\n";
 
+    m_script += "Slicer ='" + m_soft_m->getsoft_slicer_lineEdit() + "'\n";
     m_script += "polydatatransform = '" + m_soft_m->getsoft_polydatatransform_lineEdit() + "'\n";
     m_script += "TractographyLabelMapSeeding = '" + m_soft_m->getsoft_TractographyLabelMapSeeding_lineEdit() + "'\n";
     m_script += "fiberprocess = '" + m_soft_m->getsoft_fiberprocess_lineEdit() + "'\n";
@@ -116,7 +117,7 @@ void SingleTractProcess::implementSingleTractProcess()
 
     m_script += "\ttractedFiber = current_dir + '/' + name + '.vtp'";
     m_script += "\n";
-    m_argumentsList << "TractographyLabelMapSeeding" << "inputDTIatlas_dir" << "tractedFiber" << "'-a'" << "dilatedImage" << "'-s'" << "seedspacing" << "'--clthreshold'" << "clthreshold" << "'--minimumlength'" << "minimumlength" << "'--maximumlength'" << "maximumlength" << "'--stoppingcurvature'" << "stoppingcurvature" << "'--integrationsteplength'" << "integrationsteplength" << "'--stoppingvalue'" << "stoppingvalue";
+    m_argumentsList << "Slicer" << "'--launch'" << "TractographyLabelMapSeeding" << "inputDTIatlas_dir" << "tractedFiber" << "'-a'" << "dilatedImage" << "'-s'" << "seedspacing" << "'--clthreshold'" << "clthreshold" << "'--minimumlength'" << "minimumlength" << "'--maximumlength'" << "maximumlength" << "'--stoppingcurvature'" << "stoppingcurvature" << "'--integrationsteplength'" << "integrationsteplength" << "'--stoppingvalue'" << "stoppingvalue";
     execute();
 
     m_log = "Cropping reference tracts";
@@ -174,6 +175,14 @@ void SingleTractProcess::implementSingleTractProcess()
     m_script += "\n";
     m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberLengthMatch" << "'-o'" << "outputTract" << "'-m'" << "distanceMap" << "'--threshold'" << "tractMaxDistThreshold" << "'--mask'" << "'--clean'" << "'--thresholdMode'" << "'above'";
     execute();
+
+    m_log = "Creation of a tmp txt file";
+    m_script += "\n";
+    m_script += "\ttmp = current_dir + '/' + name + '_tmp.txt'";
+    m_script += "\n";
+    m_argumentsList << "'touch'" << "'tmp'";
+    execute();
+
 }
 
 void SingleTractProcess::writeSingleTractProcess()

@@ -13,7 +13,7 @@ void MaskCreation::initializeScript()
     m_script += "ImageMath = '" + m_soft_m->getsoft_ImageMath_lineEdit() + "'\n";
     m_script += "dtiprocess ='" + m_soft_m->getsoft_dtiprocess_lineEdit() + "'\n";
     m_script += "unu ='" + m_soft_m->getsoft_unu_lineEdit() + "'\n";
-    m_script += "ResampleDTIVolume ='" + m_soft_m->getsoft_ResampleDTIVolume_lineEdit() + "'\n";
+    m_script += "ResampleDTIlogEuclidean ='" + m_soft_m->getsoft_ResampleDTIlogEuclidean_lineEdit() + "'\n";
     m_script += "refDTIatlas_dir = '" + m_para_m->getpara_refDTIatlas_lineEdit() + "'\n";
     m_script += "inputDTIatlas_dir = '" + m_para_m->getpara_inputDTIatlas_lineEdit() + "'\n";
     m_script += "outputDir = '" + m_outputDir + "'\n";
@@ -82,7 +82,7 @@ void MaskCreation::executeMaskCreation()
     m_argumentsList << "unu" << "'resample'" << "'-i'" << "FAimage" << "'-o'" << "upsampledImage" << "'-s'" << "'x2'" << "'x2'" << "'x2'";
     execute();
     m_log = "Upsampling of the reference image - Step 2";
-    m_argumentsList << "ResampleDTIVolume" << "inputDTIatlas_dir" << "upsampledImage" << "'-R'" << "upsampledImage";
+    m_argumentsList << "ResampleDTIlogEuclidean" << "inputDTIatlas_dir" << "upsampledImage" << "'-R'" << "upsampledImage";
     execute();
     m_script +="\n\n";
 

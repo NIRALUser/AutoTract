@@ -17,6 +17,10 @@ void Registration::initializeScript()
     m_script += "import re\n";
 
     m_script += "DTIReg = '" + m_soft_m->getsoft_DTIReg_lineEdit() + "'\n";
+    m_script += "ANTS = '" + m_soft_m->getsoft_ANTS_lineEdit() + "'\n";
+    m_script += "dtiprocess = '" + m_soft_m->getsoft_dtiprocess_lineEdit() + "'\n";
+    m_script += "ResampleDTIlogEuclidean = '" + m_soft_m->getsoft_ResampleDTIlogEuclidean_lineEdit() + "'\n";
+    m_script += "ITKTransformTools = '" + m_soft_m->getsoft_ITKTransformTools_lineEdit() + "'\n";
     m_script += "refDTIatlas_dir = '" + m_para_m->getpara_refDTIatlas_lineEdit() + "'\n";
     m_script += "inputDTIatlas_dir = '" + m_para_m->getpara_inputDTIatlas_lineEdit() + "'\n";
     m_script += "registrationType = '" + m_para_m->getpara_registration_type_comboBox() + "'\n";
@@ -32,8 +36,24 @@ void Registration::initializeScript()
 void Registration::executeRegistration()
 {
     m_log = "Registration";
-    m_argumentsList << "DTIReg" << "'--movingVolume'" << "refDTIatlas_dir" << "'--fixedVolume'" << "inputDTIatlas_dir" << "'--method useScalar-ANTS'" << "'--ANTSRegistrationType'"<< "registrationType" << "'--ANTSSimilarityMetric'" << "similarityMetric"  << "'--ANTSSimilarityParameter'" << "'4'" << "'--ANTSGaussianSigma'" << "gaussianSigma" << "'--outputDisplacementField'" << "displacementFieldPath";
-    execute();
+    if( m_para_m->getpara_computingSystem_comboBox() == "local")
+    {
+        m_argumentsList << "DTIReg" << "'--movingVolume'" << "refDTIatlas_dir" << "'--fixedVolume'" << "inputDTIatlas_dir" << "'--method useScalar-ANTS'" << "'--ANTSRegistrationType'";
+        m_argumentsList << "registrationType" << "'--ANTSSimilarityMetric'" << "similarityMetric"  << "'--ANTSSimilarityParameter'" << "'4'" << "'--ANTSGaussianSigma'" << "gaussianSigma";
+        m_argumentsList << "'--outputDisplacementField'" << "displacementFieldPath" << "'--ANTSPath'" << "ANTS" << "'--dtiprocessPath'" << "dtiprocess" << "'--ResampleDTIPath'" << "ResampleDTIlogEuclidean" << "'--ITKTransformToolsPath'" << "ITKTransformTools";
+        execute();
+    }
+    else
+    {
+        QString args = "'bsub', '-q', 'hour', '-K', '-M', '" + QString::number(4) + "', '-n', '" + QString::number(m_para_m->getpara_nb_threads_spinBox()) + "', '-R', 'span[hosts=1]', ";
+        args += "DTIReg, '--movingVolume', refDTIatlas_dir, '--fixedVolume', inputDTIatlas_dir, '--method useScalar-ANTS', '--ANTSRegistrationType', registrationType, '--ANTSSimilarityMetric', similarityMetric, '--ANTSSimilarityParameter', '4', '--ANTSGaussianSigma', gaussianSigma, '--outputDisplacementField', displacementFieldPath";
+        m_script += "\targs = [" + args + "]\n";
+        m_script += "\tbsub_process = subprocess.Popen(args, stdout=subprocess.PIPE)\n";
+        m_script += "\tbsub_output = bsub_process.stdout.read()\n";
+        m_script += "\tlogger.info(bsub_output)\n";
+        m_script += "\tjobID = re.search('(<{1})([0-9]{1,})(>{1})', bsub_output).group(2)\n";
+        m_script += "\tlogger.info(jobID)\n";
+    }
     m_unnecessaryFiles << m_displacementFieldPath;
 }
 
@@ -50,6 +70,7 @@ void Registration::implementRun()
     checkFinalOutputs();
 
     m_script += "\tlogger.info('')\n";
+    m_script += "\tos.environ['ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS'] = '" + QString::number(m_para_m->getpara_nb_threads_spinBox()) + "' \n";
 
     executeRegistration();
     // Cleaning for keven data

@@ -236,15 +236,15 @@ void Pipeline::writePipeline()
 void Pipeline::runPipeline()
 {
     QString command;
-    if(!(m_para_m->getpara_computingSystem_comboBox()).compare("local", Qt::CaseInsensitive) || !(m_para_m->getpara_computingSystem_comboBox()).compare("killdevil interactive", Qt::CaseInsensitive))
-    {
+    //if(!(m_para_m->getpara_computingSystem_comboBox()).compare("local", Qt::CaseInsensitive) || !(m_para_m->getpara_computingSystem_comboBox()).compare("killdevil interactive", Qt::CaseInsensitive))
+    //{
         command = m_main_path;
-    }
+    //}
 
-    if(!(m_para_m->getpara_computingSystem_comboBox()).compare("killdevil", Qt::CaseInsensitive))
-    {
-        command = "bsub -q day -M 4 -n 1 -R \"span[hosts=1]\" python " +  m_main_path;
-    }
+//    if(!(m_para_m->getpara_computingSystem_comboBox()).compare("killdevil", Qt::CaseInsensitive))
+//    {
+//        command = "bsub -q day -M 4 -n 1 -R \"span[hosts=1]\" python " +  m_main_path;
+//    }
     QString python_path = m_soft_m->getsoft_python_lineEdit();
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     if(python_path!="")

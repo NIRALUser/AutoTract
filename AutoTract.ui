@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>746</width>
-    <height>763</height>
+    <height>818</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,10 +21,10 @@
     <property name="verticalSpacing">
      <number>6</number>
     </property>
-    <item row="0" column="0">
+    <item row="2" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="inputs_tab">
        <attribute name="title">
@@ -263,187 +263,238 @@
              </property>
              <layout class="QGridLayout" name="gridLayout_5">
               <item row="2" column="2">
-               <widget class="QPushButton" name="reset_ResampleDTI_Volume_pushButton">
+               <widget class="QLineEdit" name="soft_slicer_lineEdit"/>
+              </item>
+              <item row="5" column="3">
+               <widget class="QPushButton" name="reset_ResampleDTIlogEuclidean_pushButton">
                 <property name="text">
                  <string>Reset</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="0">
+              <item row="3" column="0">
                <widget class="QPushButton" name="DTIReg_pushButton">
                 <property name="text">
                  <string>DTIReg</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
+              <item row="3" column="2">
                <widget class="QLineEdit" name="soft_DTIReg_lineEdit"/>
               </item>
-              <item row="0" column="2">
+              <item row="3" column="3">
                <widget class="QPushButton" name="reset_DTIReg_pushButton">
                 <property name="text">
                  <string>Reset</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="0">
+              <item row="4" column="0">
                <widget class="QPushButton" name="fiberprocess_pushButton">
                 <property name="text">
                  <string>fiberprocess</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="1">
+              <item row="4" column="2">
                <widget class="QLineEdit" name="soft_fiberprocess_lineEdit"/>
               </item>
-              <item row="1" column="2">
+              <item row="4" column="3">
                <widget class="QPushButton" name="reset_fiberprocess_pushButton">
                 <property name="text">
                  <string>Reset</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="0">
-               <widget class="QPushButton" name="ResampleDTIVolume_pushButton">
+              <item row="5" column="0">
+               <widget class="QPushButton" name="ResampleDTIlogEuclidean_pushButton">
                 <property name="text">
-                 <string>ResampleDTIVolume</string>
+                 <string>ResampleDTIlogEuclidean</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
-               <widget class="QLineEdit" name="soft_ResampleDTIVolume_lineEdit"/>
+              <item row="5" column="2">
+               <widget class="QLineEdit" name="soft_ResampleDTIlogEuclidean_lineEdit"/>
               </item>
-              <item row="3" column="1">
+              <item row="6" column="2">
                <widget class="QLineEdit" name="soft_ImageMath_lineEdit"/>
               </item>
-              <item row="3" column="0">
+              <item row="6" column="0">
                <widget class="QPushButton" name="ImageMath_pushButton">
                 <property name="text">
                  <string>ImageMath</string>
                 </property>
                </widget>
               </item>
-              <item row="3" column="2">
+              <item row="6" column="3">
                <widget class="QPushButton" name="reset_ImageMath_pushButton">
                 <property name="text">
                  <string>Reset</string>
                 </property>
                </widget>
               </item>
-              <item row="4" column="0">
+              <item row="7" column="0">
                <widget class="QPushButton" name="TractographyLabelMapSeeding_pushButton">
                 <property name="text">
                  <string>TractographyLabelMapSeeding</string>
                 </property>
                </widget>
               </item>
-              <item row="4" column="1">
+              <item row="7" column="2">
                <widget class="QLineEdit" name="soft_TractographyLabelMapSeeding_lineEdit"/>
               </item>
-              <item row="4" column="2">
+              <item row="7" column="3">
                <widget class="QPushButton" name="reset_TractographyLabelMapSeeding_pushButton">
                 <property name="text">
                  <string>Reset</string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="0">
+              <item row="8" column="0">
                <widget class="QPushButton" name="FiberPostProcess_pushButton">
                 <property name="text">
                  <string>FiberPostProcess</string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="1">
+              <item row="8" column="2">
                <widget class="QLineEdit" name="soft_FiberPostProcess_lineEdit"/>
               </item>
-              <item row="5" column="2">
+              <item row="8" column="3">
                <widget class="QPushButton" name="reset_FiberPostProcess_pushButton">
                 <property name="text">
                  <string>Reset</string>
                 </property>
                </widget>
               </item>
-              <item row="6" column="0">
+              <item row="9" column="0">
                <widget class="QPushButton" name="polydatattransform_pushButton">
                 <property name="text">
                  <string>polydatatransform</string>
                 </property>
                </widget>
               </item>
-              <item row="6" column="1">
+              <item row="9" column="2">
                <widget class="QLineEdit" name="soft_polydatatransform_lineEdit"/>
               </item>
-              <item row="6" column="2">
+              <item row="9" column="3">
                <widget class="QPushButton" name="reset_polydatatransform_pushButton">
                 <property name="text">
                  <string>Reset</string>
                 </property>
                </widget>
               </item>
-              <item row="7" column="0">
+              <item row="10" column="0">
                <widget class="QPushButton" name="unu_pushButton">
                 <property name="text">
                  <string>unu</string>
                 </property>
                </widget>
               </item>
-              <item row="7" column="1">
+              <item row="10" column="2">
                <widget class="QLineEdit" name="soft_unu_lineEdit"/>
               </item>
-              <item row="7" column="2">
+              <item row="10" column="3">
                <widget class="QPushButton" name="reset_unu_pushButton">
                 <property name="text">
                  <string>Reset</string>
                 </property>
                </widget>
               </item>
-              <item row="8" column="0">
+              <item row="11" column="0">
                <widget class="QPushButton" name="MDT_pushButton">
                 <property name="text">
                  <string>MDT</string>
                 </property>
                </widget>
               </item>
-              <item row="8" column="1">
+              <item row="11" column="2">
                <widget class="QLineEdit" name="soft_MDT_lineEdit"/>
               </item>
-              <item row="8" column="2">
+              <item row="11" column="3">
                <widget class="QPushButton" name="reset_MDT_pushButton">
                 <property name="text">
                  <string>Reset</string>
                 </property>
                </widget>
               </item>
-              <item row="9" column="0">
+              <item row="12" column="0">
                <widget class="QPushButton" name="python_pushButton">
                 <property name="text">
                  <string>python</string>
                 </property>
                </widget>
               </item>
-              <item row="9" column="1">
+              <item row="12" column="2">
                <widget class="QLineEdit" name="soft_python_lineEdit"/>
               </item>
-              <item row="10" column="1">
+              <item row="13" column="2">
                <widget class="QLineEdit" name="soft_dtiprocess_lineEdit"/>
               </item>
-              <item row="9" column="2">
+              <item row="12" column="3">
                <widget class="QPushButton" name="reset_python_pushButton">
                 <property name="text">
                  <string>Reset</string>
                 </property>
                </widget>
               </item>
-              <item row="10" column="0">
+              <item row="13" column="0">
                <widget class="QPushButton" name="dtiprocess_pushButton">
                 <property name="text">
                  <string>dtiprocess</string>
                 </property>
                </widget>
               </item>
-              <item row="10" column="2">
+              <item row="13" column="3">
                <widget class="QPushButton" name="reset_dtiprocess_pushButton">
+                <property name="text">
+                 <string>Reset</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="3">
+               <widget class="QPushButton" name="reset_slicer_pushButton">
+                <property name="text">
+                 <string>Reset</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QPushButton" name="ANTS_pushButton">
+                <property name="text">
+                 <string>ANTS</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="3">
+               <widget class="QPushButton" name="reset_ANTS_pushButton">
+                <property name="text">
+                 <string>Reset</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="slicer_pushButton">
+                <property name="text">
+                 <string>Slicer</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QLineEdit" name="soft_ANTS_lineEdit"/>
+              </item>
+              <item row="0" column="0">
+               <widget class="QPushButton" name="ITKTransformTools_pushButton">
+                <property name="text">
+                 <string>ITKTransformTools</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLineEdit" name="soft_ITKTransformTools_lineEdit"/>
+              </item>
+              <item row="0" column="3">
+               <widget class="QPushButton" name="reset_ITKTransformTools_pushButton">
                 <property name="text">
                  <string>Reset</string>
                 </property>
@@ -717,19 +768,6 @@ MI=Mutual Information, MSQ=Mean Square Difference</string>
                  </item>
                 </layout>
                </widget>
-              </item>
-              <item>
-               <spacer name="verticalSpacer_4">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
               </item>
              </layout>
             </widget>
@@ -1410,6 +1448,106 @@ a reference fiber bundle allowed</string>
          </widget>
         </item>
         <item>
+         <widget class="QWidget" name="widget_28" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_19">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="margin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QGroupBox" name="groupBox_3">
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_23">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>9</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="computingSystem_label">
+                <property name="text">
+                 <string>Run it on:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="para_computingSystem_comboBox">
+                <item>
+                 <property name="text">
+                  <string>local</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>killdevil</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="nbTractsProcessed_label">
+                <property name="toolTip">
+                 <string>Number of processes started in parallel. Make sure that your computer has enough memory.</string>
+                </property>
+                <property name="text">
+                 <string>Nb of tracts processed in parallel:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="para_nbTractsProcessed_spinBox">
+                <property name="toolTip">
+                 <string>Number of processes started in parallel. Make sure that your computer has enough memory.</string>
+                </property>
+                <property name="value">
+                 <number>1</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_7">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <widget class="QWidget" name="log_widget" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_20" stretch="0">
            <property name="spacing">
@@ -1425,58 +1563,87 @@ a reference fiber bundle allowed</string>
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widget_28" native="true">
-          <layout class="QHBoxLayout" name="horizontalLayout_19">
+         <widget class="QWidget" name="widget_24" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0">
            <property name="spacing">
-            <number>66</number>
+            <number>300</number>
+           </property>
+           <property name="leftMargin">
+            <number>9</number>
            </property>
            <property name="topMargin">
-            <number>9</number>
+            <number>0</number>
            </property>
            <property name="rightMargin">
             <number>9</number>
            </property>
            <property name="bottomMargin">
-            <number>9</number>
+            <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="computingSystem_label">
-             <property name="text">
-              <string>Run it on:</string>
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>Registration</string>
              </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_22">
+              <property name="spacing">
+               <number>6</number>
+              </property>
+              <property name="margin">
+               <number>9</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>Max memory usage (Gb):</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="spinBox"/>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="nb_threads_label">
+                <property name="text">
+                 <string>Number of threads:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="para_nb_threads_spinBox">
+                <property name="value">
+                 <number>8</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_8">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="para_computingSystem_comboBox">
-             <item>
-              <property name="text">
-               <string>local</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>killdevil</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>killdevil interactive</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_5">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </widget>
@@ -1484,93 +1651,91 @@ a reference fiber bundle allowed</string>
         <item>
          <widget class="QWidget" name="widget_7" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <property name="topMargin">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
             <number>9</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
            </property>
            <property name="bottomMargin">
-            <number>9</number>
+            <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="nbTractsProcessed_label">
-             <property name="toolTip">
-              <string>Number of processes started in parallel. Make sure that your computer has enough memory.</string>
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string>Tract Processing</string>
              </property>
-             <property name="text">
-              <string>Nb of tracts processed in parallel:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="para_nbTractsProcessed_spinBox">
-             <property name="toolTip">
-              <string>Number of processes started in parallel. Make sure that your computer has enough memory.</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QLabel" name="nbCores_label">
-             <property name="toolTip">
-              <string>Setting of ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS to force ITK filters to use this number of threads.</string>
-             </property>
-             <property name="text">
-              <string>Nb of Cores/tract:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="para_nbCores_spinBox">
-             <property name="toolTip">
-              <string>Setting of ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS to force ITK filters to use this number of threads.</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_4">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QWidget" name="widget_29" native="true">
-          <layout class="QHBoxLayout" name="horizontalLayout_18">
-           <property name="spacing">
-            <number>100</number>
-           </property>
-           <item>
-            <widget class="QCheckBox" name="para_cleanup_checkBox">
-             <property name="text">
-              <string>Clean up after process</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="para_overwrite_checkBox">
-             <property name="text">
-              <string>Overwrite existing results</string>
-             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_16">
+              <property name="spacing">
+               <number>6</number>
+              </property>
+              <property name="margin">
+               <number>9</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="nb_memory_label">
+                <property name="text">
+                 <string>Nb of GB per tract process:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="para_nb_memory_spinBox">
+                <property name="value">
+                 <number>4</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="nbCores_label">
+                <property name="toolTip">
+                 <string>Setting of ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS to force ITK filters to use this number of threads.</string>
+                </property>
+                <property name="text">
+                 <string>Nb of threads/tract process:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="para_nbCores_spinBox">
+                <property name="toolTip">
+                 <string>Setting of ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS to force ITK filters to use this number of threads.</string>
+                </property>
+                <property name="value">
+                 <number>1</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_9">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </widget>
            </item>
           </layout>
@@ -1617,28 +1782,17 @@ a reference fiber bundle allowed</string>
             </widget>
            </item>
            <item>
-            <widget class="QProgressBar" name="progressBar">
-             <property name="value">
-              <number>0</number>
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="displayResults_pushButton">
-             <property name="text">
-              <string>Display Results</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>:/icons/icons/eye.png</normaloff>:/icons/icons/eye.png</iconset>
-             </property>
-             <property name="iconSize">
+             <property name="sizeHint" stdset="0">
               <size>
-               <width>30</width>
-               <height>15</height>
+               <width>40</width>
+               <height>20</height>
               </size>
              </property>
-            </widget>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -1719,8 +1873,6 @@ a reference fiber bundle allowed</string>
    </property>
   </action>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
