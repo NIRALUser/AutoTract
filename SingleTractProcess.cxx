@@ -124,21 +124,41 @@ void SingleTractProcess::implementSingleTractProcess()
     m_script += "\n";
     m_script += "\trefFiberCropped = current_dir + '/' + name + '_ref_cleanEnds.vtp'";
     m_script += "\n";
-    m_argumentsList << "FiberPostProcess" << "'-i'" << "ref_tract_mapped" << "'-o'" << "refFiberCropped" << "'--crop'" << "'-m'" << "output_dir + '/2.MaskCreation/WMmask.nrrd'" << "'--thresholdMode'" << "'above'";
+    if( m_para_m->getpara_inputWMmask_lineEdit() != "" )
+    {
+        m_script += "\tWMMask ='" + m_para_m->getpara_inputWMmask_lineEdit() + "'\n";
+        m_script += "\n";
+    }
+    else
+    {
+        m_script += "\tWMMask = output_dir + '/2.MaskCreation/WMmask.nrrd'";
+        m_script += "\n";
+    }
+    m_argumentsList << "FiberPostProcess" << "'-i'" << "ref_tract_mapped" << "'-o'" << "refFiberCropped" << "'--crop'" << "'-m'" << "WMMask" << "'--thresholdMode'" << "'above'";
     execute();
 
     m_log = "Cropping using WM mask";
     m_script += "\n";
     m_script += "\tfiberCropped = current_dir + '/' + name + '_cleanEnds.vtp'";
     m_script += "\n";
-    m_argumentsList << "FiberPostProcess" << "'-i'" << "tractedFiber" << "'-o'" << "fiberCropped" << "'--crop'" << "'-m'" << "output_dir + '/2.MaskCreation/WMmask.nrrd'" << "'--thresholdMode'" << "'above'";
+    m_argumentsList << "FiberPostProcess" << "'-i'" << "tractedFiber" << "'-o'" << "fiberCropped" << "'--crop'" << "'-m'" << "WMMask" << "'--thresholdMode'" << "'above'";
     execute();
 
     m_log = "Masking with CSF mask";
     m_script += "\n";
     m_script += "\tfiberMaskedCSF = current_dir + '/' + name + '_maskCSF.vtp'";
     m_script += "\n";
-    m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberCropped" << "'-o'" << "fiberMaskedCSF" << "'--mask'" << "'--clean'" << "'-m'" << "output_dir + '/2.MaskCreation/MDmask.nrrd'" << "'--thresholdMode'" << "'above'" << "'-t'" << "thresholdWMmask";
+    if( m_para_m->getpara_inputCSFmask_lineEdit() != "" )
+    {
+        m_script += "\tCSFMask ='" + m_para_m->getpara_inputCSFmask_lineEdit() + "'\n";
+        m_script += "\n";
+    }
+    else
+    {
+        m_script += "\tCSFMask = output_dir + '/2.MaskCreation/MDmask.nrrd'";
+        m_script += "\n";
+    }
+    m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberCropped" << "'-o'" << "fiberMaskedCSF" << "'--mask'" << "'--clean'" << "'-m'" << "CSFMask" << "'--thresholdMode'" << "'above'" << "'-t'" << "thresholdWMmask";
     execute();
 
     m_log = "Masking with dilated reference image";

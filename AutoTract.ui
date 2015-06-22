@@ -1600,7 +1600,14 @@ a reference fiber bundle allowed</string>
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBox"/>
+               <widget class="QSpinBox" name="para_nb_memory_registration_spinBox">
+                <property name="singleStep">
+                 <number>1</number>
+                </property>
+                <property name="value">
+                 <number>4</number>
+                </property>
+               </widget>
               </item>
               <item>
                <spacer name="horizontalSpacer_3">
