@@ -15,9 +15,9 @@ void TractPopulationProcess::initializeScript()
 
     m_script += "tracts_dir = '" + m_para_m->getpara_tracts_dir_lineEdit() + "'\n";
     m_script += "displacementFieldPath = '" + m_displacementFieldPath + "'\n";
-    m_script += "nbCores = '" +     QString::number(m_para_m->getpara_nbCores_spinBox()) + "'\n";
-    m_script += "nbMemory = '" +     QString::number(m_para_m->getpara_nb_memory_spinBox()) + "'\n";
-    m_script += "nbTractProcessedMax = '" +     QString::number(m_para_m->getpara_nbTractsProcessed_spinBox()) + "'\n";
+    m_script += "nbCores = " + QString::number(m_para_m->getpara_nbCores_spinBox()) + "\n";
+    m_script += "nbMemory = " + QString::number(m_para_m->getpara_nb_memory_spinBox()) + "\n";
+    m_script += "nbTractProcessedMax = " + QString::number(m_para_m->getpara_nbTractsProcessed_spinBox()) + "\n";
 
     m_script += "logger = logging.getLogger('AutoTract')\n\n";
 
@@ -102,7 +102,7 @@ void TractPopulationProcess::implementProcessTractPopulation()
 
     if(m_para_m->getpara_nbCores_spinBox() != 0)
     {
-        m_script += "\tos.environ['ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS'] = nbCores\n";
+        m_script += "\tos.environ['ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS'] = str(nbCores)\n";
     }
 
     m_script += "\trunningTract = []\n\n";
@@ -189,7 +189,7 @@ void TractPopulationProcess::SubmitTractPostProcessJob(QString tract, int i)
 
     QString tract_name = "tract_" + QString_i;
 
-    QString args = "'bsub', '-q', 'hour', '-M', nbMemory, '-n', nbCores, '-R', 'span[hosts=1]', ";
+    QString args = "'bsub', '-q', 'hour', '-M', str(nbMemory), '-n', str(nbCores), '-R', 'span[hosts=1]', ";
     args += "'python', postProcess_script, name, tract, output_dir, displacementFieldPath, log";
     m_script += "\targs = [" + args + "]\n";
     m_script += "\tbsub_process = subprocess.Popen(args, stdout=subprocess.PIPE)\n";

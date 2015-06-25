@@ -20,6 +20,7 @@ void AutoTractWindow::SyncUiToModelStructure()
     m_para_m->setpara_inputCSFmask_lineEdit( para_inputCSFmask_lineEdit->text() );
     m_para_m->setpara_output_dir_lineEdit( para_output_dir_lineEdit->text() );
     m_para_m->setpara_refDTIatlas_lineEdit( para_refDTIatlas_lineEdit->text() );
+    m_para_m->setpara_displacementField_lineEdit( para_displacementField_lineEdit->text() );
 
     /*2nd tab: reference tracts*/
     m_para_m->setpara_tracts_dir_lineEdit( para_tracts_dir_lineEdit->text() );
@@ -53,7 +54,7 @@ void AutoTractWindow::SyncUiToModelStructure()
     m_para_m->setpara_iterations_lineEdit( para_iterations_lineEdit->text() );
     m_para_m->setpara_similarity_metric_comboBox( para_similarity_metric_comboBox->currentText() );
     m_para_m->setpara_gaussian_sigma_spinBox( para_gaussian_sigma_spinBox->value() );
-    m_para_m->setpara_nb_threads_spinBox( para_nb_threads_spinBox->value() );
+    m_para_m->setpara_similarity_parameter_spinBox( para_similarity_parameter_spinBox->value() );
 
     /*5th tab*/
     m_para_m->setpara_dilation_radius_spinBox( para_dilation_radius_spinBox->value() );
@@ -80,6 +81,8 @@ void AutoTractWindow::SyncUiToModelStructure()
     //m_para_m->setpara_overwrite_checkBox( para_overwrite_checkBox->isChecked() );
     m_para_m->setpara_singletract_comboBox( para_singletract_comboBox->currentText() );
     m_para_m->setpara_nb_memory_spinBox( para_nb_memory_spinBox->value() );
+    m_para_m->setpara_nb_threads_spinBox( para_nb_threads_spinBox->value() );
+    m_para_m->setpara_nb_memory_registration_spinBox( para_nb_memory_registration_spinBox->value() );
 
 
     //m.setdtiprocess_lineEdit();
@@ -103,6 +106,7 @@ void AutoTractWindow::SyncUiToModelStructure( QString prefix )
         m_para_m->setpara_inputCSFmask_lineEdit( para_inputCSFmask_lineEdit->text() );
         m_para_m->setpara_output_dir_lineEdit( para_output_dir_lineEdit->text() );
         m_para_m->setpara_refDTIatlas_lineEdit( para_refDTIatlas_lineEdit->text() );
+        m_para_m->setpara_displacementField_lineEdit( para_displacementField_lineEdit->text() );
 
         /*2nd tab: reference tracts*/
         m_para_m->setpara_tracts_dir_lineEdit( para_tracts_dir_lineEdit->text() );
@@ -120,7 +124,7 @@ void AutoTractWindow::SyncUiToModelStructure( QString prefix )
         m_para_m->setpara_iterations_lineEdit( para_iterations_lineEdit->text() );
         m_para_m->setpara_similarity_metric_comboBox( para_similarity_metric_comboBox->currentText() );
         m_para_m->setpara_gaussian_sigma_spinBox( para_gaussian_sigma_spinBox->value() );
-        m_para_m->setpara_nb_threads_spinBox( para_nb_threads_spinBox->value() );
+        m_para_m->setpara_similarity_parameter_spinBox( para_similarity_parameter_spinBox->value() );
 
         /*5th tab*/
         m_para_m->setpara_dilation_radius_spinBox( para_dilation_radius_spinBox->value() );
@@ -147,6 +151,8 @@ void AutoTractWindow::SyncUiToModelStructure( QString prefix )
         //m_para_m->setpara_overwrite_checkBox( para_overwrite_checkBox->isChecked() );
         m_para_m->setpara_singletract_comboBox( para_singletract_comboBox->currentText() );
         m_para_m->setpara_nb_memory_spinBox( para_nb_memory_spinBox->value() );
+        m_para_m->setpara_nb_threads_spinBox( para_nb_threads_spinBox->value() );
+        m_para_m->setpara_nb_memory_registration_spinBox( para_nb_memory_registration_spinBox->value() );
     }
 
     if(prefix == "soft")
@@ -185,6 +191,7 @@ void AutoTractWindow::SyncModelStructureToUi()
     para_inputCSFmask_lineEdit->setText( m_para_m->getpara_inputWMmask_lineEdit() );
     para_output_dir_lineEdit->setText( m_para_m->getpara_output_dir_lineEdit() );
     para_refDTIatlas_lineEdit->setText( m_para_m->getpara_refDTIatlas_lineEdit() );
+    para_displacementField_lineEdit->setText( m_para_m->getpara_displacementField_lineEdit() );
 
     /*2nd tab: reference tracts*/
     para_tracts_dir_lineEdit->setText( m_para_m->getpara_tracts_dir_lineEdit() );
@@ -217,8 +224,8 @@ void AutoTractWindow::SyncModelStructureToUi()
     para_transformation_step_spinBox->setValue( m_para_m->getpara_transformation_step_spinBox() );
     para_iterations_lineEdit->setText( m_para_m->getpara_iterations_lineEdit() );
     para_similarity_metric_comboBox->setCurrentIndex(para_similarity_metric_comboBox->findText(m_para_m->getpara_similarity_metric_comboBox() ) );
-    para_nb_threads_spinBox->setValue( m_para_m->getpara_nb_threads_spinBox());
     para_gaussian_sigma_spinBox->setValue( m_para_m->getpara_gaussian_sigma_spinBox() );
+    para_similarity_parameter_spinBox->setValue( m_para_m->getpara_similarity_parameter_spinBox() );
 
     /*5th tab*/
     //std::cout<<m_para_m->getpara_dilation_radius_spinBox()<<std::endl;
@@ -247,6 +254,8 @@ void AutoTractWindow::SyncModelStructureToUi()
     //para_overwrite_checkBox->setChecked( m_para_m->getpara_overwrite_checkBox() );
     para_singletract_comboBox->setCurrentIndex( para_singletract_comboBox->findText(m_para_m->getpara_singletract_comboBox() ) ) ;
     para_nb_memory_spinBox->setValue( m_para_m->getpara_nb_memory_spinBox() );
+    para_nb_threads_spinBox->setValue( m_para_m->getpara_nb_threads_spinBox());
+    para_nb_memory_registration_spinBox->setValue( m_para_m->getpara_nb_memory_registration_spinBox() );
 
     m_sync = 0 ;
 }
@@ -267,6 +276,7 @@ void AutoTractWindow::SyncModelStructureToUi( QString prefix )
         para_inputCSFmask_lineEdit->setText( m_para_m->getpara_inputWMmask_lineEdit() );
         para_output_dir_lineEdit->setText( m_para_m->getpara_output_dir_lineEdit() );
         para_refDTIatlas_lineEdit->setText( m_para_m->getpara_refDTIatlas_lineEdit() );
+        para_displacementField_lineEdit->setText( m_para_m->getpara_displacementField_lineEdit() );
 
         /*2nd tab: reference tracts*/
         para_tracts_dir_lineEdit->setText( m_para_m->getpara_tracts_dir_lineEdit() );
@@ -284,7 +294,7 @@ void AutoTractWindow::SyncModelStructureToUi( QString prefix )
         para_iterations_lineEdit->setText( m_para_m->getpara_iterations_lineEdit() );
         para_similarity_metric_comboBox->setCurrentIndex(para_similarity_metric_comboBox->findText(m_para_m->getpara_similarity_metric_comboBox() ) );
         para_gaussian_sigma_spinBox->setValue( m_para_m->getpara_gaussian_sigma_spinBox() );
-        para_nb_threads_spinBox->setValue( m_para_m->getpara_nb_threads_spinBox());
+        para_similarity_parameter_spinBox->setValue( m_para_m->getpara_similarity_parameter_spinBox() );
 
         /*5th tab*/
         para_dilation_radius_spinBox->setValue( m_para_m->getpara_dilation_radius_spinBox() );
@@ -311,6 +321,8 @@ void AutoTractWindow::SyncModelStructureToUi( QString prefix )
         //para_overwrite_checkBox->setChecked( m_para_m->getpara_overwrite_checkBox() );
         para_singletract_comboBox->setCurrentIndex( para_singletract_comboBox->findText(m_para_m->getpara_singletract_comboBox() ) ) ;
         para_nb_memory_spinBox->setValue( m_para_m->getpara_nb_memory_spinBox() );
+        para_nb_threads_spinBox->setValue( m_para_m->getpara_nb_threads_spinBox());
+        para_nb_memory_registration_spinBox->setValue( m_para_m->getpara_nb_memory_registration_spinBox() );
     }
     if(prefix == "soft")
     {

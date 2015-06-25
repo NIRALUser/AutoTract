@@ -47,10 +47,13 @@ void MaskCreation::executeMaskCreation()
     m_argumentsList << "dtiprocess" << "'--dti_image'" << "inputDTIatlas_dir" <<"'-f'" << "FAimage";
     execute();
     m_log = "Creation of WM mask - Step 2";
-    m_argumentsList << "ImageMath" << "FAimage" << "'-outfile'" << "WMmask" << "'-dilate'" << "'10,10'";
+    m_argumentsList << "ImageMath" << "FAimage" << "'-otsu'" << "'-outfile'" << "WMmask";
     execute();
     m_log = "Creation of WM mask - Step 3";
-    m_argumentsList << "ImageMath" << "WMmask" << "'-otsu'" << "'-outfile'" << "WMmask";
+    m_argumentsList << "ImageMath" << "WMmask" << "'-outfile'" << "WMmask" << "'-erode'" << "'2,1'";
+    execute();
+    m_log = "Creation of WM mask - Step 4";
+    m_argumentsList << "ImageMath" << "WMmask" << "'-outfile'" << "WMmask" << "'-dilate'" << "'3,1'";
     execute();
     m_script += "\n\n";
 

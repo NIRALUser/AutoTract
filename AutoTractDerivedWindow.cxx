@@ -79,11 +79,12 @@ AutoTractDerivedWindow::AutoTractDerivedWindow()
     connect(para_transformation_step_spinBox, SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
     connect(para_iterations_lineEdit, SIGNAL(editingFinished()), this, SLOT(SyncUiToModelStructure()));
     connect(para_similarity_metric_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(SyncUiToModelStructure()));
+    connect(para_similarity_parameter_spinBox, SIGNAL(valueChanged(int)), this, SLOT(SyncUiToModelStructure()));
     connect(para_gaussian_sigma_spinBox, SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
     connect(para_nb_threads_spinBox, SIGNAL(valueChanged(int)), this, SLOT(SyncUiToModelStructure()));
 
     /*5th tab: Tractography*/
-    connect(para_dilation_radius_spinBox, SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
+    connect(para_dilation_radius_spinBox, SIGNAL(valueChanged(int)), this, SLOT(SyncUiToModelStructure()));
     connect(para_seedspacing_spinBox, SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
     connect(para_linearmeasure_spinBox, SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
     connect(para_minpathlength_spinBox, SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
@@ -474,6 +475,9 @@ void AutoTractDerivedWindow::initializeParametersMap()
 
     Parameters refDTIatlas_dir = {refDTIatlas_pushButton, para_refDTIatlas_lineEdit};
     m_parameters_map.insert("refDTIatlas_dir", refDTIatlas_dir);
+
+    Parameters displacementField_dir = {inputdisplacementField_pushButton, para_displacementField_lineEdit};
+    m_parameters_map.insert("displacementField", displacementField_dir);
 }
 
 void AutoTractDerivedWindow::selectParameters(QString parameters_name)
@@ -592,7 +596,7 @@ void AutoTractDerivedWindow::selectOutputDirectory()
 {
     QString outputDirectory = QFileDialog::getExistingDirectory (this, tr("Open Directory"), para_output_dir_lineEdit->text(), QFileDialog::ShowDirsOnly);
     m_para_m->setpara_output_dir_lineEdit( outputDirectory );
-    SyncUiToModelStructure();
+    SyncModelStructureToUi();
 }
 
 void AutoTractDerivedWindow::enterOutputDirectory()

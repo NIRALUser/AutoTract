@@ -143,7 +143,7 @@ void Pipeline::writeRegistration()
 
     QString module_name = "Registration";
     m_registration = new::Registration(module_name);
-    m_registration->setOverwriting(m_para_m->getpara_overwrite_checkBox());
+    //m_registration->setOverwriting(m_para_m->getpara_overwrite_checkBox());
     m_registration->setModuleDirectory(directory_path);
     m_registration->setProcessingDirectory(m_processing_path);
     m_registration->setDisplacementFieldPath(m_displacementFieldPath);
@@ -166,7 +166,7 @@ void Pipeline::writeMaskCreation()
     m_maskCreation->setScriptParameters(m_para_m);
     m_maskCreation->setScriptSoftwares(m_soft_m);
     m_maskCreation->setOutputDirectory(directory_name);
-    m_maskCreation->setOverwriting(m_para_m->getpara_overwrite_checkBox());
+    //m_maskCreation->setOverwriting(m_para_m->getpara_overwrite_checkBox());
     m_maskCreation->setModuleDirectory(directory_path);
     m_maskCreation->setProcessingDirectory(m_processing_path);
 
@@ -190,7 +190,14 @@ void Pipeline::writeProcess()
     m_process->setProcessingDirectory(m_processing_path);
     m_process->setScriptParameters(m_para_m);
     m_process->setScriptSoftwares(m_soft_m);
-    m_process->SetDisplacementFieldPath(m_displacementFieldPath);
+    if( m_para_m->getpara_displacementField_lineEdit() != "" )
+    {
+        m_process->SetDisplacementFieldPath( m_para_m->getpara_displacementField_lineEdit() );
+    }
+    else
+    {
+        m_process->SetDisplacementFieldPath(m_displacementFieldPath);
+    }
     m_process->update();
     m_importingModules += "import " + module_name + "\n";
     m_runningModules += module_name + ".run()\n";

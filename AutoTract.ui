@@ -56,7 +56,7 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
+              <item row="0" column="2">
                <widget class="QLineEdit" name="para_inputDTIatlas_lineEdit"/>
               </item>
               <item row="1" column="0">
@@ -66,7 +66,7 @@
                 </property>
                </widget>
               </item>
-              <item row="1" column="1">
+              <item row="1" column="2">
                <widget class="QLineEdit" name="para_inputWMmask_lineEdit"/>
               </item>
               <item row="2" column="0">
@@ -76,8 +76,18 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
+              <item row="2" column="2">
                <widget class="QLineEdit" name="para_inputCSFmask_lineEdit"/>
+              </item>
+              <item row="3" column="0">
+               <widget class="QPushButton" name="inputdisplacementField_pushButton">
+                <property name="text">
+                 <string>Input Displacement Field (optional)</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="2">
+               <widget class="QLineEdit" name="para_displacementField_lineEdit"/>
               </item>
              </layout>
             </widget>
@@ -262,8 +272,18 @@
               <string>Executables</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_5">
+              <item row="0" column="2">
+               <widget class="QLineEdit" name="soft_ITKTransformTools_lineEdit"/>
+              </item>
               <item row="2" column="2">
                <widget class="QLineEdit" name="soft_slicer_lineEdit"/>
+              </item>
+              <item row="0" column="0">
+               <widget class="QPushButton" name="ITKTransformTools_pushButton">
+                <property name="text">
+                 <string>ITKTransformTools</string>
+                </property>
+               </widget>
               </item>
               <item row="5" column="3">
                <widget class="QPushButton" name="reset_ResampleDTIlogEuclidean_pushButton">
@@ -404,7 +424,7 @@
               <item row="11" column="0">
                <widget class="QPushButton" name="MDT_pushButton">
                 <property name="text">
-                 <string>MDT</string>
+                 <string>MaurerDistanceTransform</string>
                 </property>
                </widget>
               </item>
@@ -473,6 +493,13 @@
                 </property>
                </widget>
               </item>
+              <item row="0" column="3">
+               <widget class="QPushButton" name="reset_ITKTransformTools_pushButton">
+                <property name="text">
+                 <string>Reset</string>
+                </property>
+               </widget>
+              </item>
               <item row="2" column="0">
                <widget class="QPushButton" name="slicer_pushButton">
                 <property name="text">
@@ -482,23 +509,6 @@
               </item>
               <item row="1" column="2">
                <widget class="QLineEdit" name="soft_ANTS_lineEdit"/>
-              </item>
-              <item row="0" column="0">
-               <widget class="QPushButton" name="ITKTransformTools_pushButton">
-                <property name="text">
-                 <string>ITKTransformTools</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QLineEdit" name="soft_ITKTransformTools_lineEdit"/>
-              </item>
-              <item row="0" column="3">
-               <widget class="QPushButton" name="reset_ITKTransformTools_pushButton">
-                <property name="text">
-                 <string>Reset</string>
-                </property>
-               </widget>
               </item>
              </layout>
             </widget>
@@ -729,6 +739,47 @@ MI=Mutual Information, MSQ=Mean Square Difference</string>
                </widget>
               </item>
               <item>
+               <widget class="QWidget" name="widget_25" native="true">
+                <layout class="QHBoxLayout" name="horizontalLayout_7">
+                 <property name="spacing">
+                  <number>225</number>
+                 </property>
+                 <item>
+                  <widget class="QWidget" name="widget_26" native="true">
+                   <layout class="QVBoxLayout" name="verticalLayout_31">
+                    <item>
+                     <widget class="QLabel" name="similarity_parameter_label">
+                      <property name="text">
+                       <string>Similarity Parameter</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="similarity_parameter_descr_label">
+                      <property name="font">
+                       <font>
+                        <italic>true</italic>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Region Radius for CC, number of bins for MI, etc.</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="para_similarity_parameter_spinBox">
+                   <property name="value">
+                    <number>4</number>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
                <widget class="QWidget" name="widget_13" native="true">
                 <layout class="QHBoxLayout" name="horizontalLayout_11">
                  <property name="spacing">
@@ -768,6 +819,19 @@ MI=Mutual Information, MSQ=Mean Square Difference</string>
                  </item>
                 </layout>
                </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </widget>
@@ -832,7 +896,11 @@ MI=Mutual Information, MSQ=Mean Square Difference</string>
                <widget class="QWidget" name="widget_19" native="true">
                 <layout class="QVBoxLayout" name="verticalLayout_21">
                  <item>
-                  <widget class="QDoubleSpinBox" name="para_dilation_radius_spinBox"/>
+                  <widget class="QSpinBox" name="para_dilation_radius_spinBox">
+                   <property name="value">
+                    <number>2</number>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </widget>
@@ -1324,19 +1392,6 @@ on the same fiber (mm)</string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="1">
-               <widget class="QDoubleSpinBox" name="para_tractMaxDistThreshold_spinBox">
-                <property name="decimals">
-                 <number>0</number>
-                </property>
-                <property name="maximum">
-                 <double>10.000000000000000</double>
-                </property>
-                <property name="value">
-                 <double>3.000000000000000</double>
-                </property>
-               </widget>
-              </item>
               <item row="5" column="2">
                <widget class="QLabel" name="traxtMaxDistThreshold_descr_label">
                 <property name="font">
@@ -1362,6 +1417,13 @@ a reference fiber bundle allowed</string>
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item row="5" column="1">
+               <widget class="QDoubleSpinBox" name="para_tractMaxDistThreshold_spinBox">
+                <property name="value">
+                 <double>1.000000000000000</double>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -1462,16 +1524,7 @@ a reference fiber bundle allowed</string>
               <string/>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_23">
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
+              <property name="margin">
                <number>9</number>
               </property>
               <item>

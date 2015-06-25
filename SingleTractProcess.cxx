@@ -29,18 +29,18 @@ void SingleTractProcess::initializeScript()
     m_script += "FiberPostProcess ='" + m_soft_m->getsoft_FiberPostProcess_lineEdit() + "'\n";
     m_script += "MDT = '" + m_soft_m->getsoft_MDT_lineEdit() + "'\n";
     m_script += "inputDTIatlas_dir = '" + m_para_m->getpara_inputDTIatlas_lineEdit() + "'\n";
-    m_script += "dilationRadius = '" + QString::number(m_para_m->getpara_dilation_radius_spinBox()) + "'\n";
-    m_script += "seedspacing = '" + QString::number(m_para_m->getpara_seedspacing_spinBox()) + "'\n";
-    m_script += "clthreshold = '" + QString::number(m_para_m->getpara_linearmeasure_spinBox()) + "'\n";
-    m_script += "minimumlength = '" + QString::number(m_para_m->getpara_minpathlength_spinBox()) + "'\n";
-    m_script += "maximumlength = '" + QString::number(m_para_m->getpara_maxpathlength_spinBox()) + "'\n";
-    m_script += "stoppingcurvature = '" + QString::number(m_para_m->getpara_stoppingcurvature_spinBox()) + "'\n";
-    m_script += "integrationsteplength = '" + QString::number(m_para_m->getpara_integrationsteplength_spinBox()) + "'\n";
-    m_script += "stoppingvalue ='" + QString::number(m_para_m->getpara_stoppingvalue_spinBox()) + "'\n";
+    m_script += "dilationRadius = " + QString::number(m_para_m->getpara_dilation_radius_spinBox()) + "\n";
+    m_script += "seedspacing = " + QString::number(m_para_m->getpara_seedspacing_spinBox()) + "\n";
+    m_script += "clthreshold = " + QString::number(m_para_m->getpara_linearmeasure_spinBox()) + "\n";
+    m_script += "minimumlength = " + QString::number(m_para_m->getpara_minpathlength_spinBox()) + "\n";
+    m_script += "maximumlength = " + QString::number(m_para_m->getpara_maxpathlength_spinBox()) + "\n";
+    m_script += "stoppingcurvature = " + QString::number(m_para_m->getpara_stoppingcurvature_spinBox()) + "\n";
+    m_script += "integrationsteplength = " + QString::number(m_para_m->getpara_integrationsteplength_spinBox()) + "\n";
+    m_script += "stoppingvalue =" + QString::number(m_para_m->getpara_stoppingvalue_spinBox()) + "\n";
     m_script += "output_dir ='" + m_para_m->getpara_output_dir_lineEdit() + "'\n";
-    m_script += "thresholdWMmask ='" + QString::number(m_para_m->getpara_thresholdWMmask_spinBox()) + "'\n";
-    m_script += "tractOverlapRatio ='" + QString::number(m_para_m->getpara_tractOverlapRatio_spinBox()) + "'\n";
-    m_script += "tractMaxDistThreshold ='" + QString::number(m_para_m->getpara_tractMaxDistThreshold_spinBox()) + "'\n";
+    m_script += "thresholdWMmask =" + QString::number(m_para_m->getpara_thresholdWMmask_spinBox()) + "\n";
+    m_script += "tractOverlapRatio =" + QString::number(m_para_m->getpara_tractOverlapRatio_spinBox()) + "\n";
+    m_script += "tractMaxDistThreshold =" + QString::number(m_para_m->getpara_tractMaxDistThreshold_spinBox()) + "\n";
 
     m_script += "logger = None\n";
 
@@ -117,7 +117,9 @@ void SingleTractProcess::implementSingleTractProcess()
 
     m_script += "\ttractedFiber = current_dir + '/' + name + '.vtp'";
     m_script += "\n";
-    m_argumentsList << "Slicer" << "'--launch'" << "TractographyLabelMapSeeding" << "inputDTIatlas_dir" << "tractedFiber" << "'-a'" << "dilatedImage" << "'-s'" << "seedspacing" << "'--clthreshold'" << "clthreshold" << "'--minimumlength'" << "minimumlength" << "'--maximumlength'" << "maximumlength" << "'--stoppingcurvature'" << "stoppingcurvature" << "'--integrationsteplength'" << "integrationsteplength" << "'--stoppingvalue'" << "stoppingvalue";
+    m_argumentsList << "Slicer" << "'--launch'" << "TractographyLabelMapSeeding" << "inputDTIatlas_dir" << "tractedFiber" << "'-a'" << "dilatedImage";
+    m_argumentsList << "'-s'" << "str(seedspacing)" << "'--clthreshold'" << "str(clthreshold)" << "'--minimumlength'" << "str(minimumlength)" << "'--maximumlength'" << "str(maximumlength)";
+    m_argumentsList << "'--stoppingcurvature'" << "str(stoppingcurvature)" << "'--integrationsteplength'" << "str(integrationsteplength)" << "'--stoppingvalue'" << "str(stoppingvalue)";
     execute();
 
     m_log = "Cropping reference tracts";
@@ -158,14 +160,16 @@ void SingleTractProcess::implementSingleTractProcess()
         m_script += "\tCSFMask = output_dir + '/2.MaskCreation/MDmask.nrrd'";
         m_script += "\n";
     }
-    m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberCropped" << "'-o'" << "fiberMaskedCSF" << "'--mask'" << "'--clean'" << "'-m'" << "CSFMask" << "'--thresholdMode'" << "'above'" << "'-t'" << "thresholdWMmask";
+    m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberCropped" << "'-o'" << "fiberMaskedCSF" << "'--mask'" << "'--clean'";
+    m_argumentsList << "'-m'" << "CSFMask" << "'--thresholdMode'" << "'above'" << "'-t'" << "str(thresholdWMmask)";
     execute();
 
     m_log = "Masking with dilated reference image";
     m_script += "\n";
     m_script += "\tfiberMaskedTract = current_dir + '/' + name + '_maskTract.vtp'";
     m_script += "\n";
-    m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberMaskedCSF" << "'-o'" << "fiberMaskedTract" << "'--mask'" << "'--clean'" << "'-m'" << "dilatedImage" << "'--thresholdMode'" << "'below'" << "'-t'" << "tractOverlapRatio";
+    m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberMaskedCSF" << "'-o'" << "fiberMaskedTract" << "'--mask'" << "'--clean'";
+    m_argumentsList << "'-m'" << "dilatedImage" << "'--thresholdMode'" << "'below'" << "'-t'" << "str(tractOverlapRatio)";
     execute();
 
     m_log = "Matching length with reference tract";
@@ -193,7 +197,8 @@ void SingleTractProcess::implementSingleTractProcess()
     m_script += "\n";
     m_script += "\toutputTract = current_dir + '/' + name + '_processed.vtp'";
     m_script += "\n";
-    m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberLengthMatch" << "'-o'" << "outputTract" << "'-m'" << "distanceMap" << "'--threshold'" << "tractMaxDistThreshold" << "'--mask'" << "'--clean'" << "'--thresholdMode'" << "'above'";
+    m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberLengthMatch" << "'-o'" << "outputTract" << "'-m'" << "distanceMap" << "'--threshold'" << "str(tractMaxDistThreshold)";
+    m_argumentsList << "'--mask'" << "'--clean'" << "'--thresholdMode'" << "'above'";
     execute();
 
     m_log = "Creation of a tmp txt file";
