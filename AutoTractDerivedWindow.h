@@ -31,6 +31,7 @@ public slots:
     void printPipelineLog();
     void checkAllTracts();
     void uncheckAllTracts();
+    void changeComputingSystem();
 private slots:
     void SaveParaConfigFile();
     void LoadParaConfigFile();
@@ -43,6 +44,7 @@ private slots:
     void enterParameters(QString parameters_name);
     void runPipeline();
     void stopPipeline();
+
 
 private:
     struct Executable

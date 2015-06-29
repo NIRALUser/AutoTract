@@ -307,6 +307,7 @@ void Pipeline::runPipeline()
     {
         cleanUp();
     }
+    // end of pipeline, send a signal
 }
 
 void Pipeline::stopPipeline()

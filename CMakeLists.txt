@@ -84,3 +84,10 @@ SEMMacroBuildCLI(
   )
 #add_executable( AutoTract ${srcfiles} ${RESOURCES} AutoTract_CLP)
 #target_link_libraries(AutoTract ${QT_LIBRARIES})
+
+option(BUILD_TESTING "Build the testing tree" ON)
+
+IF(BUILD_TESTING)
+  include(CTest)
+  ADD_SUBDIRECTORY(Testing)
+ENDIF(BUILD_TESTING)

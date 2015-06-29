@@ -38,7 +38,7 @@ void SingleTractProcess::initializeScript()
     m_script += "integrationsteplength = " + QString::number(m_para_m->getpara_integrationsteplength_spinBox()) + "\n";
     m_script += "stoppingvalue =" + QString::number(m_para_m->getpara_stoppingvalue_spinBox()) + "\n";
     m_script += "output_dir ='" + m_para_m->getpara_output_dir_lineEdit() + "'\n";
-    m_script += "thresholdWMmask =" + QString::number(m_para_m->getpara_thresholdWMmask_spinBox()) + "\n";
+    m_script += "thresholdCSFmask =" + QString::number(m_para_m->getpara_thresholdCSFmask_spinBox()) + "\n";
     m_script += "tractOverlapRatio =" + QString::number(m_para_m->getpara_tractOverlapRatio_spinBox()) + "\n";
     m_script += "tractMaxDistThreshold =" + QString::number(m_para_m->getpara_tractMaxDistThreshold_spinBox()) + "\n";
 
@@ -161,7 +161,7 @@ void SingleTractProcess::implementSingleTractProcess()
         m_script += "\n";
     }
     m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberCropped" << "'-o'" << "fiberMaskedCSF" << "'--mask'" << "'--clean'";
-    m_argumentsList << "'-m'" << "CSFMask" << "'--thresholdMode'" << "'above'" << "'-t'" << "str(thresholdWMmask)";
+    m_argumentsList << "'-m'" << "CSFMask" << "'--thresholdMode'" << "'above'" << "'-t'" << "str(thresholdCSFmask)";
     execute();
 
     m_log = "Masking with dilated reference image";
@@ -205,7 +205,7 @@ void SingleTractProcess::implementSingleTractProcess()
     m_script += "\n";
     m_script += "\ttmp = current_dir + '/' + name + '_tmp.txt'";
     m_script += "\n";
-    m_argumentsList << "'touch'" << "'tmp'";
+    m_argumentsList << "'touch'" << "tmp";
     execute();
 
 }

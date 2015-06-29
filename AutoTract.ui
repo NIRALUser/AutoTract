@@ -24,7 +24,7 @@
     <item row="2" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>6</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="inputs_tab">
        <attribute name="title">
@@ -1301,12 +1301,12 @@ on the same fiber (mm)</string>
               <item row="0" column="0">
                <widget class="QLabel" name="thresholdWMmask_label">
                 <property name="text">
-                 <string>Threshold WM mask</string>
+                 <string>Threshold CSF mask</string>
                 </property>
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QDoubleSpinBox" name="para_thresholdWMmask_spinBox">
+               <widget class="QDoubleSpinBox" name="para_thresholdCSFmask_spinBox">
                 <property name="decimals">
                  <number>3</number>
                 </property>
@@ -1321,28 +1321,14 @@ on the same fiber (mm)</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="2">
-               <widget class="QLabel" name="thresholdWMmask_descr_label">
-                <property name="font">
-                 <font>
-                  <italic>true</italic>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>% of the fibers that are
- outside of the WM boundaries allowed 
-(value between 0 and 1)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
+              <item row="3" column="0">
                <widget class="QLabel" name="tractOverlapRatio_label">
                 <property name="text">
                  <string>Tract Overlap Ratio</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
+              <item row="3" column="1">
                <widget class="QDoubleSpinBox" name="para_tractOverlapRatio_spinBox">
                 <property name="decimals">
                  <number>3</number>
@@ -1358,7 +1344,7 @@ on the same fiber (mm)</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="2">
+              <item row="3" column="2">
                <widget class="QLabel" name="tractOverlapRatio_label_2">
                 <property name="font">
                  <font>
@@ -1385,14 +1371,14 @@ on the same fiber (mm)</string>
                 </property>
                </spacer>
               </item>
-              <item row="5" column="0">
+              <item row="6" column="0">
                <widget class="QLabel" name="tractMaxDistThreshold_label">
                 <property name="text">
                  <string>Tract Max Distance Threshold</string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="2">
+              <item row="6" column="2">
                <widget class="QLabel" name="traxtMaxDistThreshold_descr_label">
                 <property name="font">
                  <font>
@@ -1405,7 +1391,7 @@ a reference fiber bundle allowed</string>
                 </property>
                </widget>
               </item>
-              <item row="4" column="1">
+              <item row="5" column="1">
                <spacer name="verticalSpacer_3">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -1418,12 +1404,53 @@ a reference fiber bundle allowed</string>
                 </property>
                </spacer>
               </item>
-              <item row="5" column="1">
+              <item row="0" column="2" rowspan="2">
+               <widget class="QLabel" name="thresholdCSFmask_descr_label">
+                <property name="font">
+                 <font>
+                  <italic>true</italic>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>If the percentage of the fiber that touches
+ the CSF is higher than this value
+(value between 0 and 1)
+the fiber is removed</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
                <widget class="QDoubleSpinBox" name="para_tractMaxDistThreshold_spinBox">
                 <property name="value">
                  <double>1.000000000000000</double>
                 </property>
                </widget>
+              </item>
+              <item row="2" column="2">
+               <spacer name="verticalSpacer_7">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="5" column="2">
+               <spacer name="verticalSpacer_8">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </widget>
@@ -1454,61 +1481,6 @@ a reference fiber bundle allowed</string>
         <property name="spacing">
          <number>0</number>
         </property>
-        <item>
-         <widget class="QWidget" name="widget" native="true">
-          <layout class="QHBoxLayout" name="horizontalLayout_12">
-           <property name="spacing">
-            <number>12</number>
-           </property>
-           <property name="leftMargin">
-            <number>9</number>
-           </property>
-           <property name="bottomMargin">
-            <number>9</number>
-           </property>
-           <item>
-            <widget class="QLabel" name="view_label">
-             <property name="text">
-              <string>View:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="para_all_radioButton">
-             <property name="text">
-              <string>All</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="para_singletract_radioButton">
-             <property name="text">
-              <string>Single Tract</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="para_singletract_comboBox"/>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item>
          <widget class="QWidget" name="widget_28" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_19">
@@ -1685,7 +1657,7 @@ a reference fiber bundle allowed</string>
               <item>
                <widget class="QSpinBox" name="para_nb_threads_spinBox">
                 <property name="value">
-                 <number>8</number>
+                 <number>4</number>
                 </property>
                </widget>
               </item>

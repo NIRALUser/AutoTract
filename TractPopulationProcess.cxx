@@ -4,6 +4,16 @@ TractPopulationProcess::TractPopulationProcess(QString module) : Script(module)
 {
 }
 
+bool TractPopulationProcess::fileExists(QString path) {
+    QFileInfo checkFile(path);
+    // check if file exists and if yes: Is it really a file and no directory?
+    if (checkFile.exists() && checkFile.isFile()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void TractPopulationProcess::initializeScript()
 {
     definePython();
@@ -179,8 +189,28 @@ void TractPopulationProcess::implementProcessTractPopulation()
         m_script += "\t\ttime.sleep(1)\n";
     }
 
+//    for( it = m_tractPopulation.begin(); it != m_tractPopulation.end(); ++it )
+//    {
+//        QString tract = *(it);
+//        QFileInfo fi(tract);
+//        QString base = fi.baseName();
+//        QString tract_path = m_module_dir->filePath(base);
+//        QDir* tract_dir = new QDir(tract_path);
+//        QString output_path = tract_dir->absolutePath();
+
+//        std::cout<<base.toStdString()<<std::endl;
+//        QString tmp_file = output_path + "/" + base + "_tmp.txt";
+//        std::cout<<fileExists(tmp_file)<<std::endl;
+//        while( fileExists(tmp_file) == false )
+//        {
+//            std::cout<<"wait"<<std::endl;
+//        }
+//    }
     m_script += "\tlogger.info('')\n";
 }
+
+
+
 
 void TractPopulationProcess::SubmitTractPostProcessJob(QString tract, int i)
 {

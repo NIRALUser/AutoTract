@@ -50,8 +50,6 @@ public:
     void runPipeline();
     void stopPipeline();
 
-
-
 private:
     void createProcessingDirectory();
     QString createModuleDirectory(QString directory_name);

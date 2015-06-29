@@ -9,6 +9,7 @@
 // Qt Librairies
 #include <QString>
 #include <QDir>
+#include <QFileInfo>
 
 // My specific librairies
 #include "Script.h"
@@ -36,6 +37,7 @@ class TractPopulationProcess : public Script
 
    // Updating & Getting Output
    void update();
+   bool fileExists(QString path);
 
    private:
    std::vector<QString> m_tractPopulation;

@@ -5,6 +5,7 @@
 AutoTractDerivedWindow::AutoTractDerivedWindow()
 {
     m_thread = new MainScriptThread();
+    m_pipeline = new Pipeline();
 
     connect( this->actionSave_Parameter_Configuration, SIGNAL( triggered() ), SLOT( SaveParaConfigFile() ) );
     connect( this->actionLoad_Parameter_Configuration, SIGNAL( triggered() ), SLOT( LoadParaConfigFile() ) );
@@ -81,7 +82,7 @@ AutoTractDerivedWindow::AutoTractDerivedWindow()
     connect(para_similarity_metric_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(SyncUiToModelStructure()));
     connect(para_similarity_parameter_spinBox, SIGNAL(valueChanged(int)), this, SLOT(SyncUiToModelStructure()));
     connect(para_gaussian_sigma_spinBox, SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
-    connect(para_nb_threads_spinBox, SIGNAL(valueChanged(int)), this, SLOT(SyncUiToModelStructure()));
+
 
     /*5th tab: Tractography*/
     connect(para_dilation_radius_spinBox, SIGNAL(valueChanged(int)), this, SLOT(SyncUiToModelStructure()));
@@ -94,20 +95,26 @@ AutoTractDerivedWindow::AutoTractDerivedWindow()
     connect(para_stoppingcurvature_spinBox, SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
 
     /*6th tab: Tract Processing Parameters*/
-    connect(para_thresholdWMmask_spinBox, SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
+    connect(para_thresholdCSFmask_spinBox, SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
     connect(para_tractOverlapRatio_spinBox, SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
     connect(para_tractMaxDistThreshold_spinBox,SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
 
     /*7th tab: Execution*/
     connect(runPipeline_pushButton, SIGNAL(clicked()), this, SLOT(runPipeline()));
     connect(stopPipeline_pushButton, SIGNAL(clicked()), this, SLOT(stopPipeline()));
-    connect(para_all_radioButton, SIGNAL(clicked()), this, SLOT(SyncUiToModelStructure()));
-    connect(para_singletract_radioButton, SIGNAL(clicked()), this, SLOT(SyncUiToModelStructure()));
+    //connect(para_all_radioButton, SIGNAL(clicked()), this, SLOT(SyncUiToModelStructure()));
+    //connect(para_singletract_radioButton, SIGNAL(clicked()), this, SLOT(SyncUiToModelStructure()));
     //connect(para_cleanup_checkBox, SIGNAL(clicked()), this, SLOT(SyncUiToModelStructure()));
     //connect(para_overwrite_checkBox, SIGNAL(clicked()), this, SLOT(SyncUiToModelStructure()));
-    connect(para_nbCores_spinBox, SIGNAL(valueChanged(int)), this, SLOT(SyncUiToModelStructure()));
+
+    connect(para_nb_threads_spinBox, SIGNAL(valueChanged(int)), this, SLOT(SyncUiToModelStructure()));
+    connect(para_nb_memory_registration_spinBox, SIGNAL(valueChanged(int)), this, SLOT(SyncUiToModelStructure()));
+
+    connect(para_computingSystem_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeComputingSystem()));
     connect(para_nbTractsProcessed_spinBox, SIGNAL(valueChanged(int)), this, SLOT(SyncUiToModelStructure()));
+
     connect(para_nb_memory_spinBox, SIGNAL(valueChanged(int)), this, SLOT(SyncUiToModelStructure()));
+    connect(para_nbCores_spinBox, SIGNAL(valueChanged(int)), this, SLOT(SyncUiToModelStructure()));
 }
 
 void AutoTractDerivedWindow::closeEvent(QCloseEvent *event)
@@ -211,7 +218,6 @@ void AutoTractDerivedWindow::runPipeline()
     stopPipeline_pushButton->setEnabled(true);
     SyncUiToModelStructure();
 
-    m_pipeline = new Pipeline();
     m_pipeline->setPipelineParameters(m_para_m);
     m_pipeline->setPipelineSoftwares(m_soft_m);
     initializePipelineLogging();
@@ -605,5 +611,30 @@ void AutoTractDerivedWindow::enterOutputDirectory()
     if(!outputDirectory.isEmpty())
     {
         SyncUiToModelStructure();
+    }
+}
+
+void AutoTractDerivedWindow::changeComputingSystem()
+{
+    SyncUiToModelStructure();
+    std::vector<QString> ref_tracts;
+    std::map<QString, bool> ref_tracts_list = m_para_m->getpara_ref_tracts_listWidget();
+    std::map<QString, bool>::iterator it;
+    for (it = ref_tracts_list.begin(); it!= ref_tracts_list.end(); it++)
+    {
+        if(it->second == 1)
+        {
+            ref_tracts.push_back( it->first );
+        }
+    }
+    int nb_tracts = ref_tracts.size();
+    if(m_para_m->getpara_computingSystem_comboBox() == "killdevil")
+    {
+        para_nbTractsProcessed_spinBox->setValue(nb_tracts);
+        para_nbTractsProcessed_spinBox->setDisabled(true);
+    }
+    else if(m_para_m->getpara_computingSystem_comboBox() == "local")
+    {
+        para_nbTractsProcessed_spinBox->setEnabled(true);
     }
 }

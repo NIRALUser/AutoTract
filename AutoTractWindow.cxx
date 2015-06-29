@@ -67,19 +67,19 @@ void AutoTractWindow::SyncUiToModelStructure()
     m_para_m->setpara_integrationsteplength_spinBox( para_integrationsteplength_spinBox->value() );
 
     /*6th tab*/
-    m_para_m->setpara_thresholdWMmask_spinBox( para_thresholdWMmask_spinBox->value() );
+    m_para_m->setpara_thresholdCSFmask_spinBox( para_thresholdCSFmask_spinBox->value() );
     m_para_m->setpara_tractOverlapRatio_spinBox( para_tractOverlapRatio_spinBox->value() );
     m_para_m->setpara_tractMaxDistThreshold_spinBox( para_tractMaxDistThreshold_spinBox->value() );
 
     /*7th tab: Execution*/
-    m_para_m->setpara_all_radioButton( para_all_radioButton->isChecked() );
-    m_para_m->setpara_singletract_radioButton( para_singletract_radioButton->isChecked() );
+    //m_para_m->setpara_all_radioButton( para_all_radioButton->isChecked() );
+    //m_para_m->setpara_singletract_radioButton( para_singletract_radioButton->isChecked() );
     m_para_m->setpara_computingSystem_comboBox( para_computingSystem_comboBox->currentText() );
     m_para_m->setpara_nbCores_spinBox( para_nbCores_spinBox->value() );
     m_para_m->setpara_nbTractsProcessed_spinBox( para_nbTractsProcessed_spinBox->value() );
     //m_para_m->setpara_cleanup_checkBox( para_cleanup_checkBox->isChecked() );
     //m_para_m->setpara_overwrite_checkBox( para_overwrite_checkBox->isChecked() );
-    m_para_m->setpara_singletract_comboBox( para_singletract_comboBox->currentText() );
+   // /m_para_m->setpara_singletract_comboBox( para_singletract_comboBox->currentText() );
     m_para_m->setpara_nb_memory_spinBox( para_nb_memory_spinBox->value() );
     m_para_m->setpara_nb_threads_spinBox( para_nb_threads_spinBox->value() );
     m_para_m->setpara_nb_memory_registration_spinBox( para_nb_memory_registration_spinBox->value() );
@@ -137,19 +137,19 @@ void AutoTractWindow::SyncUiToModelStructure( QString prefix )
         m_para_m->setpara_integrationsteplength_spinBox( para_integrationsteplength_spinBox->value() );
 
         /*6th tab*/
-        m_para_m->setpara_thresholdWMmask_spinBox( para_thresholdWMmask_spinBox->value() );
+        m_para_m->setpara_thresholdCSFmask_spinBox( para_thresholdCSFmask_spinBox->value() );
         m_para_m->setpara_tractOverlapRatio_spinBox( para_tractOverlapRatio_spinBox->value() );
         m_para_m->setpara_tractMaxDistThreshold_spinBox( para_tractMaxDistThreshold_spinBox->value() );
 
         /*7th tab: Execution*/
-        m_para_m->setpara_all_radioButton( para_all_radioButton->isChecked() );
-        m_para_m->setpara_singletract_radioButton( para_singletract_radioButton->isChecked() );
+        //m_para_m->setpara_all_radioButton( para_all_radioButton->isChecked() );
+        //m_para_m->setpara_singletract_radioButton( para_singletract_radioButton->isChecked() );
         m_para_m->setpara_computingSystem_comboBox( para_computingSystem_comboBox->currentText() );
         m_para_m->setpara_nbCores_spinBox( para_nbCores_spinBox->value() );
         m_para_m->setpara_nbTractsProcessed_spinBox( para_nbTractsProcessed_spinBox->value() );
         //m_para_m->setpara_cleanup_checkBox( para_cleanup_checkBox->isChecked() );
         //m_para_m->setpara_overwrite_checkBox( para_overwrite_checkBox->isChecked() );
-        m_para_m->setpara_singletract_comboBox( para_singletract_comboBox->currentText() );
+       // m_para_m->setpara_singletract_comboBox( para_singletract_comboBox->currentText() );
         m_para_m->setpara_nb_memory_spinBox( para_nb_memory_spinBox->value() );
         m_para_m->setpara_nb_threads_spinBox( para_nb_threads_spinBox->value() );
         m_para_m->setpara_nb_memory_registration_spinBox( para_nb_memory_registration_spinBox->value() );
@@ -240,19 +240,19 @@ void AutoTractWindow::SyncModelStructureToUi()
     para_integrationsteplength_spinBox->setValue( m_para_m->getpara_integrationsteplength_spinBox() );
 
     /*6th tab*/
-    para_thresholdWMmask_spinBox->setValue(m_para_m->getpara_thresholdWMmask_spinBox() );
+    para_thresholdCSFmask_spinBox->setValue(m_para_m->getpara_thresholdCSFmask_spinBox() );
     para_tractOverlapRatio_spinBox->setValue(m_para_m->getpara_tractOverlapRatio_spinBox() );
     para_tractMaxDistThreshold_spinBox->setValue(m_para_m->getpara_tractMaxDistThreshold_spinBox() );
 
     /*7th tab: Execution*/
-    para_all_radioButton->setChecked( m_para_m->getpara_all_radioButton() );
-    para_singletract_radioButton->setChecked( m_para_m->getpara_singletract_radioButton() );
+    //para_all_radioButton->setChecked( m_para_m->getpara_all_radioButton() );
+    //para_singletract_radioButton->setChecked( m_para_m->getpara_singletract_radioButton() );
     para_computingSystem_comboBox->setCurrentIndex(para_computingSystem_comboBox->findText(m_para_m->getpara_computingSystem_comboBox() ) );
     para_nbCores_spinBox->setValue( m_para_m->getpara_nbCores_spinBox() );
     para_nbTractsProcessed_spinBox->setValue( m_para_m->getpara_nbTractsProcessed_spinBox() );
     //para_cleanup_checkBox->setChecked( m_para_m->getpara_cleanup_checkBox() );
     //para_overwrite_checkBox->setChecked( m_para_m->getpara_overwrite_checkBox() );
-    para_singletract_comboBox->setCurrentIndex( para_singletract_comboBox->findText(m_para_m->getpara_singletract_comboBox() ) ) ;
+    //para_singletract_comboBox->setCurrentIndex( para_singletract_comboBox->findText(m_para_m->getpara_singletract_comboBox() ) ) ;
     para_nb_memory_spinBox->setValue( m_para_m->getpara_nb_memory_spinBox() );
     para_nb_threads_spinBox->setValue( m_para_m->getpara_nb_threads_spinBox());
     para_nb_memory_registration_spinBox->setValue( m_para_m->getpara_nb_memory_registration_spinBox() );
@@ -307,19 +307,19 @@ void AutoTractWindow::SyncModelStructureToUi( QString prefix )
         para_integrationsteplength_spinBox->setValue( m_para_m->getpara_integrationsteplength_spinBox() );
 
         /*6th tab*/
-        para_thresholdWMmask_spinBox->setValue(m_para_m->getpara_thresholdWMmask_spinBox() );
+        para_thresholdCSFmask_spinBox->setValue(m_para_m->getpara_thresholdCSFmask_spinBox() );
         para_tractOverlapRatio_spinBox->setValue(m_para_m->getpara_tractOverlapRatio_spinBox() );
         para_tractMaxDistThreshold_spinBox->setValue(m_para_m->getpara_tractMaxDistThreshold_spinBox() );
 
         /*7th tab: Execution*/
-        para_all_radioButton->setChecked( m_para_m->getpara_all_radioButton() );
-        para_singletract_radioButton->setChecked( m_para_m->getpara_singletract_radioButton() );
+        //para_all_radioButton->setChecked( m_para_m->getpara_all_radioButton() );
+        //para_singletract_radioButton->setChecked( m_para_m->getpara_singletract_radioButton() );
         para_computingSystem_comboBox->setCurrentIndex(para_computingSystem_comboBox->findText(m_para_m->getpara_computingSystem_comboBox() ) );
         para_nbCores_spinBox->setValue( m_para_m->getpara_nbCores_spinBox() );
         para_nbTractsProcessed_spinBox->setValue( m_para_m->getpara_nbTractsProcessed_spinBox() );
         //para_cleanup_checkBox->setChecked( m_para_m->getpara_cleanup_checkBox() );
         //para_overwrite_checkBox->setChecked( m_para_m->getpara_overwrite_checkBox() );
-        para_singletract_comboBox->setCurrentIndex( para_singletract_comboBox->findText(m_para_m->getpara_singletract_comboBox() ) ) ;
+        //para_singletract_comboBox->setCurrentIndex( para_singletract_comboBox->findText(m_para_m->getpara_singletract_comboBox() ) ) ;
         para_nb_memory_spinBox->setValue( m_para_m->getpara_nb_memory_spinBox() );
         para_nb_threads_spinBox->setValue( m_para_m->getpara_nb_threads_spinBox());
         para_nb_memory_registration_spinBox->setValue( m_para_m->getpara_nb_memory_registration_spinBox() );
