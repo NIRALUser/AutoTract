@@ -2,6 +2,15 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
 CMAKE_POLICY(VERSION 2.6)
 PROJECT(AutoTract)
 
+#-----------------------------------------------------------------------------
+# Update CMake module path
+#------------------------------------------------------------------------------
+set(CMAKE_MODULE_PATH
+  ${${PROJECT_NAME}_SOURCE_DIR}/CMake
+  ${${PROJECT_NAME}_BINARY_DIR}/CMake
+  ${CMAKE_MODULE_PATH}
+  )
+
 find_package(Qt4 COMPONENTS QtCore QtGui QtXml REQUIRED)
 include(${QT_USE_FILE})
 
