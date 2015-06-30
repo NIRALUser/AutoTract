@@ -1,5 +1,17 @@
 #include "Pipeline.h"
+#include <QTime>
+#include <QCoreApplication>
 
+// Remove sleep function that only works on linux
+// http://stackoverflow.com/questions/3752742/how-do-i-create-a-pause-wait-function-using-qt
+void delay( int secondsToWait )
+{
+    QTime dieTime = QTime::currentTime().addSecs( secondsToWait );
+    while( QTime::currentTime() < dieTime )
+    {
+        QCoreApplication::processEvents( QEventLoop::AllEvents, 100 );
+    }
+}
 
 Pipeline::Pipeline()
 {
@@ -270,7 +282,7 @@ void Pipeline::runPipeline()
 
     while (!m_mainScriptProcess->waitForFinished())
     {
-        sleep(1);
+        delay(1);
     }
 
     if(!(m_para_m->getpara_computingSystem_comboBox()).compare("killdevil", Qt::CaseInsensitive))
@@ -290,7 +302,7 @@ void Pipeline::runPipeline()
             bjobs_process->start("bjobs " + m_jobID);
             while (!bjobs_process->waitForFinished())
             {
-                sleep(1);
+                delay(1);
             }
 
             QString bjobs_output(bjobs_process->readAllStandardOutput());
@@ -299,7 +311,7 @@ void Pipeline::runPipeline()
                 jobRunning = false;
             }
 
-            sleep(1);
+            delay(1);
         }
     }
 
@@ -318,7 +330,7 @@ void Pipeline::stopPipeline()
         bkill_process->start("bkill " + m_jobID);
         while (!bkill_process->waitForFinished())
         {
-            sleep(1);
+            delay(1);
         }
     }
 
