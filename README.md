@@ -29,7 +29,7 @@ Find the software on [NITRC](https://www.nitrc.org/projects/autotract/) as well 
 - ANTS  [source code](http://stnava.github.io/ANTs/)
 - ITKTransformTools [source code](https://github.com/NIRALUser/ITKTransformTools)
 - DTIProcessToolkit (for dtiprocess and fiberprocess) [NITRC page](https://www.nitrc.org/projects/dtiprocess/)
-- niral_utilities (for ImageMath, PolyDataTransform, MaurerDistanceTransform) [NITRC page](https://www.nitrc.org/projects/niral_utilities/)
+- niral_utilities (for ImageMath, polydatatransform, MaurerDistanceTransform) [NITRC page](https://www.nitrc.org/projects/niral_utilities/)
 - ResampleDTIlogEuclidean [source code](https://github.com/NIRALUser/ResampleDTIlogEuclidean)
 - Slicer (for TractographyLabelMapSeeding) [download page](http://download.slicer.org/)
 - DTIFiberTractStatistics (for FiberPostProcess) [NITRC page](https://www.nitrc.org/projects/dti_tract_stat/)
