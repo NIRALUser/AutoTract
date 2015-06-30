@@ -1,14 +1,14 @@
 # AutoTract
 
-AutoTract is an automatic tractography tool featuring advanced processing tools (using FiberPostProcess) to clean tracts after the initial tractography (done with the Slicer module TractographyLabelMapSeeding).
+AutoTract is an automatic tractography tool featuring advanced processing tools (using FiberPostProcess) to clean fiber tracts after the initial tractography (done with the Slicer module TractographyLabelMapSeeding).
 
 ## Full Documentation
 
-Find the tool on [NITRC](https://www.nitrc.org/projects/autotract/) as well as the [tutorial](https://www.nitrc.org/docman/?group_id=948).
+Find the software on [NITRC](https://www.nitrc.org/projects/autotract/) as well as its [tutorial](https://www.nitrc.org/docman/view.php/948/1969/Tutorial.pdf).
 
-## Data Required
+## Required Data
 
-- a DTI image that you want to tract
+- a DTI image on which you want to perform fiber tractography
 - a reference DTI atlas + a folder containing the tracts of this atlas (this will serve as label maps for the tractography)
 - (optional) a WM mask
 - (optional) a CSF mask
@@ -18,26 +18,22 @@ Find the tool on [NITRC](https://www.nitrc.org/projects/autotract/) as well as t
 ### Packages
 
 - ITK (v4.7 and above) [download page](http://www.itk.org/ITK/resources/software.html) 
-- QMAKE (QT4) [download page](https://www.qt.io/download/)
-- QTGUI / QTtToCppXml [source code/release on github](https://github.com/fbudin69500/QTGUI)
-- SlicerExecutionModel [source code/release on github](https://github.com/Slicer/SlicerExecutionModel)
+- Qt4 [download page](https://www.qt.io/download/)
+- QTGUI / QTtToCppXml [source code](https://github.com/fbudin69500/QTGUI)
+- SlicerExecutionModel [source code](https://github.com/Slicer/SlicerExecutionModel)
 - VTK (v6.1.0 and above) [download page](http://www.vtk.org/download/)
 
-### Softwares
+### Software
 
 - DTI-Reg (requires ANTS, ITKTransformTools, dtiprocess, ResampleDTIlogEuclidean) [NITRC page](https://www.nitrc.org/projects/dtireg/)
-- ANTS  [download page](http://stnava.github.io/ANTs/)
-- ITKTransformTools [source code/release on github](https://github.com/NIRALUser/ITKTransformTools)
-- dtiprocess (part of DTIProcessToolkit) [source code on github](https://github.com/NIRALUser/DTIProcessToolkit)
-- Resample DTIlogEuclidean [source code/release on github](https://github.com/NIRALUser/ResampleDTIlogEuclidean)
-- Slicer [download page](http://slicer.kitware.com/midas3/slicerpackages/view)
-- fiberprocess (part of DTIProcessToolkit) [source code on github](https://github.com/NIRALUser/DTIProcessToolkit)
-- ImageMath (part of niral_utilities) [source code on github](https://github.com/NIRALUser/niral_utilities)
-- TractographyLabelMapSeeding (Slicer module) [download page](http://slicer.kitware.com/midas3/slicerpackages/view)
-- FiberPostProcess (part of DTIFiberTractStatistics) [source code on github](https://github.com/NIRALUser/DTIFiberTractStatistics)
-- polydatatransform (part of niral_utilities) [source code on github](https://github.com/NIRALUser/niral_utilities)
+- ANTS  [source code](http://stnava.github.io/ANTs/)
+- ITKTransformTools [source code](https://github.com/NIRALUser/ITKTransformTools)
+- DTIProcessToolkit (for dtiprocess and fiberprocess) [NITRC page](https://www.nitrc.org/projects/dtiprocess/)
+- niral_utilities (for ImageMath, PolyDataTransform, MaurerDistanceTransform) [NITRC page](https://www.nitrc.org/projects/niral_utilities/)
+- ResampleDTIlogEuclidean [source code](https://github.com/NIRALUser/ResampleDTIlogEuclidean)
+- Slicer (for TractographyLabelMapSeeding) [download page](http://download.slicer.org/)
+- DTIFiberTractStatistics (for FiberPostProcess) [NITRC page](https://www.nitrc.org/projects/dti_tract_stat/)
 - unu (part of teem) [download page](http://teem.sourceforge.net/download/)
-- MaurerDistanceTransform (part of niral_utilities) [source code on github](https://github.com/NIRALUser/niral_utilities)
 - python (v2.7.5 and above) [download page](https://www.python.org/downloads/)
 
 ## Command Line
@@ -55,8 +51,9 @@ Note: An easy way to generate the basic XML configuration files is to launch Aut
 - Log window with the option of showing details on each tract process
 - CMake using Superbuild
 - Additional unit and integration tests
+- Detection of the end of the pipeline is not managed by the UI (run/stop pushButtons do not change once the pipeline ends) 
 
 ## License
 
-See License.txt
+See LICENSE
 
