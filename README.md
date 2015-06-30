@@ -52,6 +52,7 @@ Note: An easy way to generate the basic XML configuration files is to launch Aut
 - CMake using Superbuild
 - Additional unit and integration tests
 - Detection of the end of the pipeline is not managed by the UI (run/stop pushButtons do not change once the pipeline ends) 
+- State of AutoTract (running/not running) should change the exit message ("Do you want to kill the processes running?")
 
 ## License
 
