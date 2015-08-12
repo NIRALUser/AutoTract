@@ -22,17 +22,21 @@ class MaskCreation : public Script
    MaskCreation(QString module);
    // Set
    void setOutputDirectory(QString dir);
-
-   // Implementing Script
-   void initializeScript();
-   void executeMaskCreation();
-   void implementRun();
-
+   void setWMMaskPath(QString path);
+   void setCSFMaskPath(QString path);
    // Updating & Getting Output
    void update();
 
    private:
+      void executeMaskCreation();
+      // Implementing Script
+      void initializeScript();
+      void implementRun();
+
+
    QString m_outputDir;
+   QString m_CSFPath ;
+   QString m_WMPath ;
 };
 
 

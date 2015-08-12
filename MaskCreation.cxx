@@ -4,6 +4,17 @@ MaskCreation::MaskCreation(QString module) : Script(module)
 {
 }
 
+void MaskCreation::setWMMaskPath(QString path)
+{
+    m_WMPath = path;
+}
+
+void MaskCreation::setCSFMaskPath(QString path)
+{
+    m_CSFPath = path;
+}
+
+
 void MaskCreation::initializeScript()
 {
     definePython();
@@ -36,29 +47,45 @@ void MaskCreation::executeMaskCreation()
     m_script += "\n";
     m_script += "\tMDimage = outputDir + '/MDimage.nrrd'";
     m_script += "\n";
-    m_script += "\tWMmask = outputDir + '/WMmask.nrrd'";
+    m_script += "\totsuFA = outputDir + '/otsuFA.nrrd'";
     m_script += "\n";
-    m_script += "\tMDmask = outputDir + '/MDmask.nrrd'";
+    m_script += "\totsuFAeroded = outputDir + '/otsuFAeroded.nrrd'";
+    m_script += "\n";
+    m_script += "\tWMmask = '" + m_WMPath + "'";
+    m_script += "\n";
+    m_script += "\tMDmask = '" + m_CSFPath + "'";
+    m_script += "\n";
+    m_script += "\totsuThreshold = outputDir + '/otsuThreshold.nrrd'";
+    m_script += "\n";
+    m_script += "\terodedOtsuMask = outputDir + '/erodedOtsuMask.nrrd'";
+    m_script += "\n";
+    m_script += "\tthresholdedOtsuThreshold = outputDir + '/thresholdedOtsuThreshold.nrrd'";
     m_script += "\n";
     m_script += "\tbrainSkull = outputDir + '/brainSkull.nrrd'";
+    m_script += "\n";
+    m_script += "\treferenceupsampledImage = outputDir + '/referenceupsampledImage.nrrd'";
     m_script += "\n";
     m_script += "\tupsampledImage = outputDir + '/upsampledImage.nrrd'";
     m_script += "\n";
     m_argumentsList << "dtiprocess" << "'--dti_image'" << "inputDTIatlas_dir" <<"'-f'" << "FAimage";
+    m_outputs.insert("WMmask", m_WMPath );
     execute();
     m_log = "Creation of WM mask - Step 2";
-    m_argumentsList << "ImageMath" << "FAimage" << "'-otsu'" << "'-outfile'" << "WMmask";
+    m_argumentsList << "ImageMath" << "FAimage" << "'-otsu'" << "'-outfile'" << "otsuFA";
+    m_outputs.insert("WMmask", m_WMPath );
     execute();
     m_log = "Creation of WM mask - Step 3";
-    m_argumentsList << "ImageMath" << "WMmask" << "'-outfile'" << "WMmask" << "'-erode'" << "'2,1'";
+    m_argumentsList << "ImageMath" << "otsuFA" << "'-outfile'" << "otsuFAeroded" << "'-erode'" << "'2,1'";
+    m_outputs.insert("WMmask", m_WMPath );
     execute();
     m_log = "Creation of WM mask - Step 4";
-    m_argumentsList << "ImageMath" << "WMmask" << "'-outfile'" << "WMmask" << "'-dilate'" << "'3,1'";
+    m_argumentsList << "ImageMath" << "otsuFAeroded" << "'-outfile'" << "WMmask" << "'-dilate'" << "'3,1'";
+    m_outputs.insert("WMmask", m_WMPath );
     execute();
     m_script += "\n\n";
-
     m_log = "Creation of CSF mask - Step 1";
     m_argumentsList << "dtiprocess" << "'--dti_image'" << "inputDTIatlas_dir" <<"'-m'" << "MDimage";
+    m_outputs.insert("MDmask", m_CSFPath );
     execute();
     m_log = "Creation of CSF mask - Step 2";
     m_script += "\tnbThresholds = '3'";
@@ -69,23 +96,33 @@ void MaskCreation::executeMaskCreation()
     m_script += "\n";
     m_script += "\totsuPara = nbThresholds + ',' + labelOffset + ',' + nbHistogramBins";
     m_script += "\n";
-    m_argumentsList << "ImageMath" << "MDimage" << "'-outfile'" << "MDmask" << "'-otsuMultipleThresholds'" << "'-otsuPara'" << "otsuPara";
+    m_argumentsList << "ImageMath" << "MDimage" << "'-outfile'" << "otsuThreshold" << "'-otsuMultipleThresholds'" << "'-otsuPara'" << "otsuPara";
+    m_outputs.insert("MDmask", m_CSFPath );
     execute();
     m_log = "Creation of CSF mask - Step 3";
-    m_argumentsList << "ImageMath" << "MDmask" << "'-outfile'" << "MDmask" << "'-erode'" << "'2,1'";
+    m_argumentsList << "ImageMath" << "otsuThreshold" << "'-outfile'" << "thresholdedOtsuThreshold" << "'-threshold'" << "'.5,10000'";
+    m_outputs.insert("MDmask", m_CSFPath );
     execute();
     m_log = "Creation of CSF mask - Step 4";
-    m_argumentsList << "ImageMath" << "MDmask" << "'-outfile'" << "brainSkull" << "'-erode'" << "'4,1'";
+    m_argumentsList << "ImageMath" << "thresholdedOtsuThreshold" << "'-outfile'" << "erodedOtsuMask" << "'-erode'" << "'2,1'";
+    m_outputs.insert("MDmask", m_CSFPath );
     execute();
     m_log = "Creation of CSF mask - Step 5";
-    m_argumentsList << "ImageMath" << "MDmask" << "'-outfile'" << "MDmask" << "'-sub'" << "brainSkull";
+    m_argumentsList << "ImageMath" << "erodedOtsuMask" << "'-outfile'" << "brainSkull" << "'-erode'" << "'4,1'";
+    m_outputs.insert("MDmask", m_CSFPath );
+    execute();
+    m_log = "Creation of CSF mask - Step 6";
+    m_argumentsList << "ImageMath" << "erodedOtsuMask" << "'-outfile'" << "MDmask" << "'-sub'" << "brainSkull";
+    m_outputs.insert("MDmask", m_CSFPath );
     execute();
     m_script += "\n\n";
     m_log = "Upsampling of the reference image - Step 1 ";
-    m_argumentsList << "unu" << "'resample'" << "'-i'" << "FAimage" << "'-o'" << "upsampledImage" << "'-s'" << "'x2'" << "'x2'" << "'x2'";
+    m_argumentsList << "unu" << "'resample'" << "'-i'" << "FAimage" << "'-o'" << "referenceupsampledImage" << "'-s'" << "'x2'" << "'x2'" << "'x2'";
+    m_outputs.insert("upsampledImage", m_outputDir + "/upsampledImage.nrrd");
     execute();
     m_log = "Upsampling of the reference image - Step 2";
-    m_argumentsList << "ResampleDTIlogEuclidean" << "inputDTIatlas_dir" << "upsampledImage" << "'-R'" << "upsampledImage";
+    m_argumentsList << "ResampleDTIlogEuclidean" << "inputDTIatlas_dir" << "upsampledImage" << "'-R'" << "referenceupsampledImage";
+    m_outputs.insert("upsampledImage", m_outputDir + "/upsampledImage.nrrd");
     execute();
     m_script +="\n\n";
 
@@ -100,8 +137,9 @@ void MaskCreation::implementRun()
 
     m_script += "\tlogger.info('=== MaskCreation ===')\n";
 
-    m_outputs.insert("WMmask", m_outputDir + "/WMmask.nrrd");
-    m_outputs.insert("MDmask", m_outputDir + "/MDmask.nrrd");
+    m_outputs.insert("WMmask", m_WMPath );
+    //m_outputs.insert("MDmask", m_outputDir + "/MDmask.nrrd");
+    m_outputs.insert("MDmask", m_CSFPath );
     m_outputs.insert("upsampledImage", m_outputDir + "/upsampledImage.nrrd");
     checkFinalOutputs();
 
@@ -121,6 +159,14 @@ void MaskCreation::implementRun()
 
 void MaskCreation::update()
 {
+    if( m_WMPath.isEmpty() )
+    {
+        m_WMPath = m_outputDir + "/WMmask.nrrd" ;
+    }
+    if( m_CSFPath.isEmpty() )
+    {
+        m_CSFPath = m_outputDir + "/CSFmask.nrrd" ;
+    }
     initializeScript();
     implementStop();
     implementCheckFileExistence();

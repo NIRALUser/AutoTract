@@ -31,26 +31,32 @@ void Registration::initializeScript()
     m_script += "displacementFieldPath = '" + m_displacementFieldPath + "'\n";
     m_script += "nbMemory = " + QString::number(m_para_m->getpara_nb_memory_registration_spinBox()) + "\n";
     m_script += "nbThreads = " + QString::number(m_para_m->getpara_nb_threads_spinBox()) + "\n";
+    m_script += "outputDirectory = '" + m_module_path + "'\n";
 
     m_script += "logger = logging.getLogger('AutoTract')\n\n";
 
     m_script += "runningProcess = None\n\n";
 }
 
+
+// --ANTSOutbase
+// --outputVolume
+// --outputFixedScalarVolume
+// --outputMovingScalarVolume
 void Registration::executeRegistration()
 {
     m_log = "Registration";
     if( m_para_m->getpara_computingSystem_comboBox() == "local")
     {
-        m_argumentsList << "DTIReg" << "'--movingVolume'" << "refDTIatlas_dir" << "'--fixedVolume'" << "inputDTIatlas_dir" << "'--method useScalar-ANTS'" << "'--ANTSRegistrationType'";
+        m_argumentsList << "DTIReg" << "'--movingVolume'" << "inputDTIatlas_dir" << "'--fixedVolume'" << "refDTIatlas_dir" << "'--method useScalar-ANTS'" << "'--ANTSRegistrationType'";
         m_argumentsList << "registrationType" << "'--ANTSSimilarityMetric'" << "similarityMetric"  <<"'--ANTSSimilarityParameter'" << "str(similarityParameter)" << "'--ANTSGaussianSigma'" << "str(gaussianSigma)" << "'--ANTSIterations'" << "ANTSIterations";
-        m_argumentsList << "'--outputDisplacementField'" << "displacementFieldPath" << "'--ANTSPath'" << "ANTS" << "'--dtiprocessPath'" << "dtiprocess" << "'--ResampleDTIPath'" << "ResampleDTIlogEuclidean" << "'--ITKTransformToolsPath'" << "ITKTransformTools";
+        m_argumentsList << "'--outputDisplacementField'" << "displacementFieldPath" << "'--ANTSPath'" << "ANTS" << "'--dtiprocessPath'" << "dtiprocess" << "'--ResampleDTIPath'" << "ResampleDTIlogEuclidean" << "'--ITKTransformToolsPath'" << "ITKTransformTools" << "'--outputFolder'" << "outputDirectory" ;
         execute();
     }
     else
     {
         QString args = "'bsub', '-q', 'hour', '-K', '-M', 'str(nbMemory)', '-n', 'str(nbThreads)' , '-R', 'span[hosts=1]', ";
-        args += "DTIReg, '--movingVolume', refDTIatlas_dir, '--fixedVolume', inputDTIatlas_dir, '--method useScalar-ANTS', '--ANTSRegistrationType', registrationType, '--ANTSSimilarityMetric', similarityMetric, '--ANTSSimilarityParameter', '4', '--ANTSGaussianSigma', gaussianSigma, '--outputDisplacementField', displacementFieldPath";
+        args += "DTIReg, '--movingVolume', inputDTIatlas_dir, '--fixedVolume', refDTIatlas_dir, '--method useScalar-ANTS', '--ANTSRegistrationType', registrationType, '--ANTSSimilarityMetric', similarityMetric, '--ANTSSimilarityParameter', str(similarityParameter), '--ANTSGaussianSigma', gaussianSigma, '--outputDisplacementField', displacementFieldPath, '--outputFolder', outputDirectory";
         m_script += "\targs = [" + args + "]\n";
         m_script += "\tbsub_process = subprocess.Popen(args, stdout=subprocess.PIPE)\n";
         m_script += "\tbsub_output = bsub_process.stdout.read()\n";

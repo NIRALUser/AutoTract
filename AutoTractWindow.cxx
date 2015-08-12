@@ -188,7 +188,7 @@ void AutoTractWindow::SyncModelStructureToUi()
     /*1st tab: inputs*/
     para_inputDTIatlas_lineEdit->setText( m_para_m->getpara_inputDTIatlas_lineEdit() );
     para_inputWMmask_lineEdit->setText( m_para_m->getpara_inputWMmask_lineEdit() );
-    para_inputCSFmask_lineEdit->setText( m_para_m->getpara_inputWMmask_lineEdit() );
+    para_inputCSFmask_lineEdit->setText( m_para_m->getpara_inputCSFmask_lineEdit() );
     para_output_dir_lineEdit->setText( m_para_m->getpara_output_dir_lineEdit() );
     para_refDTIatlas_lineEdit->setText( m_para_m->getpara_refDTIatlas_lineEdit() );
     para_displacementField_lineEdit->setText( m_para_m->getpara_displacementField_lineEdit() );
@@ -273,7 +273,7 @@ void AutoTractWindow::SyncModelStructureToUi( QString prefix )
         /*1st tab: inputs*/
         para_inputDTIatlas_lineEdit->setText( m_para_m->getpara_inputDTIatlas_lineEdit() );
         para_inputWMmask_lineEdit->setText( m_para_m->getpara_inputWMmask_lineEdit() );
-        para_inputCSFmask_lineEdit->setText( m_para_m->getpara_inputWMmask_lineEdit() );
+        para_inputCSFmask_lineEdit->setText( m_para_m->getpara_inputCSFmask_lineEdit() );
         para_output_dir_lineEdit->setText( m_para_m->getpara_output_dir_lineEdit() );
         para_refDTIatlas_lineEdit->setText( m_para_m->getpara_refDTIatlas_lineEdit() );
         para_displacementField_lineEdit->setText( m_para_m->getpara_displacementField_lineEdit() );

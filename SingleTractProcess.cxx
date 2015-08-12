@@ -183,7 +183,7 @@ void SingleTractProcess::implementSingleTractProcess()
     m_script += "\n";
     m_script += "\tvoxelizedImage = current_dir + '/' + name + '_voxelizedImage.nrrd'";
     m_script += "\n";
-    m_argumentsList << "fiberprocess" << "'--voxelize'" << "voxelizedImage" << "'--fiber_file'" << "fiberLengthMatch" << "'-T'" << "output_dir + '/2.MaskCreation/upsampledImage.nrrd'";
+    m_argumentsList << "fiberprocess" << "'--voxelize'" << "voxelizedImage" << "'--fiber_file'" << "refFiberCropped" << "'-T'" << "output_dir + '/2.MaskCreation/upsampledImage.nrrd'";
     execute();
 
     m_log = "Computation of the distance map of the reference tract - Step 2";

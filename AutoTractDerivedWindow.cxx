@@ -6,6 +6,7 @@ AutoTractDerivedWindow::AutoTractDerivedWindow()
 {
     m_thread = new MainScriptThread();
     m_pipeline = new Pipeline();
+    log_textEdit->setReadOnly(true);
 
     connect( this->actionSave_Parameter_Configuration, SIGNAL( triggered() ), SLOT( SaveParaConfigFile() ) );
     connect( this->actionLoad_Parameter_Configuration, SIGNAL( triggered() ), SLOT( LoadParaConfigFile() ) );
@@ -245,7 +246,6 @@ void AutoTractDerivedWindow::initializePipelineLogging()
     log_textEdit->show();
     log_textEdit->clear();
     log_textEdit->setMaximumBlockCount(500);
-
     // Log path
     QDir* output_dir = new QDir(m_para_m->getpara_output_dir_lineEdit());
     QFileInfo fi(m_para_m->getpara_output_dir_lineEdit());

@@ -179,6 +179,16 @@ void Pipeline::writeMaskCreation()
     m_maskCreation->setScriptSoftwares(m_soft_m);
     m_maskCreation->setOutputDirectory(directory_name);
     //m_maskCreation->setOverwriting(m_para_m->getpara_overwrite_checkBox());
+    QString wmPath = m_para_m->getpara_inputWMmask_lineEdit() ;
+    if( !wmPath.isEmpty() )
+    {
+        m_maskCreation->setWMMaskPath( wmPath ) ;
+    }
+    QString csfPath = m_para_m->getpara_inputCSFmask_lineEdit() ;
+    if( !csfPath.isEmpty() )
+    {
+        m_maskCreation->setCSFMaskPath( csfPath ) ;
+    }
     m_maskCreation->setModuleDirectory(directory_path);
     m_maskCreation->setProcessingDirectory(m_processing_path);
 
