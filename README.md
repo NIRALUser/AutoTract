@@ -2,6 +2,10 @@
 
 AutoTract is an automatic tractography tool featuring advanced processing tools (using FiberPostProcess) to clean fiber tracts after the initial tractography (done with the Slicer module TractographyLabelMapSeeding).
 
+## Acknowledgements
+
+This work was supported by the National Institutes of Health (MH064065, MH070890, MH091351, MH091645, HD079124, HD03110).
+
 ## Full Documentation
 
 Find the software on [NITRC](https://www.nitrc.org/projects/autotract/) as well as its [tutorial](https://www.nitrc.org/docman/view.php/948/1969/Tutorial.pdf).
