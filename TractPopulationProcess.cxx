@@ -42,13 +42,13 @@ void TractPopulationProcess::SetDisplacementFieldPath(QString displacementFieldP
 void TractPopulationProcess::defineRefTracts()
 {
     std::vector<QString> ref_tracts;
-    std::map<QString, bool> ref_tracts_list = m_para_m->getpara_ref_tracts_listWidget();
-    std::map<QString, bool>::iterator it;
+    std::map<std::pair<unsigned long,QString>,bool> ref_tracts_list = m_para_m->getpara_ref_tracts_listWidget();
+    std::map<std::pair<unsigned long,QString>,bool>::iterator it;
     for (it = ref_tracts_list.begin(); it!= ref_tracts_list.end(); it++)
     {
         if(it->second == 1)
         {
-            ref_tracts.push_back( it->first );
+            ref_tracts.push_back( it->first.second );
         }
     }
     m_tractPopulation = ref_tracts;

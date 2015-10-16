@@ -11,11 +11,12 @@ set(CMAKE_MODULE_PATH
   ${CMAKE_MODULE_PATH}
   )
 
-find_package(Qt4 COMPONENTS QtCore QtGui QtXml REQUIRED)
-include(${QT_USE_FILE})
 
 find_package(QtToCppXML REQUIRED)
 include(${QtToCppXML_USE_FILE})
+
+find_package(Qt4 COMPONENTS QtCore QtGui QtXml REQUIRED)
+include(${QT_USE_FILE})
 
 #Find SlicerExecutionModel
 FIND_PACKAGE(SlicerExecutionModel REQUIRED)

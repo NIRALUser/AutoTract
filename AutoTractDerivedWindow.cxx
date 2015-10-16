@@ -190,8 +190,8 @@ void AutoTractDerivedWindow::initSoftware()
 
 void AutoTractDerivedWindow::checkAllTracts()
 {
-    std::map<QString,bool> map = m_para_m->getpara_ref_tracts_listWidget();
-    std::map<QString,bool>::iterator it = map.begin();
+    std::map<std::pair<unsigned long,QString>,bool> map = m_para_m->getpara_ref_tracts_listWidget();
+    std::map<std::pair<unsigned long,QString>,bool>::iterator it = map.begin();
     for( int count = 0 ; it != map.end() ; count++ , it++ )
     {
         map[it->first] = true;
@@ -202,8 +202,8 @@ void AutoTractDerivedWindow::checkAllTracts()
 
 void AutoTractDerivedWindow::uncheckAllTracts()
 {
-    std::map<QString,bool> map = m_para_m->getpara_ref_tracts_listWidget();
-    std::map<QString,bool>::iterator it = map.begin();
+    std::map<std::pair<unsigned long,QString>,bool> map = m_para_m->getpara_ref_tracts_listWidget();
+    std::map<std::pair<unsigned long,QString>,bool>::iterator it = map.begin();
     for( int count = 0 ; it != map.end() ; count++ , it++ )
     {
         map[it->first] = false;
@@ -618,13 +618,13 @@ void AutoTractDerivedWindow::changeComputingSystem()
 {
     SyncUiToModelStructure();
     std::vector<QString> ref_tracts;
-    std::map<QString, bool> ref_tracts_list = m_para_m->getpara_ref_tracts_listWidget();
-    std::map<QString, bool>::iterator it;
+    std::map<std::pair<unsigned long,QString>,bool> ref_tracts_list = m_para_m->getpara_ref_tracts_listWidget();
+    std::map<std::pair<unsigned long,QString>,bool>::iterator it;
     for (it = ref_tracts_list.begin(); it!= ref_tracts_list.end(); it++)
     {
         if(it->second == 1)
         {
-            ref_tracts.push_back( it->first );
+            ref_tracts.push_back( it->first.second );
         }
     }
     int nb_tracts = ref_tracts.size();

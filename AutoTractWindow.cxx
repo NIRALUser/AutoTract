@@ -24,11 +24,13 @@ void AutoTractWindow::SyncUiToModelStructure()
 
     /*2nd tab: reference tracts*/
     m_para_m->setpara_tracts_dir_lineEdit( para_tracts_dir_lineEdit->text() );
-    std::map<QString,bool> itemList ;
+    std::map<std::pair<unsigned long,QString>,bool> itemList ;
     for( int i = 0 ; i < para_ref_tracts_listWidget->count() ; i++ )
     {
         QListWidgetItem *currentItem = para_ref_tracts_listWidget->item(i) ;
-        itemList[ currentItem->text() ] = static_cast<bool>(currentItem->checkState() ) ;
+        std::pair<unsigned long,QString> attribute ;
+        attribute = std::make_pair(i,currentItem->text());
+        itemList[ attribute ] = static_cast<bool>(currentItem->checkState() ) ;
     }
     m_para_m->setpara_ref_tracts_listWidget(itemList) ;
 
@@ -110,11 +112,13 @@ void AutoTractWindow::SyncUiToModelStructure( QString prefix )
 
         /*2nd tab: reference tracts*/
         m_para_m->setpara_tracts_dir_lineEdit( para_tracts_dir_lineEdit->text() );
-        std::map<QString,bool> itemList ;
+        std::map<std::pair<unsigned long,QString>,bool> itemList ;
         for( int i = 0 ; i < para_ref_tracts_listWidget->count() ; i++ )
         {
             QListWidgetItem *currentItem = para_ref_tracts_listWidget->item(i) ;
-            itemList[ currentItem->text() ] = static_cast<bool>(currentItem->checkState() ) ;
+            std::pair<unsigned long,QString> attribute ;
+            attribute = std::make_pair(i,currentItem->text());
+            itemList[ attribute ] = static_cast<bool>(currentItem->checkState() ) ;
         }
         m_para_m->setpara_ref_tracts_listWidget(itemList) ;
 
@@ -180,6 +184,7 @@ void AutoTractWindow::SyncUiToModelStructure( QString prefix )
 
 void AutoTractWindow::SyncModelStructureToUi()
 {
+std::cout<<"plop"<<std::endl;
     if( m_sync == 1)
     {
         return;
@@ -195,12 +200,15 @@ void AutoTractWindow::SyncModelStructureToUi()
 
     /*2nd tab: reference tracts*/
     para_tracts_dir_lineEdit->setText( m_para_m->getpara_tracts_dir_lineEdit() );
-    std::map<QString,bool> itemList ;
+    std::map<std::pair<unsigned long,QString>,bool> itemList ;
     itemList = m_para_m->getpara_ref_tracts_listWidget() ;
     para_ref_tracts_listWidget->clear() ;
-    for( std::map<QString,bool>::iterator it = itemList.begin() ; it != itemList.end() ; it++ )
+    for( std::map<std::pair<unsigned long,QString>,bool>::iterator it = itemList.begin() ; it != itemList.end() ; it++ )
     {
-        QListWidgetItem *item = new QListWidgetItem( it->first , para_ref_tracts_listWidget ) ;
+std::cout<<it->first.first<<std::endl;
+std::cout<<it->first.second.toStdString()<<std::endl;
+std::cout<<it->second<<std::endl;
+        QListWidgetItem *item = new QListWidgetItem( it->first.second , para_ref_tracts_listWidget ) ;
         item->setCheckState( it->second != 0 ? Qt::Checked : Qt::Unchecked ) ;
     }
     /*3rd tab: software*/
@@ -280,12 +288,12 @@ void AutoTractWindow::SyncModelStructureToUi( QString prefix )
 
         /*2nd tab: reference tracts*/
         para_tracts_dir_lineEdit->setText( m_para_m->getpara_tracts_dir_lineEdit() );
-        std::map<QString,bool> itemList ;
+        std::map<std::pair<unsigned long,QString>,bool> itemList ;
         itemList = m_para_m->getpara_ref_tracts_listWidget() ;
         para_ref_tracts_listWidget->clear() ;
-        for( std::map<QString,bool>::iterator it = itemList.begin() ; it != itemList.end() ; it++ )
+        for( std::map<std::pair<unsigned long,QString>,bool>::iterator it = itemList.begin() ; it != itemList.end() ; it++ )
         {
-            QListWidgetItem *item = new QListWidgetItem( it->first , para_ref_tracts_listWidget ) ;
+            QListWidgetItem *item = new QListWidgetItem( it->first.second , para_ref_tracts_listWidget ) ;
             item->setCheckState( it->second != 0 ? Qt::Checked : Qt::Unchecked ) ;
         }
         /*4th tab: registration*/
