@@ -157,7 +157,7 @@ void SingleTractProcess::implementSingleTractProcess()
     }
     else
     {
-        m_script += "\tCSFMask = output_dir + '/2.MaskCreation/MDmask.nrrd'";
+        m_script += "\tCSFMask = output_dir + '/2.MaskCreation/CSFmask.nrrd'";
         m_script += "\n";
     }
     m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberCropped" << "'-o'" << "fiberMaskedCSF" << "'--mask'" << "'--clean'";
