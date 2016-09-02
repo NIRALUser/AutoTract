@@ -48,7 +48,7 @@ void Registration::executeRegistration()
     m_log = "Registration";
     if( m_para_m->getpara_computingSystem_comboBox() == "local")
     {
-        m_argumentsList << "DTIReg" << "'--movingVolume'" << "inputDTIatlas_dir" << "'--fixedVolume'" << "refDTIatlas_dir" << "'--method useScalar-ANTS'" << "'--ANTSRegistrationType'";
+        m_argumentsList << "DTIReg" << "'--fixedVolume'" << "inputDTIatlas_dir" << "'--movingVolume'" << "refDTIatlas_dir" << "'--method useScalar-ANTS'" << "'--ANTSRegistrationType'";
         m_argumentsList << "registrationType" << "'--ANTSSimilarityMetric'" << "similarityMetric"  <<"'--ANTSSimilarityParameter'" << "str(similarityParameter)" << "'--ANTSGaussianSigma'" << "str(gaussianSigma)" << "'--ANTSIterations'" << "ANTSIterations";
         m_argumentsList << "'--outputDisplacementField'" << "displacementFieldPath" << "'--ANTSPath'" << "ANTS" << "'--dtiprocessPath'" << "dtiprocess" << "'--ResampleDTIPath'" << "ResampleDTIlogEuclidean" << "'--ITKTransformToolsPath'" << "ITKTransformTools" << "'--outputFolder'" << "outputDirectory" ;
         execute();
@@ -56,7 +56,7 @@ void Registration::executeRegistration()
     else
     {
         QString args = "'bsub', '-q', 'hour', '-K', '-M', 'str(nbMemory)', '-n', 'str(nbThreads)' , '-R', 'span[hosts=1]', ";
-        args += "DTIReg, '--movingVolume', inputDTIatlas_dir, '--fixedVolume', refDTIatlas_dir, '--method useScalar-ANTS', '--ANTSRegistrationType', registrationType, '--ANTSSimilarityMetric', similarityMetric, '--ANTSSimilarityParameter', str(similarityParameter), '--ANTSGaussianSigma', gaussianSigma, '--outputDisplacementField', displacementFieldPath, '--outputFolder', outputDirectory";
+        args += "DTIReg, '--fixedVolume', inputDTIatlas_dir, '--movingVolume', refDTIatlas_dir, '--method useScalar-ANTS', '--ANTSRegistrationType', registrationType, '--ANTSSimilarityMetric', similarityMetric, '--ANTSSimilarityParameter', str(similarityParameter), '--ANTSGaussianSigma', gaussianSigma, '--outputDisplacementField', displacementFieldPath, '--outputFolder', outputDirectory";
         m_script += "\targs = [" + args + "]\n";
         m_script += "\tbsub_process = subprocess.Popen(args, stdout=subprocess.PIPE)\n";
         m_script += "\tbsub_output = bsub_process.stdout.read()\n";
