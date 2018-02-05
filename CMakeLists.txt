@@ -1,103 +1,62 @@
-CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
-CMAKE_POLICY(VERSION 2.6)
-PROJECT(AutoTract)
+cmake_minimum_required(VERSION 2.8.3)
+cmake_policy(VERSION 2.8.3)
 
+project(AutoTract)
+
+set(LOCAL_PROJECT_NAME AutoTract)
+
+
+# Project version number.
+set(${LOCAL_PROJECT_NAME}_VERSION_MAJOR "0")
+set(${LOCAL_PROJECT_NAME}_VERSION_MINOR "1")
+set(${LOCAL_PROJECT_NAME}_VERSION_PATCH "1")
+
+#-----------------------------------------------------------------------------
+# Update CMake module path
+# We need to update the CMake Module path in this main CMakeLists.txt file
+# so that we can include SlicerExtensionsConfigureMacros which is in the current
+# ${Project}/CMake folder
+#------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------
 # Update CMake module path
 #------------------------------------------------------------------------------
 set(CMAKE_MODULE_PATH
-  ${${PROJECT_NAME}_SOURCE_DIR}/CMake
-  ${${PROJECT_NAME}_BINARY_DIR}/CMake
+  ${CMAKE_SOURCE_DIR}/cmake
+  ${CMAKE_SOURCE_DIR}/SuperBuild
   ${CMAKE_MODULE_PATH}
   )
 
 
-find_package(QtToCppXML REQUIRED)
-include(${QtToCppXML_USE_FILE})
+include(${CMAKE_CURRENT_SOURCE_DIR}/Common.cmake)
 
-find_package(Qt4 COMPONENTS QtCore QtGui QtXml REQUIRED)
-include(${QT_USE_FILE})
+## NOTE THERE SHOULD BE NO PROJECT STATEMENT HERE!
+## This file acts as a simple switch to initiate
+## two completely independant CMake build environments.
 
-#Find SlicerExecutionModel
-FIND_PACKAGE(SlicerExecutionModel REQUIRED)
-INCLUDE(${SlicerExecutionModel_USE_FILE})
-#INCLUDE(${GenerateCLP_USE_FILE})
+#-----------------------------------------------------------------------------
+# Superbuild Option - Enabled by default
+#                   Phase I:  ${LOCAL_PROJECT_NAME}_SUPERBUILD is set to ON, and the
+#                             supporting packages defined in "SuperBuild.cmake"
+#                             are built.  The last package in "SuperBuild.cmake"
+#                             to be built is a recursive call to this
+#                             file with ${LOCAL_PROJECT_NAME}_SUPERBUILD explicitly
+#                             set to "OFF" to initiate Phase II
+#
+#                   Phase II: Build the ${LOCAL_PROJECT_NAME}, referencing the support
+#                             packages built in Phase I.
+#-----------------------------------------------------------------------------
 
-set(ITK_IO_MODULES_USED
-ITKIOImageBase
-ITKIONRRD
-ITKIOCSV
-ITKIOGIPL
-ITKIOHDF5
-ITKIOIPL
-ITKIOImageBase
-ITKIOLSM
-ITKIOMRC
-ITKIOMesh
-ITKIOMeta
-ITKIONIFTI
-ITKIONRRD
-ITKIORAW
-ITKIOVTK
-)
-#Find ITK
-find_package(ITK 4.7 REQUIRED COMPONENTS
-  ITKCommon
-  ITKIOImageBase
-  ITKImageFunction
-  ITKVTK
-  ${ITK_IO_MODULES_USED}
-)
+option(${LOCAL_PROJECT_NAME}_SUPERBUILD "Build ${LOCAL_PROJECT_NAME} and the projects it depends on via SuperBuild.cmake." ON)
 
-include(${ITK_USE_FILE})
+#-----------------------------------------------------------------------------
+# Superbuild script
+#-----------------------------------------------------------------------------
+if(${LOCAL_PROJECT_NAME}_SUPERBUILD)
+  include("${CMAKE_CURRENT_SOURCE_DIR}/SuperBuild.cmake")
+  return()
+else()
+  include("${CMAKE_CURRENT_SOURCE_DIR}/${LOCAL_PROJECT_NAME}.cmake")
+  return()
+endif()
 
-
-set(srcfiles
-AutoTract.cxx 
-AutoTractWindow.cxx
-AutoTractDerivedWindow.cxx
-Pipeline.cxx
-MainScriptThread.cxx
-Script.cxx
-Registration.cxx
-TractPopulationProcess.cxx
-SingleTractProcess.cxx
-MaskCreation.cxx
-)
-
-QT4_WRAP_CPP(QtProject_HEADERS_MOC AutoTractWindow.h AutoTractDerivedWindow.h MainScriptThread.h)
-QT4_WRAP_UI(UI_FILES AutoTract.ui)
-
-# Use the include path and library for Qt that is used by VTK.
-#INCLUDE_DIRECTORIES(
-#  ${CMAKE_SOURCE_DIR}
-#  ${CMAKE_BINARY_DIR}
-#  ${QT_INCLUDE_DIR}
-#  ${AutoTract_BINARY_DIR}
-#  ${AutoTract_SOURCE_DIR}
-#)
-
-list( APPEND
-srcfiles
-${QtProject_HEADERS_MOC}
-${UI_FILES}
-)
-QtToCppXML( SOURCES srcfiles NAME AutoTract UIXML_FILE AutoTract.ui PREFIXES soft_ para_ )
-
-SEMMacroBuildCLI(
-  NAME AutoTract
-  EXECUTABLE_ONLY
-  ADDITIONAL_SRCS ${srcfiles}
-  TARGET_LIBRARIES ${QT_LIBRARIES} ${ITK_LIBRARIES}
-  LINK_DIRECTORIES ${QT_LIBRARY_DIRS} ${ITK_LIBRARY_DIRS}
-  INCLUDE_DIRECTORIES ${QT_INCLUDE_DIR} ${ITK_INCLUDE_DIR}
-  )
-#add_executable( AutoTract ${srcfiles} ${RESOURCES} AutoTract_CLP)
-#target_link_libraries(AutoTract ${QT_LIBRARIES})
-
-option(BUILD_TESTING "Build the testing tree" ON)
-
-IF(BUILD_TESTING)
-  include(CTest)
-  ADD_SUBDIRECTORY(Testing)
-ENDIF(BUILD_TESTING)
+message(FATAL_ERROR "You should never reach this point !")
