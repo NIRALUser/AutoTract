@@ -58,82 +58,25 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
       -DCMAKE_OSX_DEPLOYMENT_TARGET=${CMAKE_OSX_DEPLOYMENT_TARGET})
   endif()
 
-  ### --- Project specific additions here
-  set(${proj}_DCMTK_ARGS)
-  if(${PROJECT_NAME}_BUILD_DICOM_SUPPORT)
-    set(${proj}_DCMTK_ARGS
-      -DITK_USE_SYSTEM_DCMTK:BOOL=ON
-      -DDCMTK_DIR:PATH=${DCMTK_DIR}
-      -DModule_ITKDCMTK:BOOL=ON
-      -DModule_ITKIODCMTK:BOOL=ON
-      )
-  endif()
-
-  if(${PROJECT_NAME}_BUILD_FFTWF_SUPPORT)
-    set(${proj}_FFTWF_ARGS
-      -DITK_USE_FFTWF:BOOL=ON
-      )
-  endif()
-  if(${PROJECT_NAME}_BUILD_FFTWD_SUPPORT)
-    set(${proj}_FFTWD_ARGS
-      -DITK_USE_FFTWD:BOOL=ON
-      )
-  endif()
-
-  set(${proj}_WRAP_ARGS)
-  #if(foo)
-    #set(${proj}_WRAP_ARGS
-    #  -DINSTALL_WRAP_ITK_COMPATIBILITY:BOOL=OFF
-    #  -DWRAP_float:BOOL=ON
-    #  -DWRAP_unsigned_char:BOOL=ON
-    #  -DWRAP_signed_short:BOOL=ON
-    #  -DWRAP_unsigned_short:BOOL=ON
-    #  -DWRAP_complex_float:BOOL=ON
-    #  -DWRAP_vector_float:BOOL=ON
-    #  -DWRAP_covariant_vector_float:BOOL=ON
-    #  -DWRAP_rgb_signed_short:BOOL=ON
-    #  -DWRAP_rgb_unsigned_char:BOOL=ON
-    #  -DWRAP_rgb_unsigned_short:BOOL=ON
-    #  -DWRAP_ITK_TCL:BOOL=OFF
-    #  -DWRAP_ITK_JAVA:BOOL=OFF
-    #  -DWRAP_ITK_PYTHON:BOOL=ON
-    #  -DPYTHON_EXECUTABLE:PATH=${${CMAKE_PROJECT_NAME}_PYTHON_EXECUTABLE}
-    #  -DPYTHON_INCLUDE_DIR:PATH=${${CMAKE_PROJECT_NAME}_PYTHON_INCLUDE}
-    #  -DPYTHON_LIBRARY:FILEPATH=${${CMAKE_PROJECT_NAME}_PYTHON_LIBRARY}
-    #  )
-  #endif()
-
-  # HACK This code fixes a loony problem with HDF5 -- it doesn't
-  #      link properly if -fopenmp is used.
-  string(REPLACE "-fopenmp" "" ITK_CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-  string(REPLACE "-fopenmp" "" ITK_CMAKE_CXX_FLAGS "${CMAKE_CX_FLAGS}")
-
   set(${proj}_CMAKE_OPTIONS
       -DBUILD_TESTING:BOOL=OFF
       -DBUILD_EXAMPLES:BOOL=OFF
-      -DBUILD_SHARED_LIBS=OFF
+      -DBUILD_SHARED_LIBS:BOOL=OFF
+      -DITK_BUILD_DEFAULT_MODULES:BOOL=ON
       -DCMAKE_INSTALL_PREFIX:PATH=${EXTERNAL_BINARY_DIRECTORY}/${proj}-install
-      -DITK_LEGACY_REMOVE:BOOL=ON
       -DITKV3_COMPATIBILITY:BOOL=OFF
       -DModule_ITKReview:BOOL=OFF
-      #-DITK_INSTALL_NO_DEVELOPMENT:BOOL=ON
       -DKWSYS_USE_MD5:BOOL=ON # Required by SlicerExecutionModel
       -DITK_WRAPPING:BOOL=OFF #${BUILD_SHARED_LIBS} ## HACK:  QUICK CHANGE
       -DITK_USE_SYSTEM_DCMTK:BOOL=${${PROJECT_NAME}_BUILD_DICOM_SUPPORT}
       -DITK_USE_SYSTEM_TIFF:BOOL=OFF
       -DITK_USE_SYSTEM_JPEG:BOOL=OFF
       -DITK_USE_SYSTEM_ZLIB:BOOL=OFF
-      -DITK_BUILD_ALL_MODULES:BOOL=ON
-
-      ${${proj}_DCMTK_ARGS}
-      ${${proj}_WRAP_ARGS}
-      ${${proj}_FFTWF_ARGS}
-      ${${proj}_FFTWD_ARGS}
     )
   ### --- End Project specific additions
   set(${proj}_REPOSITORY ${git_protocol}://itk.org/ITK.git)
-  set(${proj}_GIT_TAG 95291c32dc0162d688b242deea2b059dac58754a)
-  set(ITK_VERSION_ID ITK-4.10)
+  set(${proj}_GIT_TAG d92873e33e8a54e933e445b92151191f02feab42)
+  set(ITK_VERSION_ID ITK-4.13)
 
   ExternalProject_Add(${proj}
     GIT_REPOSITORY ${${proj}_REPOSITORY}
@@ -147,7 +90,7 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
     ${cmakeversion_external_update} "${cmakeversion_external_update_value}"
     CMAKE_GENERATOR ${gen}
     CMAKE_ARGS
-      ${CMAKE_OSX_EXTERNAL_PROJECT_ARGS}
+      
       ${COMMON_EXTERNAL_PROJECT_ARGS}
       ${${proj}_CMAKE_OPTIONS}
 ## We really do want to install in order to limit # of include paths INSTALL_COMMAND ""

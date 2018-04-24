@@ -45,22 +45,17 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
   # Include dependent projects if any
   SlicerMacroCheckExternalProjectDependency(${proj})
   # Set CMake OSX variable to pass down the external project
-  set(CMAKE_OSX_EXTERNAL_PROJECT_ARGS)
-  if(APPLE)
-    list(APPEND CMAKE_OSX_EXTERNAL_PROJECT_ARGS
-      -DCMAKE_OSX_ARCHITECTURES=${CMAKE_OSX_ARCHITECTURES}
-      -DCMAKE_OSX_SYSROOT=${CMAKE_OSX_SYSROOT}
-      -DCMAKE_OSX_DEPLOYMENT_TARGET=${CMAKE_OSX_DEPLOYMENT_TARGET})
-  endif()
+  
   ### --- Project specific additions here
   set(${proj}_CMAKE_OPTIONS
     -DUSE_SYSTEM_SlicerExecutionModel:BOOL=ON
-    -DQt5Widgets_DIR:PATH=${Qt5Widgets_DIR}
+    -DSlicerExecutionModel_DIR:PATH=${SlicerExecutionModel_DIR}
+    -DQT_VERSION=4
     )
 
   ### --- End Project specific additions
   set( ${proj}_REPOSITORY ${git_protocol}://github.com/NIRALUser/QTGUI.git)
-  set( ${proj}_GIT_TAG b1872562d56ca132a29bde0caaea2c0e1aaf3269 )
+  set( ${proj}_GIT_TAG 2e09cf3901429cbea1d667d977aa7403c2ebb7d0 )
   ExternalProject_Add(${proj}
     GIT_REPOSITORY ${${proj}_REPOSITORY}
     GIT_TAG ${${proj}_GIT_TAG}
@@ -73,7 +68,6 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
     ${cmakeversion_external_update} "${cmakeversion_external_update_value}"
     CMAKE_GENERATOR ${gen}
     CMAKE_ARGS
-      ${CMAKE_OSX_EXTERNAL_PROJECT_ARGS}
       ${COMMON_EXTERNAL_PROJECT_ARGS}
       ${${proj}_CMAKE_OPTIONS}
       ## We really do want to install to remove uncertainty about where the tools are
