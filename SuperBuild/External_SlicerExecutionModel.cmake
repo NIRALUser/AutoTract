@@ -35,21 +35,10 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
   ### --- Project specific additions here
   set(${proj}_CMAKE_OPTIONS
       -DITK_DIR:PATH=${ITK_DIR}
-      -DSlicerExecutionModel_DEFAULT_CLI_RUNTIME_OUTPUT_DIRECTORY:PATH=${BRAINSTools_CLI_RUNTIME_OUTPUT_DIRECTORY}
-      -DSlicerExecutionModel_DEFAULT_CLI_LIBRARY_OUTPUT_DIRECTORY:PATH=${BRAINSTools_CLI_LIBRARY_OUTPUT_DIRECTORY}
-      -DSlicerExecutionModel_DEFAULT_CLI_ARCHIVE_OUTPUT_DIRECTORY:PATH=${BRAINSTools_CLI_ARCHIVE_OUTPUT_DIRECTORY}
-      -DSlicerExecutionModel_DEFAULT_CLI_INSTALL_RUNTIME_DESTINATION:STRING=${BRAINSTools_CLI_INSTALL_RUNTIME_DESTINATION}
-      -DSlicerExecutionModel_DEFAULT_CLI_INSTALL_LIBRARY_DESTINATION:STRING=${BRAINSTools_CLI_INSTALL_LIBRARY_DESTINATION}
-      -DSlicerExecutionModel_DEFAULT_CLI_INSTALL_ARCHIVE_DESTINATION:STRING=${BRAINSTools_CLI_INSTALL_ARCHIVE_DESTINATION}
-      #-DSlicerExecutionModel_LIBRARY_PROPERTIES:STRING=${Slicer_LIBRARY_PROPERTIES}
-      #-DSlicerExecutionModel_INSTALL_BIN_DIR:PATH=bin
-      #-DSlicerExecutionModel_INSTALL_LIB_DIR:PATH=lib
-      #-DSlicerExecutionModel_INSTALL_SHARE_DIR:PATH=${Slicer_INSTALL_ROOT}share/${SlicerExecutionModel}
-      #-DSlicerExecutionModel_INSTALL_NO_DEVELOPMENT:BOOL=${Slicer_INSTALL_NO_DEVELOPMENT}
     )
   ### --- End Project specific additions
   set(${proj}_REPOSITORY "${git_protocol}://github.com/Slicer/SlicerExecutionModel.git")
-  set(${proj}_GIT_TAG 0dee798848bacf26d6d4c0fc5f5397d72c1a202b)
+  set(${proj}_GIT_TAG f43af5be9d460aca762fcbd1e1b3fc26fd8f6cc6)
   ExternalProject_Add(${proj}
     GIT_REPOSITORY ${${proj}_REPOSITORY}
     GIT_TAG ${${proj}_GIT_TAG}
@@ -62,7 +51,6 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
     ${cmakeversion_external_update} "${cmakeversion_external_update_value}"
     CMAKE_GENERATOR ${gen}
     CMAKE_ARGS
-      ${COMMON_EXTERNAL_PROJECT_ARGS}
       -DBUILD_EXAMPLES:BOOL=OFF
       -DBUILD_TESTING:BOOL=OFF
       ${${proj}_CMAKE_OPTIONS}
