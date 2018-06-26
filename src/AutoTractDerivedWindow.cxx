@@ -100,7 +100,15 @@ AutoTractDerivedWindow::AutoTractDerivedWindow()
     connect(para_tractOverlapRatio_spinBox, SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
     connect(para_tractMaxDistThreshold_spinBox,SIGNAL(valueChanged(double)), this, SLOT(SyncUiToModelStructure()));
 
-    /*7th tab: Execution*/
+
+    /*7th tab: Classification*/
+    connect(trafic_model_dir_pushButton, SIGNAL(clicked()), this, SLOT(selectTraficModelDirectory()));
+    connect(para_trafic_model_dir_lineEdit, SIGNAL(editingFinished()), this, SLOT(enterTraficModelDirectory()));
+
+    connect(para_enable_trafic_checkBox, SIGNAL(stateChanged(int)), this, SLOT(SyncUiToModelStructure()));
+    connect(para_no_tract_output_trafic_checkBox, SIGNAL(stateChanged(int)), this, SLOT(SyncUiToModelStructure()));
+
+    /*8th tab: Execution*/
     connect(runPipeline_pushButton, SIGNAL(clicked()), this, SLOT(runPipeline()));
     connect(stopPipeline_pushButton, SIGNAL(clicked()), this, SLOT(stopPipeline()));
     //connect(para_all_radioButton, SIGNAL(clicked()), this, SLOT(SyncUiToModelStructure()));
@@ -185,6 +193,9 @@ void AutoTractDerivedWindow::initSoftware()
 
     soft = "ITKTransformTools";
     m_soft_m->setsoft_ITKTransformTools_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+
+    soft = "docker";
+    m_soft_m->setsoft_docker_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) );
 }
 
 
@@ -264,7 +275,7 @@ void AutoTractDerivedWindow::initializePipelineLogging()
 }
 
 void AutoTractDerivedWindow::printPipelineLog()
-{
+{   
     QScrollBar *scrollBar = log_textEdit->verticalScrollBar();
 
     QString line = m_log_textStream->readAll();
@@ -375,6 +386,8 @@ void AutoTractDerivedWindow::initializeExecutablesMap()
     Executable ITKTransformTools = {ITKTransformTools_pushButton, soft_ITKTransformTools_lineEdit, reset_ITKTransformTools_pushButton};
     m_executables_map.insert("ITKTransformTools", ITKTransformTools);
 
+    Executable Docker = {docker_pushButton, soft_docker_lineEdit, reset_docker_pushButton};
+    m_executables_map.insert("docker", Docker);
 }
 
 void AutoTractDerivedWindow::selectExecutable(QString executable_name)
@@ -463,6 +476,10 @@ void AutoTractDerivedWindow::resetExecutable(QString executable_name)
     if(executable_name == "ITKTransformTools")
     {
         m_soft_m->setsoft_ITKTransformTools_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( executable_name.toStdString().c_str() ) ) ) ;
+    }
+    if(executable_name == "docker")
+    {
+        m_soft_m->setsoft_docker_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( executable_name.toStdString().c_str() ) ) ) ;
     }
 
     SyncModelStructureToUi("soft");
@@ -566,6 +583,26 @@ void AutoTractDerivedWindow::enterTractPopulationDirectory()
     UpdateTractPopulationDirectoryDisplay() ;
     SyncUiToModelStructure();
 }
+
+void AutoTractDerivedWindow::selectTraficModelDirectory()
+{
+    // QString traficModelDirectory = QFileDialog::getExistingDirectory (this, tr("Open Directory"), para_trafic_model_dir_lineEdit->text(), QFileDialog::ShowDirsOnly);
+    QString traficModelDirectory = QFileDialog::getOpenFileName (this, tr("Open File"), para_trafic_model_dir_lineEdit->text());
+    para_trafic_model_dir_lineEdit->setText(traficModelDirectory);
+    m_traficModelDirectory = traficModelDirectory;
+    SyncUiToModelStructure();
+}
+
+void AutoTractDerivedWindow::enterTraficModelDirectory()
+{
+    QString traficModelDirectory = para_trafic_model_dir_lineEdit->text();
+    if(!traficModelDirectory.isEmpty())
+    {
+        m_traficModelDirectory =  para_trafic_model_dir_lineEdit->text() ;
+    }
+    SyncUiToModelStructure();
+}
+
 
 void AutoTractDerivedWindow::checkSelectedTracts()
 {

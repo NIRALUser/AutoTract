@@ -26,6 +26,7 @@
 #include "TractPopulationProcess.h"
 #include "SingleTractProcess.h"
 #include "MaskCreation.h"
+#include "Classification.h"
 
 class Pipeline
 {
@@ -63,6 +64,7 @@ private:
     void writeMaskCreation();
     void writeSingleTractProcess();
     void writeProcess();
+    void writeClassification();
     void executeMainScript();
     void copySegmentations();
 
@@ -73,6 +75,7 @@ private:
     MaskCreation* m_maskCreation;
     TractPopulationProcess* m_process;
     SingleTractProcess* m_singleTractProcess;
+    Classification *m_classification;
 
     QString m_importingModules;
     QString m_runningModules;

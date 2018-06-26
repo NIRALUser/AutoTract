@@ -49,6 +49,7 @@ void AutoTractWindow::SyncUiToModelStructure()
     m_soft_m->setsoft_slicer_lineEdit( soft_slicer_lineEdit->text() );
     m_soft_m->setsoft_ANTS_lineEdit( soft_ANTS_lineEdit->text() );
     m_soft_m->setsoft_ITKTransformTools_lineEdit( soft_ITKTransformTools_lineEdit->text() );
+    m_soft_m->setsoft_docker_lineEdit( soft_docker_lineEdit->text() );
 
     /*4th tab: registration*/
     m_para_m->setpara_registration_type_comboBox( para_registration_type_comboBox->currentText() );
@@ -73,7 +74,12 @@ void AutoTractWindow::SyncUiToModelStructure()
     m_para_m->setpara_tractOverlapRatio_spinBox( para_tractOverlapRatio_spinBox->value() );
     m_para_m->setpara_tractMaxDistThreshold_spinBox( para_tractMaxDistThreshold_spinBox->value() );
 
-    /*7th tab: Execution*/
+    /*7th tab: classification*/
+    m_para_m->setpara_trafic_model_dir_lineEdit( para_trafic_model_dir_lineEdit->text() );
+    m_para_m->setpara_enable_trafic_checkBox(para_enable_trafic_checkBox->isChecked());
+    m_para_m->setpara_no_tract_output_trafic_checkBox(para_no_tract_output_trafic_checkBox->isChecked());
+        
+    /*8th tab: Execution*/
     //m_para_m->setpara_all_radioButton( para_all_radioButton->isChecked() );
     //m_para_m->setpara_singletract_radioButton( para_singletract_radioButton->isChecked() );
     m_para_m->setpara_computingSystem_comboBox( para_computingSystem_comboBox->currentText() );
@@ -85,10 +91,6 @@ void AutoTractWindow::SyncUiToModelStructure()
     m_para_m->setpara_nb_memory_spinBox( para_nb_memory_spinBox->value() );
     m_para_m->setpara_nb_threads_spinBox( para_nb_threads_spinBox->value() );
     m_para_m->setpara_nb_memory_registration_spinBox( para_nb_memory_registration_spinBox->value() );
-
-
-    //m.setdtiprocess_lineEdit();
-    //m.setDTIReg_lineEdit();
 
     m_sync = 0 ;
 }
@@ -145,7 +147,12 @@ void AutoTractWindow::SyncUiToModelStructure( QString prefix )
         m_para_m->setpara_tractOverlapRatio_spinBox( para_tractOverlapRatio_spinBox->value() );
         m_para_m->setpara_tractMaxDistThreshold_spinBox( para_tractMaxDistThreshold_spinBox->value() );
 
-        /*7th tab: Execution*/
+        /*7th tab: classification*/
+        m_para_m->setpara_trafic_model_dir_lineEdit( para_trafic_model_dir_lineEdit->text() );
+        m_para_m->setpara_enable_trafic_checkBox(para_enable_trafic_checkBox->isChecked());
+        m_para_m->setpara_no_tract_output_trafic_checkBox(para_no_tract_output_trafic_checkBox->isChecked());
+
+        /*8th tab: Execution*/
         //m_para_m->setpara_all_radioButton( para_all_radioButton->isChecked() );
         //m_para_m->setpara_singletract_radioButton( para_singletract_radioButton->isChecked() );
         m_para_m->setpara_computingSystem_comboBox( para_computingSystem_comboBox->currentText() );
@@ -176,6 +183,7 @@ void AutoTractWindow::SyncUiToModelStructure( QString prefix )
         m_soft_m->setsoft_slicer_lineEdit( soft_slicer_lineEdit->text() );
         m_soft_m->setsoft_ANTS_lineEdit( soft_ANTS_lineEdit->text() );
         m_soft_m->setsoft_ITKTransformTools_lineEdit( soft_ITKTransformTools_lineEdit->text() );
+        m_soft_m->setsoft_docker_lineEdit( soft_docker_lineEdit->text() );
 
     }
     m_sync = 0 ;
@@ -184,7 +192,6 @@ void AutoTractWindow::SyncUiToModelStructure( QString prefix )
 
 void AutoTractWindow::SyncModelStructureToUi()
 {
-std::cout<<"plop"<<std::endl;
     if( m_sync == 1)
     {
         return;
@@ -226,6 +233,7 @@ std::cout<<it->second<<std::endl;
     soft_slicer_lineEdit->setText( m_soft_m->getsoft_slicer_lineEdit() );
     soft_ANTS_lineEdit->setText( m_soft_m->getsoft_ANTS_lineEdit() );
     soft_ITKTransformTools_lineEdit->setText( m_soft_m->getsoft_ITKTransformTools_lineEdit() );
+    soft_docker_lineEdit->setText( m_soft_m->getsoft_docker_lineEdit() );
 
     /*4th tab: registration*/
     para_registration_type_comboBox->setCurrentIndex(para_registration_type_comboBox->findText(m_para_m->getpara_registration_type_comboBox()));
@@ -252,7 +260,14 @@ std::cout<<it->second<<std::endl;
     para_tractOverlapRatio_spinBox->setValue(m_para_m->getpara_tractOverlapRatio_spinBox() );
     para_tractMaxDistThreshold_spinBox->setValue(m_para_m->getpara_tractMaxDistThreshold_spinBox() );
 
-    /*7th tab: Execution*/
+    /*7th tab: classification*/
+    para_enable_trafic_checkBox->setChecked(m_para_m->getpara_enable_trafic_checkBox());
+    para_no_tract_output_trafic_checkBox->setChecked(m_para_m->getpara_no_tract_output_trafic_checkBox());
+    para_trafic_model_dir_lineEdit->setText(m_para_m->getpara_trafic_model_dir_lineEdit());
+    // m_para_m->setpara_trafic_model_dir_lineEdit( para_trafic_model_dir_lineEdit->value() );
+
+
+    /*8th tab: Execution*/
     //para_all_radioButton->setChecked( m_para_m->getpara_all_radioButton() );
     //para_singletract_radioButton->setChecked( m_para_m->getpara_singletract_radioButton() );
     para_computingSystem_comboBox->setCurrentIndex(para_computingSystem_comboBox->findText(m_para_m->getpara_computingSystem_comboBox() ) );
@@ -319,7 +334,13 @@ void AutoTractWindow::SyncModelStructureToUi( QString prefix )
         para_tractOverlapRatio_spinBox->setValue(m_para_m->getpara_tractOverlapRatio_spinBox() );
         para_tractMaxDistThreshold_spinBox->setValue(m_para_m->getpara_tractMaxDistThreshold_spinBox() );
 
-        /*7th tab: Execution*/
+        /*7th tab: classification*/   
+        para_enable_trafic_checkBox->setChecked(m_para_m->getpara_enable_trafic_checkBox());
+        para_no_tract_output_trafic_checkBox->setChecked(m_para_m->getpara_no_tract_output_trafic_checkBox());
+        para_trafic_model_dir_lineEdit->setText(m_para_m->getpara_trafic_model_dir_lineEdit());
+        // m_para_m->setpara_trafic_model_dir_lineEdit( para_trafic_model_dir_lineEdit->value() );
+
+        /*8th tab: Execution*/
         //para_all_radioButton->setChecked( m_para_m->getpara_all_radioButton() );
         //para_singletract_radioButton->setChecked( m_para_m->getpara_singletract_radioButton() );
         para_computingSystem_comboBox->setCurrentIndex(para_computingSystem_comboBox->findText(m_para_m->getpara_computingSystem_comboBox() ) );
@@ -349,6 +370,7 @@ void AutoTractWindow::SyncModelStructureToUi( QString prefix )
         soft_slicer_lineEdit->setText( m_soft_m->getsoft_slicer_lineEdit() );
         soft_ANTS_lineEdit->setText( m_soft_m->getsoft_ANTS_lineEdit() );
         soft_ITKTransformTools_lineEdit->setText( m_soft_m->getsoft_ITKTransformTools_lineEdit() );
+        soft_docker_lineEdit->setText( m_soft_m->getsoft_docker_lineEdit() );
     }
     m_sync = 0 ;
 }
