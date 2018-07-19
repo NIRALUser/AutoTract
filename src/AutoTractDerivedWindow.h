@@ -32,6 +32,8 @@ public slots:
     void checkAllTracts();
     void uncheckAllTracts();
     void changeComputingSystem();
+    void selectTraficModelDirectory();
+    void enterTraficModelDirectory();
 private slots:
     void SaveParaConfigFile();
     void LoadParaConfigFile();
@@ -68,6 +70,7 @@ private:
     Pipeline* m_pipeline;
     QStringList m_selectedTracts;
     QString m_tractPopulationDirectory;
+    QString m_traficModelDirectory;
     QString m_script;
 };
 

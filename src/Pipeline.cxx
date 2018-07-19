@@ -2,6 +2,7 @@
 #include <QTime>
 #include <QCoreApplication>
 
+
 // Remove sleep function that only works on linux
 // http://stackoverflow.com/questions/3752742/how-do-i-create-a-pause-wait-function-using-qt
 void delay( int secondsToWait )
@@ -115,11 +116,11 @@ void Pipeline::writeMainScript()
     m_script += m_importingModules;
     defineSignalHandler();
     initializeLogging();
+    
     m_script += "os.environ['ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS'] = '" + QString::number(m_para_m->getpara_nbCores_spinBox()) +  "' \n";
-
-    m_script += "logger.info(sys.executable)\n";
-
+    
     m_script += "start = datetime.datetime.now()\n\n";
+    m_script += "logger.info(sys.executable)\n";
 
     m_script += m_runningModules + "\n";
 
@@ -225,6 +226,44 @@ void Pipeline::writeProcess()
     m_runningModules += module_name + ".run()\n";
 }
 
+void Pipeline::writeClassification()
+{   
+    if(!m_para_m->getpara_enable_trafic_checkBox() || m_soft_m->getsoft_docker_lineEdit().isEmpty())
+    {
+        return;
+    }
+
+    QString directory_name = "4.Classification";
+    QString directory_path = createModuleDirectory(directory_name);
+
+    QString module_name = "Classification";
+    m_classification = new::Classification(module_name);
+
+    m_classification->setModuleDirectory(directory_path);
+    m_classification->setProcessingDirectory(m_processing_path);
+    m_classification->setPostProcessPath(createModuleDirectory(QString("3.PostProcess")));
+    m_classification->setLogPath(m_log_path);
+    m_classification->setDisplacementFieldPath(m_displacementFieldPath);
+    m_classification->setScriptParameters(m_para_m);
+    m_classification->setScriptSoftwares(m_soft_m);
+
+    m_classification->update();
+    m_importingModules += "import subprocess\n";
+
+    QString python_path = m_soft_m->getsoft_python_lineEdit();
+    if(python_path[0] == '~')
+        python_path.replace(0, 1, QDir::homePath());
+
+    //Launching in subprocess because of logging conflict/bug with the docker-py library
+    m_runningModules += "args = ['" + python_path + "', '-c', 'import sys; sys.path.append(\\'" + m_processing_path + "\\'); import Classification; Classification.run()']\n";
+    m_runningModules += "logger.info('Starting Classification subprocess:')\n";
+    m_runningModules += "logger.debug(subprocess.list2cmdline(args))\n";
+
+    m_runningModules += "runningProcess = subprocess.Popen(args,stdout=subprocess.PIPE,stderr=subprocess.PIPE)\n";
+    m_runningModules += "runningProcess.communicate()\n";
+}
+
+
 void Pipeline::writeSingleTractProcess()
 {
     QString module_name = "SingleTractProcess";
@@ -259,6 +298,7 @@ void Pipeline::writePipeline()
     writeMaskCreation();
     writeProcess();
     writeSingleTractProcess();
+    writeClassification();
     writeMainScript();
 }
 
@@ -278,18 +318,18 @@ void Pipeline::runPipeline()
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     if(python_path!="")
     {
+        if(python_path[0] == '~')
+            python_path.replace(0,1,QDir::homePath());
         QString pythonDirectory_path = ((QFileInfo(python_path)).absoluteDir()).path();
         env.insert("PATH", pythonDirectory_path + ":" + env.value("PATH"));
         env.insert("PYTHONPATH", "");
     }
-
     m_mainScriptProcess = new QProcess;
     m_mainScriptProcess->setProcessEnvironment(env);
     m_mainScriptProcess->start(command);
     m_mainScriptProcess->waitForStarted();
     m_mainScriptProcess->waitForFinished();
     m_timer.start();
-
     while (!m_mainScriptProcess->waitForFinished())
     {
         delay(1);

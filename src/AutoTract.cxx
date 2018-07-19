@@ -15,6 +15,7 @@
 int main( int argc , char** argv )
 {
     PARSE_ARGS;
+    Q_INIT_RESOURCE(resources);
     para_Model_AutoTract para_m;
     para_Save_AutoTract para_s;
     para_Load_AutoTract para_l;

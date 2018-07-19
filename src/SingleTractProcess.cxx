@@ -146,67 +146,71 @@ void SingleTractProcess::implementSingleTractProcess()
     m_argumentsList << "FiberPostProcess" << "'-i'" << "tractedFiber" << "'-o'" << "fiberCropped" << "'--crop'" << "'-m'" << "WMMask" << "'--thresholdMode'" << "'above'";
     execute();
 
-    m_log = "Masking with CSF mask";
-    m_script += "\n";
-    m_script += "\tfiberMaskedCSF = current_dir + '/' + name + '_maskCSF.vtp'";
-    m_script += "\n";
-    if( m_para_m->getpara_inputCSFmask_lineEdit() != "" )
+    if(0) //disabled
     {
-        m_script += "\tCSFMask ='" + m_para_m->getpara_inputCSFmask_lineEdit() + "'\n";
+        m_log = "Masking with CSF mask";
         m_script += "\n";
-    }
-    else
-    {
-        m_script += "\tCSFMask = output_dir + '/2.MaskCreation/CSFmask.nrrd'";
+        m_script += "\tfiberMaskedCSF = current_dir + '/' + name + '_maskCSF.vtp'";
         m_script += "\n";
+        if( m_para_m->getpara_inputCSFmask_lineEdit() != "" )
+        {
+            m_script += "\tCSFMask ='" + m_para_m->getpara_inputCSFmask_lineEdit() + "'\n";
+            m_script += "\n";
+        }
+        else
+        {
+            m_script += "\tCSFMask = output_dir + '/2.MaskCreation/CSFmask.nrrd'";
+            m_script += "\n";
+        }
+        m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberCropped" << "'-o'" << "fiberMaskedCSF" << "'--mask'" << "'--clean'";
+        m_argumentsList << "'-m'" << "CSFMask" << "'--thresholdMode'" << "'above'" << "'-t'" << "str(thresholdCSFmask)";
+        execute();
+
+        m_log = "Masking with dilated reference image";
+        m_script += "\n";
+        m_script += "\tfiberMaskedTract = current_dir + '/' + name + '_maskTract.vtp'";
+        m_script += "\n";
+        m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberMaskedCSF" << "'-o'" << "fiberMaskedTract" << "'--mask'" << "'--clean'";
+        m_argumentsList << "'-m'" << "dilatedImage" << "'--thresholdMode'" << "'below'" << "'-t'" << "str(tractOverlapRatio)";
+        execute();
+
+        m_log = "Matching length with reference tract";
+        m_script += "\n";
+        m_script += "\tfiberLengthMatch = current_dir + '/' + name + '_lengthMatch.vtp'";
+        m_script += "\n";
+        m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberMaskedTract" << "'--lengthMatch'" << "refFiberCropped" << "'-o'" << "fiberLengthMatch";
+        execute();
+
+        m_log = "Computation of the distance map of the reference tract - Step 1";
+        m_script += "\n";
+        m_script += "\tvoxelizedImage = current_dir + '/' + name + '_voxelizedImage.nrrd'";
+        m_script += "\n";
+        m_argumentsList << "fiberprocess" << "'--voxelize'" << "voxelizedImage" << "'--fiber_file'" << "refFiberCropped" << "'-T'" << "output_dir + '/2.MaskCreation/upsampledImage.nrrd'";
+        execute();
+
+        m_log = "Computation of the distance map of the reference tract - Step 2";
+        m_script += "\n";
+        m_script += "\tdistanceMap = current_dir + '/' + name + '_distanceMap.nrrd'";
+        m_script += "\n";
+        m_argumentsList << "MDT" << "voxelizedImage" << "distanceMap";
+        execute();
+
+        m_log = "Matching tract with the distance map";
+        m_script += "\n";
+        m_script += "\toutputTract = current_dir + '/' + name + '_processed.vtp'";
+        m_script += "\n";
+        m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberLengthMatch" << "'-o'" << "outputTract" << "'-m'" << "distanceMap" << "'--threshold'" << "str(tractMaxDistThreshold)";
+        m_argumentsList << "'--mask'" << "'--clean'" << "'--thresholdMode'" << "'above'";
+        execute();
+
+        m_log = "Creation of a tmp txt file";
+        m_script += "\n";
+        m_script += "\ttmp = current_dir + '/' + name + '_tmp.txt'";
+        m_script += "\n";
+        m_argumentsList << "'touch'" << "tmp";
+        execute();
     }
-    m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberCropped" << "'-o'" << "fiberMaskedCSF" << "'--mask'" << "'--clean'";
-    m_argumentsList << "'-m'" << "CSFMask" << "'--thresholdMode'" << "'above'" << "'-t'" << "str(thresholdCSFmask)";
-    execute();
 
-    m_log = "Masking with dilated reference image";
-    m_script += "\n";
-    m_script += "\tfiberMaskedTract = current_dir + '/' + name + '_maskTract.vtp'";
-    m_script += "\n";
-    m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberMaskedCSF" << "'-o'" << "fiberMaskedTract" << "'--mask'" << "'--clean'";
-    m_argumentsList << "'-m'" << "dilatedImage" << "'--thresholdMode'" << "'below'" << "'-t'" << "str(tractOverlapRatio)";
-    execute();
-
-    m_log = "Matching length with reference tract";
-    m_script += "\n";
-    m_script += "\tfiberLengthMatch = current_dir + '/' + name + '_lengthMatch.vtp'";
-    m_script += "\n";
-    m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberMaskedTract" << "'--lengthMatch'" << "refFiberCropped" << "'-o'" << "fiberLengthMatch";
-    execute();
-
-    m_log = "Computation of the distance map of the reference tract - Step 1";
-    m_script += "\n";
-    m_script += "\tvoxelizedImage = current_dir + '/' + name + '_voxelizedImage.nrrd'";
-    m_script += "\n";
-    m_argumentsList << "fiberprocess" << "'--voxelize'" << "voxelizedImage" << "'--fiber_file'" << "refFiberCropped" << "'-T'" << "output_dir + '/2.MaskCreation/upsampledImage.nrrd'";
-    execute();
-
-    m_log = "Computation of the distance map of the reference tract - Step 2";
-    m_script += "\n";
-    m_script += "\tdistanceMap = current_dir + '/' + name + '_distanceMap.nrrd'";
-    m_script += "\n";
-    m_argumentsList << "MDT" << "voxelizedImage" << "distanceMap";
-    execute();
-
-    m_log = "Matching tract with the distance map";
-    m_script += "\n";
-    m_script += "\toutputTract = current_dir + '/' + name + '_processed.vtp'";
-    m_script += "\n";
-    m_argumentsList << "FiberPostProcess" << "'-i'" << "fiberLengthMatch" << "'-o'" << "outputTract" << "'-m'" << "distanceMap" << "'--threshold'" << "str(tractMaxDistThreshold)";
-    m_argumentsList << "'--mask'" << "'--clean'" << "'--thresholdMode'" << "'above'";
-    execute();
-
-    m_log = "Creation of a tmp txt file";
-    m_script += "\n";
-    m_script += "\ttmp = current_dir + '/' + name + '_tmp.txt'";
-    m_script += "\n";
-    m_argumentsList << "'touch'" << "tmp";
-    execute();
 
 }
 

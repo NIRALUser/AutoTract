@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="2.0" encoding="utf-8"?>
 <executable>
    <title>AutoTract</title>
    <description>A tool to automatically tract a brain image from a reference DTI atlas image and its tracts. For any suggestion or question, please contact jeanyves.yang[at]gmail.com</description>

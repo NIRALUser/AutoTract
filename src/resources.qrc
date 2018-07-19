@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="src">
+    <file>scripts/Classification.py</file>
+  </qresource>
+</RCC>

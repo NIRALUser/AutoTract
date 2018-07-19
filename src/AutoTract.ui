@@ -23,6 +23,9 @@
     </property>
     <item row="2" column="0">
      <widget class="QTabWidget" name="tabWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -272,6 +275,13 @@
               <string>Executables</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_5">
+              <item row="13" column="3">
+               <widget class="QPushButton" name="reset_dtiprocess_pushButton">
+                <property name="text">
+                 <string>Reset</string>
+                </property>
+               </widget>
+              </item>
               <item row="0" column="2">
                <widget class="QLineEdit" name="soft_ITKTransformTools_lineEdit"/>
               </item>
@@ -346,6 +356,9 @@
                 </property>
                </widget>
               </item>
+              <item row="7" column="2">
+               <widget class="QLineEdit" name="soft_TractographyLabelMapSeeding_lineEdit"/>
+              </item>
               <item row="6" column="3">
                <widget class="QPushButton" name="reset_ImageMath_pushButton">
                 <property name="text">
@@ -360,8 +373,8 @@
                 </property>
                </widget>
               </item>
-              <item row="7" column="2">
-               <widget class="QLineEdit" name="soft_TractographyLabelMapSeeding_lineEdit"/>
+              <item row="8" column="2">
+               <widget class="QLineEdit" name="soft_FiberPostProcess_lineEdit"/>
               </item>
               <item row="7" column="3">
                <widget class="QPushButton" name="reset_TractographyLabelMapSeeding_pushButton">
@@ -377,8 +390,8 @@
                 </property>
                </widget>
               </item>
-              <item row="8" column="2">
-               <widget class="QLineEdit" name="soft_FiberPostProcess_lineEdit"/>
+              <item row="9" column="2">
+               <widget class="QLineEdit" name="soft_polydatatransform_lineEdit"/>
               </item>
               <item row="8" column="3">
                <widget class="QPushButton" name="reset_FiberPostProcess_pushButton">
@@ -394,8 +407,8 @@
                 </property>
                </widget>
               </item>
-              <item row="9" column="2">
-               <widget class="QLineEdit" name="soft_polydatatransform_lineEdit"/>
+              <item row="10" column="2">
+               <widget class="QLineEdit" name="soft_unu_lineEdit"/>
               </item>
               <item row="9" column="3">
                <widget class="QPushButton" name="reset_polydatatransform_pushButton">
@@ -411,16 +424,6 @@
                 </property>
                </widget>
               </item>
-              <item row="10" column="2">
-               <widget class="QLineEdit" name="soft_unu_lineEdit"/>
-              </item>
-              <item row="10" column="3">
-               <widget class="QPushButton" name="reset_unu_pushButton">
-                <property name="text">
-                 <string>Reset</string>
-                </property>
-               </widget>
-              </item>
               <item row="11" column="0">
                <widget class="QPushButton" name="MDT_pushButton">
                 <property name="text">
@@ -431,6 +434,13 @@
               <item row="11" column="2">
                <widget class="QLineEdit" name="soft_MDT_lineEdit"/>
               </item>
+              <item row="10" column="3">
+               <widget class="QPushButton" name="reset_unu_pushButton">
+                <property name="text">
+                 <string>Reset</string>
+                </property>
+               </widget>
+              </item>
               <item row="11" column="3">
                <widget class="QPushButton" name="reset_MDT_pushButton">
                 <property name="text">
@@ -438,15 +448,15 @@
                 </property>
                </widget>
               </item>
+              <item row="12" column="2">
+               <widget class="QLineEdit" name="soft_python_lineEdit"/>
+              </item>
               <item row="12" column="0">
                <widget class="QPushButton" name="python_pushButton">
                 <property name="text">
                  <string>python</string>
                 </property>
                </widget>
-              </item>
-              <item row="12" column="2">
-               <widget class="QLineEdit" name="soft_python_lineEdit"/>
               </item>
               <item row="13" column="2">
                <widget class="QLineEdit" name="soft_dtiprocess_lineEdit"/>
@@ -462,13 +472,6 @@
                <widget class="QPushButton" name="dtiprocess_pushButton">
                 <property name="text">
                  <string>dtiprocess</string>
-                </property>
-               </widget>
-              </item>
-              <item row="13" column="3">
-               <widget class="QPushButton" name="reset_dtiprocess_pushButton">
-                <property name="text">
-                 <string>Reset</string>
                 </property>
                </widget>
               </item>
@@ -509,6 +512,23 @@
               </item>
               <item row="1" column="2">
                <widget class="QLineEdit" name="soft_ANTS_lineEdit"/>
+              </item>
+              <item row="14" column="0">
+               <widget class="QPushButton" name="docker_pushButton">
+                <property name="text">
+                 <string>docker</string>
+                </property>
+               </widget>
+              </item>
+              <item row="14" column="2">
+               <widget class="QLineEdit" name="soft_docker_lineEdit"/>
+              </item>
+              <item row="14" column="3">
+               <widget class="QPushButton" name="reset_docker_pushButton">
+                <property name="text">
+                 <string>Reset</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -1276,6 +1296,9 @@ on the same fiber (mm)</string>
        </layout>
       </widget>
       <widget class="QWidget" name="processing_parameters_tab">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <attribute name="title">
         <string>Processing</string>
        </attribute>
@@ -1472,6 +1495,102 @@ the fiber is removed</string>
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="classification_tab">
+       <attribute name="title">
+        <string>Classification</string>
+       </attribute>
+       <widget class="QWidget" name="tracts_dir_widget_2" native="true">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>688</width>
+          <height>191</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <item>
+          <widget class="QGroupBox" name="trafic_config_groupBox">
+           <property name="title">
+            <string>Trafic Model</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_12">
+            <property name="topMargin">
+             <number>18</number>
+            </property>
+            <item row="0" column="1">
+             <widget class="QLabel" name="enable_trafic_descr_label">
+              <property name="font">
+               <font>
+                <italic>true</italic>
+               </font>
+              </property>
+              <property name="text">
+               <string>Enable deep learning-based tract classification</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QPushButton" name="trafic_model_dir_pushButton">
+              <property name="text">
+               <string>Model Archive</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="para_enable_trafic_checkBox">
+              <property name="text">
+               <string>Enable Trafic</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QCheckBox" name="para_no_tract_output_trafic_checkBox">
+              <property name="text">
+               <string>Don't output Tracts</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLineEdit" name="para_trafic_model_dir_lineEdit"/>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="no_tract_output_trafic_descr_label">
+              <property name="font">
+               <font>
+                <italic>true</italic>
+               </font>
+              </property>
+              <property name="text">
+               <string>If this is set, the software will output classification results as a JSON file, taking up less space</string>
+              </property>
+              <property name="scaledContents">
+               <bool>false</bool>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <spacer name="verticalSpacer_10">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>698</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
       <widget class="QWidget" name="Execution_tab">
        <attribute name="title">
@@ -1833,6 +1952,19 @@ the fiber is removed</string>
       </widget>
      </widget>
     </item>
+    <item row="3" column="0">
+     <spacer name="verticalSpacer_9">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>368</width>
+        <height>69</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -1841,7 +1973,7 @@ the fiber is removed</string>
      <x>0</x>
      <y>0</y>
      <width>746</width>
-     <height>25</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1905,6 +2037,8 @@ the fiber is removed</string>
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
