@@ -1,6 +1,11 @@
 #include "AutoTractWindow.h"
 #include <iostream>
-AutoTractWindow::AutoTractWindow(QWidget * parent , Qt::WFlags f): QMainWindow( parent , f )
+
+#ifdef QT_4_SUPPORT
+    AutoTractWindow::AutoTractWindow(QWidget * parent , Qt::WFlags f): QMainWindow( parent , f )
+#else
+    AutoTractWindow::AutoTractWindow(QWidget * parent , Qt::WindowFlags f): QMainWindow( parent , f )
+#endif
 {
     setupUi( this ) ;
     m_sync = 0 ;

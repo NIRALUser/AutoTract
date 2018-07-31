@@ -15,8 +15,19 @@ set(CMAKE_MODULE_PATH
 find_package(QtToCppXML REQUIRED)
 include(${QtToCppXML_USE_FILE})
 
-find_package(Qt4 COMPONENTS QtCore QtGui QtXml REQUIRED)
-include(${QT_USE_FILE})
+
+
+IF(Qt4_SUPPORT)
+  add_definitions(-DQT_4_SUPPORT=1)
+  find_package(Qt4 COMPONENTS QtCore QtGui QtXml REQUIRED)
+  include(${QT_USE_FILE})
+
+ELSE()
+  find_package(Qt5 REQUIRED Core Widgets Xml)
+  include_directories(${Qt5Widgets_INCLUDES})
+  include_directories(${Qt5Xml_INCLUDES})
+ENDIF()
+
 
 #Find SlicerExecutionModel
 FIND_PACKAGE(SlicerExecutionModel REQUIRED)

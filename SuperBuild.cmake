@@ -43,8 +43,15 @@ endif()
 
 set(EXTERNAL_PROJECT_BUILD_TYPE "Release" CACHE STRING "Default build type for support libraries")
 
-set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt4 ITKv4 SlicerExecutionModel QtToCppXML)
-set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD ITK SlicerExecutionModel QtToCppXML)
+
+IF(Qt4_SUPPORT)
+  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt4 ITKv4 SlicerExecutionModel QtToCppXML)
+ELSE()
+  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt5 ITKv4 SlicerExecutionModel QtToCppXML)
+ENDIF()
+set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD  ITK SlicerExecutionModel QtToCppXML)
+
+option(USE_SYSTEM_ITK "Build using an externally defined version of ITK" OFF)
 
 #-----------------------------------------------------------------------------
 # Define Superbuild global variables

@@ -11,6 +11,8 @@ set(${LOCAL_PROJECT_NAME}_VERSION_MAJOR "0")
 set(${LOCAL_PROJECT_NAME}_VERSION_MINOR "1")
 set(${LOCAL_PROJECT_NAME}_VERSION_PATCH "1")
 
+option(Qt4_SUPPORT "Build with QT4 support." ON)
+
 #-----------------------------------------------------------------------------
 # Update CMake module path
 # We need to update the CMake Module path in this main CMakeLists.txt file
