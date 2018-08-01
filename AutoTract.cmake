@@ -7,6 +7,7 @@ PROJECT(AutoTract)
 # SLICER EXTENSION
 #-----------------------------------------------------------------------------
 if( AutoTract_BUILD_SLICER_EXTENSION )
+  
   ADD_DEFINITIONS(-DSPV_EXTENSION=1)
   set(EXTENSION_NAME ${LOCAL_PROJECT_NAME} )
   set(MODULE_NAME ${LOCAL_PROJECT_NAME} )
