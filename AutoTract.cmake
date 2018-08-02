@@ -34,11 +34,6 @@ set(CMAKE_MODULE_PATH
   )
 
 
-find_package(QtToCppXML REQUIRED)
-include(${QtToCppXML_USE_FILE})
-
-
-
 IF(Qt4_SUPPORT)
   add_definitions(-DQT_4_SUPPORT=1)
   find_package(Qt4 COMPONENTS QtCore QtGui QtXml REQUIRED)
@@ -55,6 +50,10 @@ ENDIF()
 FIND_PACKAGE(SlicerExecutionModel REQUIRED)
 INCLUDE(${SlicerExecutionModel_USE_FILE})
 #INCLUDE(${GenerateCLP_USE_FILE})
+
+
+find_package(QtToCppXML REQUIRED)
+include(${QtToCppXML_USE_FILE})
 
 set(ITK_IO_MODULES_USED
 ITKIOImageBase
