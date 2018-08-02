@@ -6,7 +6,7 @@ enable_language(CXX)
 #-----------------------------------------------------------------------------
 enable_testing()
 include(CTest)
-
+message(STATUS "222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222")
 #-----------------------------------------------------------------------------
 include(${CMAKE_CURRENT_SOURCE_DIR}/Common.cmake)
 set(EXTERNAL_SOURCE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} CACHE PATH "Select where external packages will be downloaded" )
