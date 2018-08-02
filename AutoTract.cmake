@@ -6,7 +6,7 @@ PROJECT(AutoTract)
 # SLICER EXTENSION
 #-----------------------------------------------------------------------------
 if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
-
+  message(STATUS "------------------SETTING EXTENSION VARIABLES-----------------")
   ADD_DEFINITIONS(-DSPV_EXTENSION=1)
   set(EXTENSION_NAME ${LOCAL_PROJECT_NAME} )
   set(MODULE_NAME ${LOCAL_PROJECT_NAME} )
@@ -95,6 +95,7 @@ ENDIF(BUILD_TESTING)
 
 
 if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
+  message(STATUS "------------------SETTING CPACK_INSTALL_CMAKE_PROJECTS-----------------")
   set(CPACK_INSTALL_CMAKE_PROJECTS "${CPACK_INSTALL_CMAKE_PROJECTS};${CMAKE_BINARY_DIR};${EXTENSION_NAME};ALL;/")
   include(${Slicer_EXTENSION_CPACK})
 endif()
