@@ -6,8 +6,10 @@ message(STATUS "-----------------------------reading SuperBuild.cmake-----------
 
 if (DEFINED ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
 message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------")
+set(extension_args "${Slicer_DIR} ${Slicer_EXTENSION_DESCRIPTION_DIR} ${CMAKE_BUILD_TYPE}")
 else()
 message(STATUS "-----------------------------BUILD_SLICER_EXTENSION not defined------------------------------")
+set(extension_args "")
 endif()
 #-----------------------------------------------------------------------------
 enable_testing()
@@ -116,6 +118,7 @@ ExternalProject_Add(${proj}
   BINARY_DIR ${PRIMARY_PROJECT_NAME}-build
   CMAKE_GENERATOR ${gen}
   CMAKE_ARGS
+    ${extension_args}
     ${${CMAKE_PROJECT_NAME}_SUPERBUILD_EP_ARGS}
     -D${PRIMARY_PROJECT_NAME}_SUPERBUILD:BOOL=OFF    #NOTE: VERY IMPORTANT reprocess top level CMakeList.txt
     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/${PRIMARY_PROJECT_NAME}-install
