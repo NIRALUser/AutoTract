@@ -73,7 +73,20 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/Common.cmake)
 #                             packages built in Phase I.
 #-----------------------------------------------------------------------------
 
-option(${LOCAL_PROJECT_NAME}_SUPERBUILD "Build ${LOCAL_PROJECT_NAME} and the projects it depends on via SuperBuild.cmake." ON)
+set(_default ON)
+if(${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
+  set(_default OFF)
+endif()
+
+option(${LOCAL_PROJECT_NAME}_SUPERBUILD "Build ${LOCAL_PROJECT_NAME} and the projects it depends on via SuperBuild.cmake." ${_default})
+
+set(_msg "Checking if enabling Superbuild")
+message(STATUS ${_msg})
+if(${LOCAL_PROJECT_NAME}_SUPERBUILD)
+  message(STATUS "${_msg} - yes")
+else()
+  message(STATUS "${_msg} - no")
+endif()
 
 #-----------------------------------------------------------------------------
 # Superbuild script
