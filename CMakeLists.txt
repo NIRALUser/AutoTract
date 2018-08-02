@@ -19,22 +19,13 @@ set(${LOCAL_PROJECT_NAME}_VERSION_PATCH "1")
 # option set to ON when the project is build by the Slicer Extension build
 # system.
 
-set(_default OFF)
-set(_reason "${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION is ON")
-if(NOT DEFINED ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION AND DEFINED Slicer_DIR)
-  set(_default ON)
-  set(_reason "Slicer_DIR is SET")
+
+if( DEFINED Slicer_DIR)
+option(${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION "Build as a Slicer Extension" ON)
 endif()
 
-option(${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION "Build as a Slicer Extension" ${_default})
 
-set(_msg "Checking if building as a Slicer extension")
-message(STATUS ${_msg})
-if(${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
-  message(STATUS "${_msg} - yes (${_reason})")
-else()
-  message(STATUS "${_msg} - no (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION is OFF)")
-endif()
+
 
 option(Qt4_SUPPORT "Build with QT4 support." ON)
 
@@ -80,6 +71,7 @@ option(${LOCAL_PROJECT_NAME}_SUPERBUILD "Build ${LOCAL_PROJECT_NAME} and the pro
 
 if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
   find_package(Slicer REQUIRED)
+  include(${Slicer_USE_FILE})
   if (Slicer_REQUIRED_QT_VERSION VERSION_GREATER "4.9")
     set(_qt_version "5")
   endif()
