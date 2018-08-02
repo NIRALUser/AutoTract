@@ -11,7 +11,6 @@ set(${LOCAL_PROJECT_NAME}_VERSION_MAJOR "0")
 set(${LOCAL_PROJECT_NAME}_VERSION_MINOR "1")
 set(${LOCAL_PROJECT_NAME}_VERSION_PATCH "1")
 
-message(STATUS "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 #-----------------------------------------------------------------------------
 # Standalone vs Slicer extension option
 #
