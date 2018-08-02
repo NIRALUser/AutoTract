@@ -3,6 +3,12 @@
 enable_language(C)
 enable_language(CXX)
 message(STATUS "-----------------------------reading SuperBuild.cmake------------------------------")
+
+if (DEFINED ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
+message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------")
+else()
+message(STATUS "-----------------------------BUILD_SLICER_EXTENSION not defined------------------------------")
+endif()
 #-----------------------------------------------------------------------------
 enable_testing()
 include(CTest)
@@ -44,8 +50,10 @@ set(EXTERNAL_PROJECT_BUILD_TYPE "Release" CACHE STRING "Default build type for s
 
 
 IF(Qt4_SUPPORT)
+  message(STATUS "-----------------------------Qt4 Support------------------------------")
   set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt4 ITKv4 SlicerExecutionModel QtToCppXML)
 ELSE()
+  message(STATUS "-----------------------------Qt5 Support------------------------------")
   set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt5 ITKv4 SlicerExecutionModel QtToCppXML)
 ENDIF()
 set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD  ITK SlicerExecutionModel QtToCppXML)

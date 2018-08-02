@@ -24,7 +24,11 @@ if( DEFINED Slicer_DIR)
 option(${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION "Build as a Slicer Extension" ON)
 endif()
 
-
+if (DEFINED ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
+message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------")
+else()
+message(STATUS "-----------------------------BUILD_SLICER_EXTENSION not defined------------------------------")
+endif()
 
 
 option(Qt4_SUPPORT "Build with QT4 support." ON)

@@ -2,6 +2,12 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
 CMAKE_POLICY(VERSION 2.6)
 PROJECT(AutoTract)
 message(STATUS "-----------------------------reading AutoTract.cmake------------------------------")
+
+if (DEFINED ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
+message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------")
+else()
+message(STATUS "-----------------------------BUILD_SLICER_EXTENSION not defined------------------------------")
+endif()
 #-----------------------------------------------------------------------------
 # SLICER EXTENSION
 #-----------------------------------------------------------------------------
