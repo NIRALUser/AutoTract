@@ -74,6 +74,8 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/Common.cmake)
 #-----------------------------------------------------------------------------
 
 
+option(${LOCAL_PROJECT_NAME}_SUPERBUILD "Build ${LOCAL_PROJECT_NAME} and the projects it depends on via SuperBuild.cmake." ON)
+
 
 
 if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
