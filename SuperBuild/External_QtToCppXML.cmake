@@ -43,16 +43,19 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
 
   set(${proj}_DEPENDENCIES)
 
-  if(NOT DEFINED SlicerExecutionModel_DIR)
+#if(NOT DEFINED SlicerExecutionModel_DIR)
     set(${proj}_DEPENDENCIES ${${proj}_DEPENDENCIES} SlicerExecutionModel )
-  endif()
+ # endif()
+
+
+
 
   IF(Qt4_SUPPORT)
     set(QT_VERSION 4)
-    set(${proj}_DEPENDENCIES ${${proj}_DEPENDENCIES} Qt4 )
+    set(${proj}_DEPENDENCIES SlicerExecutionModel Qt4 )
   ELSE()
     set(QT_VERSION 5)
-    set(${proj}_DEPENDENCIES ${${proj}_DEPENDENCIES} Qt5 )
+    set(${proj}_DEPENDENCIES SlicerExecutionModel Qt5 )
   ENDIF()  
 
   # Include dependent projects if any
