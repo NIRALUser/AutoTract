@@ -50,18 +50,15 @@ set(EXTERNAL_PROJECT_BUILD_TYPE "Release" CACHE STRING "Default build type for s
 
 set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES )
 
-if(defined ITK_DIR) 
-else()
+if(NOT DEFINED ITK_DIR) 
   list(APPEND ${PRIMARY_PROJECT_NAME}_DEPENDENCIES ITKv4)
 endif()
 
-if(defined SlicerExecutionModel_DIR) 
-else()
+if(NOT DEFINED SlicerExecutionModel_DIR) 
   list(APPEND ${PRIMARY_PROJECT_NAME}_DEPENDENCIES SlicerExecutionModel)
 endif()
 
-if(defined QtToCppXML_DIR) 
-else()
+if(NOT DEFINED QtToCppXML_DIR) 
   list(APPEND ${PRIMARY_PROJECT_NAME}_DEPENDENCIES QtToCppXML)
 endif()
 
