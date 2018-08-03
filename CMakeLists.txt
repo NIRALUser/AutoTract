@@ -21,17 +21,21 @@ set(${LOCAL_PROJECT_NAME}_VERSION_PATCH "1")
 
 
 if( DEFINED Slicer_DIR)
-option(${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION "Build as a Slicer Extension" ON)
-endif()
+  option(${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION "Build as a Slicer Extension" ON)
 
-if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
-message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------  Slicer_DIR : ${Slicer_DIR} ")
+  find_package(Slicer REQUIRED)
+  include(${Slicer_USE_FILE})
+
+  set(_qt_version "4")
+  if (Slicer_REQUIRED_QT_VERSION VERSION_GREATER "4.9")
+    set(_qt_version "5")
+    option(Qt4_SUPPORT "Build with QT4 support." OFF)
+  else()
+    option(Qt4_SUPPORT "Build with QT4 support." ON)
+  endif()
 else()
-message(STATUS "-----------------------------BUILD_SLICER_EXTENSION not defined------------------------------")
+  option(Qt4_SUPPORT "Build with QT4 support." ON)
 endif()
-
-
-option(Qt4_SUPPORT "Build with QT4 support." ON)
 
 #-----------------------------------------------------------------------------
 # Update CMake module path
