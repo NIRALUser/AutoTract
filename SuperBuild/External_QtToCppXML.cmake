@@ -41,11 +41,11 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
   #message(STATUS "${__indent}Adding project ${proj}")
   # Set dependency list
 
-  set(${proj}_DEPENDENCIES)
+  set(${proj}_DEPENDENCIES "")
 
-#if(NOT DEFINED SlicerExecutionModel_DIR)
+if(NOT DEFINED SlicerExecutionModel_DIR)
     set(${proj}_DEPENDENCIES ${${proj}_DEPENDENCIES} SlicerExecutionModel )
- # endif()
+ endif()
 
 
 
