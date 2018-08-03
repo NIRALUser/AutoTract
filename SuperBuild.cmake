@@ -7,13 +7,14 @@ message(STATUS "-----------------------------reading SuperBuild.cmake-----------
 if (DEFINED ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
   message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------ Slicer_DIR : ${Slicer_DIR} ")
 
-  if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
-    find_package(Slicer REQUIRED)
-    include(${Slicer_USE_FILE})
-    if (Slicer_REQUIRED_QT_VERSION VERSION_GREATER "4.9")
-      set(_qt_version "5")
-    endif()
+
+  find_package(Slicer REQUIRED)
+  include(${Slicer_USE_FILE})
+  message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------ Slicer found !")
+  if (Slicer_REQUIRED_QT_VERSION VERSION_GREATER "4.9")
+    set(_qt_version "5")
   endif()
+
 
 
   set(extension_args "")
