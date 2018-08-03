@@ -11,6 +11,8 @@ set(${LOCAL_PROJECT_NAME}_VERSION_MAJOR "0")
 set(${LOCAL_PROJECT_NAME}_VERSION_MINOR "1")
 set(${LOCAL_PROJECT_NAME}_VERSION_PATCH "1")
 
+option(Qt4_SUPPORT "Build with QT4 support." ON)
+
 #-----------------------------------------------------------------------------
 # Standalone vs Slicer extension option
 #
@@ -33,9 +35,17 @@ if( DEFINED Slicer_DIR)
   else()
     option(Qt4_SUPPORT "Build with QT4 support." ON)
   endif()
+
+  #Arguments to pass when reprocessing the top CMakeLists.txt
+  set(extension_args "")
+  list(APPEND extension_args -DSlicer_DIR:PATH=${Slicer_DIR})
+  list(APPEND extension_args -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE})
 else()
+  set(extension_args "")
   option(Qt4_SUPPORT "Build with QT4 support." ON)
 endif()
+
+
 
 #-----------------------------------------------------------------------------
 # Update CMake module path

@@ -6,27 +6,8 @@ message(STATUS "-----------------------------reading SuperBuild.cmake-----------
 
 if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
   message(STATUS "-----------------------------BUILD_SLICER_EXTENSION ON------------------------------ Slicer_DIR : ${Slicer_DIR} ")
-
-  message(STATUS "-----------------------------Looking for Slicer------------------------------ ")
-  find_package(Slicer REQUIRED)
-  include(${Slicer_USE_FILE})
-  message(STATUS "-----------------------------Slicer found !------------------------------ ")
-
-  set(_qt_version "4")
-  if (Slicer_REQUIRED_QT_VERSION VERSION_GREATER "4.9")
-    set(_qt_version "5")
-  endif()
-
-
-  #Arguments to pass when reprocessing the top CMakeLists.txt
-  set(extension_args "")
-  list(APPEND extension_args -DSlicer_DIR:PATH=${Slicer_DIR})
-  list(APPEND extension_args -DSlicer_EXTENSION_DESCRIPTION_DIR:PATH=${Slicer_EXTENSION_DESCRIPTION_DIR})
-  list(APPEND extension_args -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE})
-
 else()
   message(STATUS "-----------------------------BUILD_SLICER_EXTENSION OFF------------------------------")
-  set(extension_args "")
 endif()
 #-----------------------------------------------------------------------------
 enable_testing()
@@ -67,17 +48,32 @@ endif()
 
 set(EXTERNAL_PROJECT_BUILD_TYPE "Release" CACHE STRING "Default build type for support libraries")
 
+set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES )
+
+if(NOT defined ITK_DIR) 
+  list(APPEND ${PRIMARY_PROJECT_NAME}_DEPENDENCIES ITKv4)
+endif()
+
+if(NOT defined SlicerExecutionModel_DIR) 
+  list(APPEND ${PRIMARY_PROJECT_NAME}_DEPENDENCIES SlicerExecutionModel)
+endif()
+
+if(NOT defined QtToCppXML_DIR) 
+  list(APPEND ${PRIMARY_PROJECT_NAME}_DEPENDENCIES QtToCppXML)
+endif()
 
 IF(Qt4_SUPPORT)
   message(STATUS "-----------------------------Qt4 Support------------------------------")
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt4 ITKv4 SlicerExecutionModel QtToCppXML)
+  list(APPEND ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt4 )
 ELSE()
   message(STATUS "-----------------------------Qt5 Support------------------------------")
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt5 ITKv4 SlicerExecutionModel QtToCppXML)
+  list(APPEND ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt5 )
 ENDIF()
 set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD  ITK SlicerExecutionModel QtToCppXML)
 
-option(USE_SYSTEM_ITK "Build using an externally defined version of ITK" OFF)
+message(STATUS "------------------${${PRIMARY_PROJECT_NAME}_DEPENDENCIES}---------------")
+
+#option(USE_SYSTEM_ITK "Build using an externally defined version of ITK" OFF)
 
 #-----------------------------------------------------------------------------
 # Define Superbuild global variables

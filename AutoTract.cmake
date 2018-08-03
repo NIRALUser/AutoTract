@@ -1,18 +1,15 @@
 CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
 CMAKE_POLICY(VERSION 2.6)
 PROJECT(AutoTract)
+
+
 message(STATUS "-----------------------------reading AutoTract.cmake------------------------------")
 
-if (DEFINED ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
-message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------  Slicer_DIR : ${Slicer_DIR} ")
-else()
-message(STATUS "-----------------------------BUILD_SLICER_EXTENSION not defined------------------------------")
-endif()
 #-----------------------------------------------------------------------------
 # SLICER EXTENSION
 #-----------------------------------------------------------------------------
 if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
-  message(STATUS "------------------SETTING EXTENSION VARIABLES-----------------")
+  message(STATUS "----------------------------------SETTING EXTENSION VARIABLES-----------------------------------")
   #ADD_DEFINITIONS(-DSPV_EXTENSION=1)
   set(EXTENSION_NAME ${LOCAL_PROJECT_NAME} )
   set(MODULE_NAME ${LOCAL_PROJECT_NAME} )
