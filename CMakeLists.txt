@@ -25,7 +25,7 @@ option(${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION "Build as a Slicer Extension
 endif()
 
 if (DEFINED ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
-message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------")
+message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------  Slicer_DIR : ${Slicer_DIR} ")
 else()
 message(STATUS "-----------------------------BUILD_SLICER_EXTENSION not defined------------------------------")
 endif()

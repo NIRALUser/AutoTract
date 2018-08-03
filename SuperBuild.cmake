@@ -5,7 +5,7 @@ enable_language(CXX)
 message(STATUS "-----------------------------reading SuperBuild.cmake------------------------------")
 
 if (DEFINED ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
-message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------")
+message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------ Slicer_DIR : ${Slicer_DIR} ")
 set(extension_args "-DSlicer_DIR:PATH=${Slicer_DIR} -DSlicer_EXTENSION_DESCRIPTION_DIR:PATH=${Slicer_EXTENSION_DESCRIPTION_DIR} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 else()
 message(STATUS "-----------------------------BUILD_SLICER_EXTENSION not defined------------------------------")
