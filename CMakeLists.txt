@@ -73,13 +73,7 @@ option(${LOCAL_PROJECT_NAME}_SUPERBUILD "Build ${LOCAL_PROJECT_NAME} and the pro
 
 
 
-if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
-  find_package(Slicer REQUIRED)
-  include(${Slicer_USE_FILE})
-  if (Slicer_REQUIRED_QT_VERSION VERSION_GREATER "4.9")
-    set(_qt_version "5")
-  endif()
-endif()
+
 
 
 #-----------------------------------------------------------------------------

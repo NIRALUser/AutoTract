@@ -5,11 +5,25 @@ enable_language(CXX)
 message(STATUS "-----------------------------reading SuperBuild.cmake------------------------------")
 
 if (DEFINED ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
-message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------ Slicer_DIR : ${Slicer_DIR} ")
-set(extension_args "-DSlicer_DIR:PATH=${Slicer_DIR} -DSlicer_EXTENSION_DESCRIPTION_DIR:PATH=${Slicer_EXTENSION_DESCRIPTION_DIR} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
+  message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------ Slicer_DIR : ${Slicer_DIR} ")
+
+  if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
+    find_package(Slicer REQUIRED)
+    include(${Slicer_USE_FILE})
+    if (Slicer_REQUIRED_QT_VERSION VERSION_GREATER "4.9")
+      set(_qt_version "5")
+    endif()
+  endif()
+
+
+  set(extension_args "")
+  list(APPEND extension_args -DSlicer_DIR:PATH=${Slicer_DIR})
+  list(APPEND extension_args -DSlicer_EXTENSION_DESCRIPTION_DIR:PATH=${Slicer_EXTENSION_DESCRIPTION_DIR})
+  list(APPEND extension_args -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE})
+
 else()
-message(STATUS "-----------------------------BUILD_SLICER_EXTENSION not defined------------------------------")
-set(extension_args "")
+  message(STATUS "-----------------------------BUILD_SLICER_EXTENSION not defined------------------------------")
+  set(extension_args "")
 endif()
 #-----------------------------------------------------------------------------
 enable_testing()
