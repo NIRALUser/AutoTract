@@ -24,7 +24,7 @@ if( DEFINED Slicer_DIR)
 option(${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION "Build as a Slicer Extension" ON)
 endif()
 
-if (DEFINED ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
+if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
 message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------  Slicer_DIR : ${Slicer_DIR} ")
 else()
 message(STATUS "-----------------------------BUILD_SLICER_EXTENSION not defined------------------------------")
@@ -70,10 +70,6 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/Common.cmake)
 
 
 option(${LOCAL_PROJECT_NAME}_SUPERBUILD "Build ${LOCAL_PROJECT_NAME} and the projects it depends on via SuperBuild.cmake." ON)
-
-
-
-
 
 
 #-----------------------------------------------------------------------------

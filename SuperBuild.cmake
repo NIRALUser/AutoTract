@@ -4,26 +4,28 @@ enable_language(C)
 enable_language(CXX)
 message(STATUS "-----------------------------reading SuperBuild.cmake------------------------------")
 
-if (DEFINED ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
-  message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------ Slicer_DIR : ${Slicer_DIR} ")
+if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
+  message(STATUS "-----------------------------BUILD_SLICER_EXTENSION ON------------------------------ Slicer_DIR : ${Slicer_DIR} ")
 
-
+  message(STATUS "-----------------------------Looking for Slicer------------------------------ ")
   find_package(Slicer REQUIRED)
   include(${Slicer_USE_FILE})
-  message(STATUS "-----------------------------BUILD_SLICER_EXTENSION defined------------------------------ Slicer found !")
+  message(STATUS "-----------------------------Slicer found !------------------------------ ")
+
+  set(_qt_version "4")
   if (Slicer_REQUIRED_QT_VERSION VERSION_GREATER "4.9")
     set(_qt_version "5")
   endif()
 
 
-
+  #Arguments to pass when reprocessing the top CMakeLists.txt
   set(extension_args "")
   list(APPEND extension_args -DSlicer_DIR:PATH=${Slicer_DIR})
   list(APPEND extension_args -DSlicer_EXTENSION_DESCRIPTION_DIR:PATH=${Slicer_EXTENSION_DESCRIPTION_DIR})
   list(APPEND extension_args -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE})
 
 else()
-  message(STATUS "-----------------------------BUILD_SLICER_EXTENSION not defined------------------------------")
+  message(STATUS "-----------------------------BUILD_SLICER_EXTENSION OFF------------------------------")
   set(extension_args "")
 endif()
 #-----------------------------------------------------------------------------

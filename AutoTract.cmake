@@ -13,7 +13,7 @@ endif()
 #-----------------------------------------------------------------------------
 if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
   message(STATUS "------------------SETTING EXTENSION VARIABLES-----------------")
-  ADD_DEFINITIONS(-DSPV_EXTENSION=1)
+  #ADD_DEFINITIONS(-DSPV_EXTENSION=1)
   set(EXTENSION_NAME ${LOCAL_PROJECT_NAME} )
   set(MODULE_NAME ${LOCAL_PROJECT_NAME} )
   set(EXTENSION_HOMEPAGE "https://github.com/NIRALUser/AutoTract")
@@ -30,6 +30,14 @@ if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
   resetForSlicer( NAMES CMAKE_C_COMPILER CMAKE_CXX_COMPILER CMAKE_CXX_FLAGS CMAKE_C_FLAGS )
 endif()
 
+SETIFEMPTY( ARCHIVE_DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/lib/static )
+SETIFEMPTY( LIBRARY_DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/lib )
+SETIFEMPTY( RUNTIME_DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin )
+
+SETIFEMPTY(INSTALL_RUNTIME_DESTINATION bin)
+SETIFEMPTY(INSTALL_LIBRARY_DESTINATION lib)
+SETIFEMPTY(INSTALL_ARCHIVE_DESTINATION lib)
+
 #-----------------------------------------------------------------------------
 # Update CMake module path
 #------------------------------------------------------------------------------
@@ -38,6 +46,9 @@ set(CMAKE_MODULE_PATH
   ${${PROJECT_NAME}_BINARY_DIR}/CMake
   ${CMAKE_MODULE_PATH}
   )
+
+find_package(QtToCppXML REQUIRED)
+include(${QtToCppXML_USE_FILE}) 
 
 
 IF(Qt4_SUPPORT)
@@ -58,8 +69,7 @@ INCLUDE(${SlicerExecutionModel_USE_FILE})
 #INCLUDE(${GenerateCLP_USE_FILE})
 
 
-find_package(QtToCppXML REQUIRED)
-include(${QtToCppXML_USE_FILE})
+
 
 set(ITK_IO_MODULES_USED
 ITKIOImageBase
@@ -101,7 +111,7 @@ ENDIF(BUILD_TESTING)
 
 
 if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
-  message(STATUS "------------------SETTING CPACK_INSTALL_CMAKE_PROJECTS-----------------")
+  message(STATUS "--------------------------------SETTING CPACK_INSTALL_CMAKE_PROJECTS----------------------------------")
   set(CPACK_INSTALL_CMAKE_PROJECTS "${CPACK_INSTALL_CMAKE_PROJECTS};${CMAKE_BINARY_DIR};${EXTENSION_NAME};ALL;/")
   include(${Slicer_EXTENSION_CPACK})
 endif()
