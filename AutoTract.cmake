@@ -44,8 +44,6 @@ set(CMAKE_MODULE_PATH
   ${CMAKE_MODULE_PATH}
   )
 
-find_package(QtToCppXML REQUIRED)
-include(${QtToCppXML_USE_FILE}) 
 
 
 IF(Qt4_SUPPORT)
@@ -65,6 +63,8 @@ FIND_PACKAGE(SlicerExecutionModel REQUIRED)
 INCLUDE(${SlicerExecutionModel_USE_FILE})
 #INCLUDE(${GenerateCLP_USE_FILE})
 
+find_package(QtToCppXML REQUIRED)
+include(${QtToCppXML_USE_FILE}) 
 
 
 
