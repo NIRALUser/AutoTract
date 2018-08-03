@@ -52,10 +52,10 @@ if(NOT DEFINED SlicerExecutionModel_DIR)
 
   IF(Qt4_SUPPORT)
     set(QT_VERSION 4)
-    set(${proj}_DEPENDENCIES SlicerExecutionModel Qt4 )
+    set(${proj}_DEPENDENCIES  Qt4 )
   ELSE()
     set(QT_VERSION 5)
-    set(${proj}_DEPENDENCIES SlicerExecutionModel Qt5 )
+    set(${proj}_DEPENDENCIES  Qt5 )
   ENDIF()  
 
   # Include dependent projects if any
