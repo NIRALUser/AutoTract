@@ -60,6 +60,24 @@ option(USE_SYSTEM_SlicerExecutionModel "Build using an externally defined versio
 option(BUILD_SHARED_LIBS "Build shared libraries" USE_SYSTEM_LIBS)
 
 
+if(NOT ( DEFINED "USE_SYSTEM_ITK") )
+  message("--------------------------------FAIL--------------------------------")
+else()
+  message("--------------------------------PASS--------------------------------")
+endif()
+
+if(NOT (  "${USE_SYSTEM_ITK}" ) )
+  message("--------------------------------FAIL--------------------------------")
+else()
+  message("--------------------------------PASS--------------------------------")
+endif()
+
+if( ( DEFINED "USE_SYSTEM_ITK" AND "${USE_SYSTEM_ITK}" ) )
+  message("--------------------------------FAIL--------------------------------")
+else()
+  message("--------------------------------PASS--------------------------------")
+endif()
+
 if(NOT ( DEFINED "USE_SYSTEM_ITK" AND "${USE_SYSTEM_ITK}" ) )
   message("--------------------------------FAIL--------------------------------")
 else()
