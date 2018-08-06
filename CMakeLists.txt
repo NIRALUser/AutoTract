@@ -25,24 +25,7 @@ option(Qt4_SUPPORT "Build with QT4 support." ON)
 if( DEFINED Slicer_DIR)
   option(${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION "Build as a Slicer Extension" ON)
 
-  find_package(Slicer REQUIRED)
-  include(${Slicer_USE_FILE})
 
-  set(_qt_version "4")
-  if (Slicer_REQUIRED_QT_VERSION VERSION_GREATER "4.9")
-    set(_qt_version "5")
-    option(Qt4_SUPPORT "Build with QT4 support." OFF)
-  else()
-    option(Qt4_SUPPORT "Build with QT4 support." ON)
-  endif()
-
-  #Arguments to pass when reprocessing the top CMakeLists.txt
-  set(extension_args "")
-  list(APPEND extension_args -DSlicer_DIR:PATH=${Slicer_DIR})
-  list(APPEND extension_args -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE})
-else()
-  set(extension_args "")
-  option(Qt4_SUPPORT "Build with QT4 support." ON)
 endif()
 
 
