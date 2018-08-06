@@ -43,9 +43,11 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
 
   IF(Qt4_SUPPORT)
     set(QT_VERSION 4)
+    set(QT_DIRECTORY ${Qt4_DIR})
     set(${proj}_DEPENDENCIES SlicerExecutionModel Qt4 )
   ELSE()
     set(QT_VERSION 5)
+    set(QT_DIRECTORY ${Qt5_DIR})
     set(${proj}_DEPENDENCIES SlicerExecutionModel Qt5 )
   ENDIF()  
 
@@ -59,7 +61,7 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
     -DUSE_SYSTEM_SlicerExecutionModel:BOOL=ON
     -DSlicerExecutionModel_DIR:PATH=${SlicerExecutionModel_DIR}
     -DQT_VERSION=${QT_VERSION}
-    -DCMAKE_PREFIX_PATH:PATH=${Qt5_DIR}
+    -DCMAKE_PREFIX_PATH:PATH=${QT_DIRECTORY}
   )
 
 
