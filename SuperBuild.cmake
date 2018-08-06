@@ -57,20 +57,9 @@ endif()
 
 option(USE_SYSTEM_ITK "Build using an externally defined version of ITK" ${USE_SYSTEM_LIBS})
 option(USE_SYSTEM_SlicerExecutionModel "Build using an externally defined version of SlicerExecutionModel"  ${USE_SYSTEM_LIBS})
-option(BUILD_SHARED_LIBS "Build shared libraries" ${USE_SYSTEM_LIBS})
-
-
-
-
-if(NOT ( DEFINED "USE_SYSTEM_ITK" AND "${USE_SYSTEM_ITK}" ) )
-  message("--------------------------------FAIL--------------------------------")
-else()
-  message("--------------------------------PASS--------------------------------")
-endif()
-
+option(USE_SYSTEM_QtToCppXML "Build using an externally defined version of ITK" OFF)
 
 set(EXTERNAL_PROJECT_BUILD_TYPE "Release" CACHE STRING "Default build type for support libraries")
-
 
 IF(Qt4_SUPPORT)
   message(STATUS "-----------------------------Qt4 Support------------------------------")
