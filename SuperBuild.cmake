@@ -77,7 +77,7 @@ endif()
 
 if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
   #set(USE_SYSTEM_LIBS ON)
-  set(USE_SYSTEM_LIBS OFF)
+  set(USE_SYSTEM_LIBS ON)
 else()
   set(USE_SYSTEM_LIBS OFF)   
 endif()
@@ -86,7 +86,7 @@ endif()
 
 option(USE_SYSTEM_ITK "Build using an externally defined version of ITK" ${USE_SYSTEM_LIBS})
 option(USE_SYSTEM_SlicerExecutionModel "Build using an externally defined version of SlicerExecutionModel"  ${USE_SYSTEM_LIBS})
-option(USE_SYSTEM_QtToCppXML "Build using an externally defined version of ITK" OFF)
+option(USE_SYSTEM_QtToCppXML "Build using an externally defined version of QtToCppXMLeq" OFF)
 
 set(EXTERNAL_PROJECT_BUILD_TYPE "Release" CACHE STRING "Default build type for support libraries")
 
