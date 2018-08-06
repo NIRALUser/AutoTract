@@ -46,39 +46,35 @@ endif()
 # Superbuild option(s)
 #-----------------------------------------------------------------------------
 
+
+if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
+  set(USE_SYSTEM_LIBS ON)
+else()
+  set(USE_SYSTEM_LIBS OFF)   
+endif()
+
+
+
+option(USE_SYSTEM_ITK "Build using an externally defined version of ITK" USE_SYSTEM_LIBS)
+option(USE_SYSTEM_SlicerExecutionModel "Build using an externally defined version of SlicerExecutionModel"  USE_SYSTEM_LIBS)
+option(BUILD_SHARED_LIBS "Build shared libraries" USE_SYSTEM_LIBS)
+
+
+
+
 set(EXTERNAL_PROJECT_BUILD_TYPE "Release" CACHE STRING "Default build type for support libraries")
 
-set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES )
-set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD )
-
-if(NOT DEFINED ITK_DIR) 
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES ${${PRIMARY_PROJECT_NAME}_DEPENDENCIES} ITKv4)
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD ${${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD} ITK)
-endif()
-
-if(NOT DEFINED SlicerExecutionModel_DIR) 
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES ${${PRIMARY_PROJECT_NAME}_DEPENDENCIES} SlicerExecutionModel)
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD ${${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD} SlicerExecutionModel)
-endif()
-
-if(NOT DEFINED QtToCppXML_DIR) 
-  set(${PRIMARY_PROJECT_NAME}_DEPENDENCIES ${${PRIMARY_PROJECT_NAME}_DEPENDENCIES} QtToCppXML)
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD ${${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD} QtToCppXML)
-endif()
 
 IF(Qt4_SUPPORT)
   message(STATUS "-----------------------------Qt4 Support------------------------------")
-  set(${PRIMARY_PROJECT_NAME}_DEPENDENCIES ${${PRIMARY_PROJECT_NAME}_DEPENDENCIES} Qt4 )
+  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt4 ITKv4 SlicerExecutionModel QtToCppXML)
 ELSE()
   message(STATUS "-----------------------------Qt5 Support------------------------------")
-  set(${PRIMARY_PROJECT_NAME}_DEPENDENCIES ${${PRIMARY_PROJECT_NAME}_DEPENDENCIES} Qt5 )
+  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt5 ITKv4 SlicerExecutionModel QtToCppXML)
 ENDIF()
-#set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD  ITK SlicerExecutionModel QtToCppXML)
+set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD  ITK SlicerExecutionModel QtToCppXML)
 
-message(STATUS "------------------${${PRIMARY_PROJECT_NAME}_DEPENDENCIES}---------------")
-message(STATUS "------------------${${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD}---------------")
 
-#option(USE_SYSTEM_ITK "Build using an externally defined version of ITK" OFF)
 
 #-----------------------------------------------------------------------------
 # Define Superbuild global variables
