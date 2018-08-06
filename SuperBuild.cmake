@@ -55,7 +55,7 @@ endif()
 
 
 
-option(USE_SYSTEM_ITK "Build using an externally defined version of ITK" USE_SYSTEM_LIBS)
+option(USE_SYSTEM_ITK "Build using an externally defined version of ITK" ON)
 option(USE_SYSTEM_SlicerExecutionModel "Build using an externally defined version of SlicerExecutionModel"  USE_SYSTEM_LIBS)
 option(BUILD_SHARED_LIBS "Build shared libraries" USE_SYSTEM_LIBS)
 
@@ -63,7 +63,7 @@ option(BUILD_SHARED_LIBS "Build shared libraries" USE_SYSTEM_LIBS)
 if(NOT ( DEFINED "USE_SYSTEM_ITK") )
   message("--------------------------------FAIL--------------------------------")
 else()
-  message("--------------------------------PASS--------------------------------")
+  message("--------------------------------PASS--------------------------------")          #OK
 endif()
 
 if(NOT (  "${USE_SYSTEM_ITK}" ) )
