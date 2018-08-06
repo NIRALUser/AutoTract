@@ -60,6 +60,11 @@ option(USE_SYSTEM_SlicerExecutionModel "Build using an externally defined versio
 option(BUILD_SHARED_LIBS "Build shared libraries" USE_SYSTEM_LIBS)
 
 
+if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" ) )
+  message("--------------------------------FAIL--------------------------------")
+else()
+  message("--------------------------------PASS--------------------------------")
+endif()
 
 
 set(EXTERNAL_PROJECT_BUILD_TYPE "Release" CACHE STRING "Default build type for support libraries")
