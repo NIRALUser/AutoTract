@@ -48,7 +48,8 @@ endif()
 
 
 if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
-  set(USE_SYSTEM_LIBS ON)
+  #set(USE_SYSTEM_LIBS ON)
+  set(USE_SYSTEM_LIBS OFF)
 else()
   set(USE_SYSTEM_LIBS OFF)   
 endif()
