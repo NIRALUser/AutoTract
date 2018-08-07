@@ -56,6 +56,7 @@ ENDIF()
 #Find SlicerExecutionModel
 FIND_PACKAGE(SlicerExecutionModel REQUIRED)
 INCLUDE(${SlicerExecutionModel_USE_FILE})
+
 #INCLUDE(${GenerateCLP_USE_FILE})
 
 find_package(QtToCppXML REQUIRED)
@@ -104,7 +105,6 @@ ENDIF(BUILD_TESTING)
 
 if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
   message(STATUS "--------------------------------SETTING CPACK_INSTALL_CMAKE_PROJECTS----------------------------------")
-  configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/ImportAutoTract.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/ImportAutoTract.cmake)
   set(CPACK_INSTALL_CMAKE_PROJECTS "${CPACK_INSTALL_CMAKE_PROJECTS};${CMAKE_BINARY_DIR};${EXTENSION_NAME};ALL;/")
   include(${Slicer_EXTENSION_CPACK})
 endif()
