@@ -10,7 +10,7 @@ if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
   set(MODULE_NAME ${LOCAL_PROJECT_NAME} )
   set(EXTENSION_HOMEPAGE "https://github.com/NIRALUser/AutoTract")
   set(EXTENSION_CATEGORY "Tractography")
-  set(EXTENSION_CONTRIBUTORS "Jean-Yves Yang, Francois Budin, Juan Carlos prieto (UNC), Adrien Boucaud (UNC), Mateo Lopez (UNC)")
+  set(EXTENSION_CONTRIBUTORS "Jean-Yves Yang (NIRAL, UNC), Francois Budin (NIRAL, UNC), Juan Carlos prieto (NIRAL, UNC), Adrien Boucaud (NIRAL, UNC), Mateo Lopez (NIRAL, UNC)")
   set(EXTENSION_DESCRIPTION "An automatic tractography tool featuring advanced processing tools to clean fiber tracts after the initial tractography. ")
   set(EXTENSION_ICONURL "https://www.nitrc.org/project/screenshot.php?group_id=948&screenshot_id=935")
   set(EXTENSION_SCREENSHOTURLS "")
@@ -36,9 +36,9 @@ SETIFEMPTY(INSTALL_ARCHIVE_DESTINATION lib)
 
 
 set(CMAKE_MODULE_PATH
+  ${CMAKE_MODULE_PATH}
   ${${PROJECT_NAME}_SOURCE_DIR}/CMake
   ${${PROJECT_NAME}_BINARY_DIR}/CMake
-  ${CMAKE_MODULE_PATH}
   )
 
 IF(Qt4_SUPPORT)
