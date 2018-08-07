@@ -2,15 +2,10 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
 CMAKE_POLICY(VERSION 2.6)
 PROJECT(AutoTract)
 
-
-message(STATUS "-----------------------------reading AutoTract.cmake------------------------------")
-
 #-----------------------------------------------------------------------------
 # SLICER EXTENSION
 #-----------------------------------------------------------------------------
 if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
-  message(STATUS "----------------------------------SETTING EXTENSION VARIABLES-----------------------------------")
-  #ADD_DEFINITIONS(-DSPV_EXTENSION=1)
   set(EXTENSION_NAME ${LOCAL_PROJECT_NAME} )
   set(MODULE_NAME ${LOCAL_PROJECT_NAME} )
   set(EXTENSION_HOMEPAGE "https://github.com/NIRALUser/AutoTract")
@@ -109,6 +104,7 @@ ENDIF(BUILD_TESTING)
 
 if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
   message(STATUS "--------------------------------SETTING CPACK_INSTALL_CMAKE_PROJECTS----------------------------------")
+  configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/ImportAutoTract.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/ImportAutoTract.cmake)
   set(CPACK_INSTALL_CMAKE_PROJECTS "${CPACK_INSTALL_CMAKE_PROJECTS};${CMAKE_BINARY_DIR};${EXTENSION_NAME};ALL;/")
   include(${Slicer_EXTENSION_CPACK})
 endif()
