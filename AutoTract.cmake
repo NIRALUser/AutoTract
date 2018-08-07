@@ -33,12 +33,14 @@ SETIFEMPTY(INSTALL_ARCHIVE_DESTINATION lib)
 #-----------------------------------------------------------------------------
 # Update CMake module path
 #------------------------------------------------------------------------------
+
+message(STATUS "---------------------${CMAKE_MODULE_PATH}------------------")
 set(CMAKE_MODULE_PATH
   ${${PROJECT_NAME}_SOURCE_DIR}/CMake
   ${${PROJECT_NAME}_BINARY_DIR}/CMake
   ${CMAKE_MODULE_PATH}
   )
-
+message(STATUS "---------------------${CMAKE_MODULE_PATH}------------------")
 
 
 IF(Qt4_SUPPORT)
@@ -108,3 +110,4 @@ if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
   set(CPACK_INSTALL_CMAKE_PROJECTS "${CPACK_INSTALL_CMAKE_PROJECTS};${CMAKE_BINARY_DIR};${EXTENSION_NAME};ALL;/")
   include(${Slicer_EXTENSION_CPACK})
 endif()
+
