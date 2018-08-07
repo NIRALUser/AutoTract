@@ -34,14 +34,12 @@ SETIFEMPTY(INSTALL_ARCHIVE_DESTINATION lib)
 # Update CMake module path
 #------------------------------------------------------------------------------
 
-message(STATUS "---------------------${CMAKE_MODULE_PATH}------------------")
+
 set(CMAKE_MODULE_PATH
   ${${PROJECT_NAME}_SOURCE_DIR}/CMake
   ${${PROJECT_NAME}_BINARY_DIR}/CMake
   ${CMAKE_MODULE_PATH}
   )
-message(STATUS "---------------------${CMAKE_MODULE_PATH}------------------")
-
 
 IF(Qt4_SUPPORT)
   add_definitions(-DQT_4_SUPPORT=1)
