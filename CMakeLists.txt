@@ -11,7 +11,7 @@ set(${LOCAL_PROJECT_NAME}_VERSION_MAJOR "0")
 set(${LOCAL_PROJECT_NAME}_VERSION_MINOR "1")
 set(${LOCAL_PROJECT_NAME}_VERSION_PATCH "1")
 
-option(Qt4_SUPPORT "Build with QT4 support." ON)
+
 
 #-----------------------------------------------------------------------------
 # Standalone vs Slicer extension option
@@ -25,7 +25,19 @@ option(Qt4_SUPPORT "Build with QT4 support." ON)
 if( DEFINED Slicer_DIR)
   option(${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION "Build as a Slicer Extension" ON)
 
+  find_package(Slicer REQUIRED)
+  include(${Slicer_USE_FILE})
 
+  set(_qt_version "4")
+  if (Slicer_REQUIRED_QT_VERSION VERSION_GREATER "4.9")
+    set(_qt_version "5")
+    option(Qt4_SUPPORT "Build with QT4 support." OFF)
+  else()
+    option(Qt4_SUPPORT "Build with QT4 support." ON)
+  endif()
+
+else()
+  option(Qt4_SUPPORT "Build with QT4 support." ON)
 endif()
 
 
