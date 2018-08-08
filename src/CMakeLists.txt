@@ -1,7 +1,3 @@
-
-message(STATUS "----------------reading src/CMakeLists.txt-----------------------")
-
-
 set(srcfiles
 AutoTract.cxx 
 AutoTractWindow.cxx

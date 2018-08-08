@@ -70,8 +70,10 @@ option(USE_SYSTEM_QtToCppXML "Build using an externally defined version of QtToC
 set(EXTERNAL_PROJECT_BUILD_TYPE "Release" CACHE STRING "Default build type for support libraries")
 
 IF(Qt4_SUPPORT)
+  message(STATUS "-----------------------------Qt4 Support------------------------------")
   set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt4 ITKv4 SlicerExecutionModel QtToCppXML)
 ELSE()
+  message(STATUS "-----------------------------Qt5 Support------------------------------")
   set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt5 ITKv4 SlicerExecutionModel QtToCppXML)
 ENDIF()
 set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD  ITK SlicerExecutionModel QtToCppXML)
