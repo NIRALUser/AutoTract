@@ -11,7 +11,7 @@ import shutil
 import argparse
 import logging
 
-dockerfile_url = 'https://raw.githubusercontent.com/Adbook/Trafic/master/Docker/Dockerfile'
+dockerfile_url = 'https://raw.githubusercontent.com/NIRALUser/Trafic/master/Docker/cpu/Dockerfile'
 
 # docker paths (can be hard-coded)
 input_directory_bind_point = '/root/input'
@@ -33,6 +33,7 @@ parser.add_argument('--generateTracts', action='store', type=bool, dest='generat
                     default='@generateTracts@')
 parser.add_argument('--input_list', nargs='+', dest='inputList', default=['@inputList@'])
 
+parser.add_argument('--dockerImage', action='store', dest='dockerImage', default='trafic:trafic_cpu')
 
 try:
     import docker
@@ -98,9 +99,10 @@ def build_docker_image(name, client, dockerfile):
         LOGGER.info(dockerfile_url)
         with open(dockerfile, 'w+') as dockerfile_handle:
             req = requests.get(dockerfile_url)
-            dockerfile_handle.write(req.text)
-            dockerfile_handle.seek(0)
+            dockerfile_handle=req.text
+            dockerfile_handle = BytesIO(dockerfile_handle.encode('utf-8'))
             for line in CLI.build(fileobj=dockerfile_handle, tag=name, nocache=True, forcerm=True):
+
                 LOGGER.info(escape_ansi(str(json.loads(line)['stream'])))
         return client.images.get(name)
     except requests.exceptions.RequestException as exception:
@@ -110,7 +112,7 @@ def build_docker_image(name, client, dockerfile):
     except docker.errors.BuildError as exception:
         LOGGER.error(exception.msg)
         LOGGER.error('Failed to build the Docker image.')
-    return None    
+    return None     
 
 
 def get_docker_image(name, client, dockerfile):
@@ -146,9 +148,10 @@ def get_running_docker_container(name, client, image, input_directory, output_di
 def run_docker_command(command, container):
     LOGGER.info('Running command on docker:\n' + subprocess.list2cmdline(command))
     try:
+        
         exec_id = CLI.exec_create(container.name, subprocess.list2cmdline(command))
         for line in CLI.exec_start(exec_id, stream=True, detach=False):
-            LOGGER.info(escape_ansi(line))
+            LOGGER.info(escape_ansi(line.decode()))
     except Exception as exception:
         LOGGER.error(type(exception))
         LOGGER.error(exception)
@@ -182,6 +185,8 @@ def run():
     extracted_landmarks_path = os.path.join(extracted_model_directory_bind, 'landmarks.fcsv')
     extracted_model_description_path = os.path.join(extracted_model_directory, 'model', 'dataset_description.json')
 
+    dockerImage=args.dockerImage
+
     dockerfile_local_path = os.path.join(output_directory, 'Dockerfile')
     displacement_field_bind_path = os.path.join(output_directory_bind_point,
                                                 os.path.basename(displacement_field_path))
@@ -211,8 +216,13 @@ def run():
         LOGGER.error('No docker client found.. Exiting')
         stop()
 
+
+    if dockerImage == 'trafic:trafic_gpu':
+        global dockerfile_url
+        dockerfile_url = 'https://raw.githubusercontent.com/NIRALUser/Trafic/master/Docker/gpu/Dockerfile'
+
     LOGGER.info('Getting docker image')
-    image = get_docker_image(name='trafic:trafic_autotract', client=client,
+    image = get_docker_image(name=dockerImage, client=client,
                              dockerfile=dockerfile_local_path)
     if image is None:
         LOGGER.error('Unable to find or build docker image. Exiting classification')
@@ -241,7 +251,7 @@ def run():
     LOGGER.info('Running classification on docker')
     arguments = ['python', '-u',
                  os.path.join(docker_trafic_dir, 'TraficMulti/TraficMulti_cli.py'),
-                 '--input_csv', output_directory_bind_point + '/input.csv']
+                 '--input_csv', os.path.join(output_directory_bind_point , 'input.csv')]
 
     run_docker_command(arguments, container)
 
@@ -265,3 +275,8 @@ def run():
     LOGGER.info('Removing container')
     container.remove()
     LOGGER.info('Done')
+
+
+if __name__=="__main__":
+    run()
+
