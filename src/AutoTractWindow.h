@@ -14,7 +14,13 @@ class AutoTractWindow :public QMainWindow, public Ui::MainWindow
 {
     Q_OBJECT
 public:
-    AutoTractWindow( QWidget * parent = 0, Qt::WFlags f = 0);
+
+    #ifdef QT_4_SUPPORT
+        AutoTractWindow( QWidget * parent = 0, Qt::WFlags f = 0);
+    #else
+        AutoTractWindow( QWidget * parent = 0, Qt::WindowFlags f = 0);
+    #endif
+    
 
     void SetParaModel( para_Model_AutoTract* para_m );
     void SetParaSave( para_Save_AutoTract* para_s );

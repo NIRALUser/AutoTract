@@ -14,16 +14,16 @@
          <default>false</default>
       </boolean>
       <file>
-	 <name>executables</name>
-	 <description>Path of the XML file that contains the executables configuration</description>
-	 <longflag>executables</longflag>
-	 <label>xml file</label>
+         <name>executables</name>
+         <description>Path of the XML file that contains the executables configuration</description>
+         <longflag>executables</longflag>
+         <label>xml executables configuration file</label>
       </file>
       <file>
-	 <name>parameters</name>	
-	 <description>Path of the XML file that contains the parameters configuration</description>
-	 <longflag>parameters</longflag>
-	 <label>xml file</label>
+         <name>parameters</name>	
+         <description>Path of the XML file that contains the parameters configuration</description>
+         <longflag>parameters</longflag>
+         <label>xml parameters configuration file</label>
       </file>
    </parameters>
 </executable>

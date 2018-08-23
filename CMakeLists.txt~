@@ -5,6 +5,7 @@ project(AutoTract)
 
 set(LOCAL_PROJECT_NAME AutoTract)
 
+message(STATUS "-----------------------------reading CMakelists.txt------------------------------")
 # Project version number.
 set(${LOCAL_PROJECT_NAME}_VERSION_MAJOR "0")
 set(${LOCAL_PROJECT_NAME}_VERSION_MINOR "1")

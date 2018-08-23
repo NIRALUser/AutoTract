@@ -18,7 +18,7 @@ ProjectDependancyPush(CACHED_proj ${proj})
 # even if other External_${ExtProjName}.cmake files are sourced by
 # SlicerMacroCheckExternalProjectDependency
 set(extProjName Qt) #The find_package known name
-set(proj      Qt4) #This local name
+set(proj      Qt5) #This local name
 set(${extProjName}_REQUIRED_VERSION "")  #If a required version is necessary, then set this, else leave blank
 
 #if(${USE_SYSTEM_${extProjName}})
@@ -36,16 +36,13 @@ set(${proj}_DEPENDENCIES "" )
 # Include dependent projects if any
 SlicerMacroCheckExternalProjectDependency(${proj})
 
-find_package(${proj} ${${extProjName}_REQUIRED_VERSION} COMPONENTS QtCore QtGui QtNetwork QtXml REQUIRED )
+find_package(${proj} ${${extProjName}_REQUIRED_VERSION} COMPONENTS Widgets Core Gui Network Xml REQUIRED )
 # The project is provided using ${extProjName}_DIR, nevertheless since other
 # project may depend on ${extProjName}, let's add an 'empty' one
 SlicerMacroEmptyExternalProject(${proj} "${${proj}_DEPENDENCIES}")
 
 list(APPEND ${CMAKE_PROJECT_NAME}_SUPERBUILD_EP_VARS 
-    QT_QMAKE_EXECUTABLE:PATH
-    QT_MOC_EXECUTABLE:PATH
-    QT_UIC_EXECUTABLE:PATH
-    ${PRIMARY_PROJECT_NAME}_USE_QT:BOOL
+    QT_QMAKE_EXECUTABLE:PATH    
 )
 _expand_external_project_vars()
 set(COMMON_EXTERNAL_PROJECT_ARGS ${${CMAKE_PROJECT_NAME}_SUPERBUILD_EP_ARGS})

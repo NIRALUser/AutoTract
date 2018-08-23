@@ -8,7 +8,11 @@
 #include <iterator>
 #include <iostream>
 #include <fstream>
-#include <QtGui>
+#ifdef QT_4_SUPPORT
+    #include <QtGui>
+#else
+    #include <QtWidgets>
+#endif
 #include <itksys/SystemTools.hxx>
 
 class AutoTractDerivedWindow :public AutoTractWindow
