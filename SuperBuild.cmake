@@ -73,13 +73,10 @@ option(USE_SYSTEM_Trafic "Build using an externally defined version of Trafic" O
 set(EXTERNAL_PROJECT_BUILD_TYPE "Release" CACHE STRING "Default build type for support libraries")
 
 IF(Qt4_SUPPORT)
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt4 ITKv4 SlicerExecutionModel QtToCppXML conda VTK niral_utilities Trafic)
+  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt4 ITKv4 SlicerExecutionModel QtToCppXML ITKTransformTools ANTs VTK niral_utilities DTIProcess DTI-Reg ResampleDTIlogEuclidean conda Trafic)
 ELSE()
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt5 ITKv4 SlicerExecutionModel QtToCppXML conda VTK niral_utilities Trafic)
+  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt5 ITKv4 SlicerExecutionModel QtToCppXML ITKTransformTools ANTs VTK niral_utilities DTIProcess DTI-Reg ResampleDTIlogEuclidean conda Trafic)
 ENDIF()
-set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD  ITK SlicerExecutionModel QtToCppXML conda VTK niral_utilities Trafic)
-
-
 
 #-----------------------------------------------------------------------------
 # Define Superbuild global variables
@@ -123,7 +120,7 @@ if( dependencies_size GREATER 0 )
   SlicerMacroCheckExternalProjectDependency(${proj})
 endif()
 
-foreach(dependency ${${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD})
+foreach(dependency ${${PRIMARY_PROJECT_NAME}_DEPENDENCIES})
   list(APPEND ${CMAKE_PROJECT_NAME}_SUPERBUILD_EP_ARGS -D${dependency}_DIR:PATH=${${dependency}_DIR})
 endforeach()
 #------------------------------------------------------------------------------
