@@ -66,15 +66,18 @@ endif()
 option(USE_SYSTEM_ITK "Build using an externally defined version of ITK" ${USE_SYSTEM_LIBS})
 option(USE_SYSTEM_SlicerExecutionModel "Build using an externally defined version of SlicerExecutionModel"  ${USE_SYSTEM_LIBS})
 option(USE_SYSTEM_QtToCppXML "Build using an externally defined version of QtToCppXMLeq" OFF)
+option(USE_SYSTEM_VTK "Build using an externally defined version of VTK" OFF)
+option(USE_SYSTEM_niral_utilities "Build using an externally defined version of niral_utilities" OFF)
+option(USE_SYSTEM_Trafic "Build using an externally defined version of Trafic" OFF)
 
 set(EXTERNAL_PROJECT_BUILD_TYPE "Release" CACHE STRING "Default build type for support libraries")
 
 IF(Qt4_SUPPORT)
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt4 ITKv4 SlicerExecutionModel QtToCppXML)
+  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt4 ITKv4 SlicerExecutionModel QtToCppXML conda VTK niral_utilities Trafic)
 ELSE()
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt5 ITKv4 SlicerExecutionModel QtToCppXML)
+  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt5 ITKv4 SlicerExecutionModel QtToCppXML conda VTK niral_utilities Trafic)
 ENDIF()
-set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD  ITK SlicerExecutionModel QtToCppXML)
+set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES_SUPERBUILD  ITK SlicerExecutionModel QtToCppXML conda VTK niral_utilities Trafic)
 
 
 
