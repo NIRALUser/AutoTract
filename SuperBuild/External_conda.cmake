@@ -22,7 +22,7 @@ set(proj      conda) #This local name
 set(${extProjName}_REQUIRED_VERSION "")  #If a required version is necessary, then set this, else leave blank
 
 if(UNIX)
-	if(MACOSX)
+	if(APPLE)
 		set(${extProjName}_SCRIPT Miniconda3-latest-MacOSX-x86_64.sh)
 		set(${extProjName}_URL https://repo.continuum.io/miniconda/${${extProjName}_SCRIPT})
 		set(${extProjName}_URL_HASH 7f7613bf98023f7d6ffe5df53c3a00a0)

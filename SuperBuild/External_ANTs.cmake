@@ -65,6 +65,8 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
       -DITK_DIR:PATH=${ITK_DIR}
       -DBUILD_EXAMPLES:BOOL=OFF
       -DBUILD_TESTING:BOOL=OFF
+      -DANTS_SUPERBUILD:BOOL=OFF
+      -DBUILD_ALL_ANTS_APPS:BOOL=OFF
    )
   ### --- End Project specific additions
   set(${proj}_REPOSITORY "https://github.com/ANTsX/ANTs.git")
