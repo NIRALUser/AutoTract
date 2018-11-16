@@ -2,32 +2,6 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
 CMAKE_POLICY(VERSION 2.6)
 PROJECT(AutoTract)
 
-#-----------------------------------------------------------------------------
-# SLICER EXTENSION
-#-----------------------------------------------------------------------------
-if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
-  set(EXTENSION_NAME ${LOCAL_PROJECT_NAME} )
-  set(MODULE_NAME ${LOCAL_PROJECT_NAME} )
-  set(EXTENSION_HOMEPAGE "https://github.com/NIRALUser/AutoTract")
-  set(EXTENSION_CATEGORY "Tractography")
-  set(EXTENSION_CONTRIBUTORS "Jean-Yves Yang (NIRAL, UNC), Francois Budin (NIRAL, UNC), Juan Carlos prieto (NIRAL, UNC), Adrien Boucaud (NIRAL, UNC), Mateo Lopez (NIRAL, UNC)")
-  set(EXTENSION_DESCRIPTION "An automatic tractography tool featuring advanced processing tools to clean fiber tracts after the initial tractography. ")
-  set(EXTENSION_ICONURL "https://www.nitrc.org/project/screenshot.php?group_id=948&screenshot_id=935")
-  set(EXTENSION_SCREENSHOTURLS "")
-  set(EXTENSION_DEPENDS "NA") # Specified as a space separated list or 'NA' if any
-  set(EXTENSION_BUILD_SUBDIRECTORY .)
-  unsetForSlicer( NAMES QT_QMAKE_EXECUTABLE SlicerExecutionModel_DIR ITK_DIR VTK_DIR CMAKE_C_COMPILER CMAKE_CXX_COMPILER CMAKE_CXX_FLAGS CMAKE_C_FLAGS ITK_LIBRARIES )
-  find_package(Slicer REQUIRED)
-  include(${Slicer_USE_FILE})
-  resetForSlicer( NAMES CMAKE_C_COMPILER CMAKE_CXX_COMPILER CMAKE_CXX_FLAGS CMAKE_C_FLAGS )
-
-
-  set(INSTALL_RUNTIME_DESTINATION ${Slicer_CLIMODULES_BIN_DIR})
-  set(INSTALL_LIBRARY_DESTINATION ${Slicer_CLIMODULES_LIB_DIR})
-  set(INSTALL_ARCHIVE_DESTINATION ${Slicer_CLIMODULES_LIB_DIR})
-
-endif()
-
 SETIFEMPTY( ARCHIVE_DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/lib/static )
 SETIFEMPTY( LIBRARY_DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/lib )
 SETIFEMPTY( RUNTIME_DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin )

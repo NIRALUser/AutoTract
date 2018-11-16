@@ -33,7 +33,7 @@ if(DEFINED ${extProjName}_DIR AND NOT EXISTS ${${extProjName}_DIR})
 endif()
 
 # Set dependency list
-set(${proj}_DEPENDENCIES ITKv4 SlicerExecutionModel VTK niral_utilities)
+set(${proj}_DEPENDENCIES ITKv4 SlicerExecutionModel VTK)
 
 # Include dependent projects if any
 SlicerMacroCheckExternalProjectDependency(${proj})
@@ -62,7 +62,6 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
       -DSlicerExecutionModel_DIR:PATH=${SlicerExecutionModel_DIR}
       -DUSE_SYSTEM_VTK:BOOL=ON
       -DVTK_DIR:PATH=${VTK_DIR}
-      -DUSE_SYSTEM_niral_utilities:BOOL=ON
       -Dniral_utilities_DIR:PATH=${niral_utilities_DIR}
     )
   ### --- End Project specific additions

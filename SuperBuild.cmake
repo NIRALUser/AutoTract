@@ -7,7 +7,7 @@ enable_language(CXX)
 enable_testing()
 include(CTest)
 #-----------------------------------------------------------------------------
-include(${CMAKE_CURRENT_SOURCE_DIR}/Common.cmake)
+
 set(EXTERNAL_SOURCE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} CACHE PATH "Select where external packages will be downloaded" )
 set(EXTERNAL_BINARY_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} CACHE PATH "Select where external packages will be compiled and installed" )
 #-----------------------------------------------------------------------------
@@ -55,7 +55,6 @@ endif()
 
 
 if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
-  #set(USE_SYSTEM_LIBS ON)
   set(USE_SYSTEM_LIBS ON)
 else()
   set(USE_SYSTEM_LIBS OFF)   
@@ -66,16 +65,15 @@ endif()
 option(USE_SYSTEM_ITK "Build using an externally defined version of ITK" ${USE_SYSTEM_LIBS})
 option(USE_SYSTEM_SlicerExecutionModel "Build using an externally defined version of SlicerExecutionModel"  ${USE_SYSTEM_LIBS})
 option(USE_SYSTEM_QtToCppXML "Build using an externally defined version of QtToCppXMLeq" OFF)
-option(USE_SYSTEM_VTK "Build using an externally defined version of VTK" OFF)
-option(USE_SYSTEM_niral_utilities "Build using an externally defined version of niral_utilities" OFF)
+option(USE_SYSTEM_VTK "Build using an externally defined version of VTK" ${USE_SYSTEM_LIBS})
 option(USE_SYSTEM_Trafic "Build using an externally defined version of Trafic" OFF)
 
 set(EXTERNAL_PROJECT_BUILD_TYPE "Release" CACHE STRING "Default build type for support libraries")
 
 IF(Qt4_SUPPORT)
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt4 ITKv4 SlicerExecutionModel QtToCppXML ITKTransformTools ANTs VTK niral_utilities DTIProcess DTI-Reg ResampleDTIlogEuclidean conda Trafic)
+  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt4 ${${PRIMARY_PROJECT_NAME}_DEPENDENCIES})
 ELSE()
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt5 ITKv4 SlicerExecutionModel QtToCppXML ITKTransformTools ANTs VTK niral_utilities DTIProcess DTI-Reg ResampleDTIlogEuclidean conda Trafic)
+  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES Qt5 ${${PRIMARY_PROJECT_NAME}_DEPENDENCIES})
 ENDIF()
 
 #-----------------------------------------------------------------------------
@@ -148,3 +146,8 @@ ExternalProject_Add_Step(${proj} forcebuild
     DEPENDERS build
     ALWAYS 1
   )
+
+if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
+  set(CPACK_INSTALL_CMAKE_PROJECTS "${CPACK_INSTALL_CMAKE_PROJECTS};${CMAKE_BINARY_DIR}/AutoTract-build;${EXTENSION_NAME};ALL;/")
+  include(${Slicer_EXTENSION_CPACK})
+endif()
