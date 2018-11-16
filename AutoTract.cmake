@@ -42,6 +42,34 @@ INCLUDE(${SlicerExecutionModel_USE_FILE})
 find_package(QtToCppXML REQUIRED)
 include(${QtToCppXML_USE_FILE}) 
 
+find_package(Trafic)
+
+if(Trafic_FOUND)
+  
+  foreach(Trafic_lib ${Trafic_LIBRARIES})
+
+    get_target_property(Trafic_location ${Trafic_lib} LOCATION_RELEASE)
+    if(NOT EXISTS ${Trafic_location})
+      message(STATUS "skipping niral_utilities_lib install rule: [${Trafic_location}] does not exist")
+      continue()
+    endif()
+    
+    if(EXISTS "${Trafic_location}.xml")
+      install(PROGRAMS ${Trafic_location} 
+        DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+        COMPONENT RUNTIME)
+
+      install(FILES ${Trafic_location}.xml
+        DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+        COMPONENT RUNTIME)
+    else()
+      install(PROGRAMS ${Trafic_location} 
+        DESTINATION ${INSTALL_RUNTIME_DESTINATION}/../ExternalBin
+        COMPONENT RUNTIME)      
+    endif()
+  endforeach()
+  
+endif()
 
 
 set(ITK_IO_MODULES_USED
