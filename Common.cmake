@@ -1,4 +1,4 @@
-AutoTract.cmakeinclude(CMakeDependentOption)
+include(CMakeDependentOption)
 #-----------------------------------------------------------------------------
 enable_language(C)
 enable_language(CXX)
