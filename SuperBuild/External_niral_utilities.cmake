@@ -63,6 +63,9 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
       -DITK_DIR:PATH=${ITK_DIR}
       -DVTK_DIR:PATH=${VTK_DIR}
       -DSlicerExecutionModel_DIR:PATH=${SlicerExecutionModel_DIR}
+      -DINSTALL_RUNTIME_DESTINATION=${INSTALL_RUNTIME_DESTINATION}
+      -DINSTALL_LIBRARY_DESTINATION=${INSTALL_LIBRARY_DESTINATION}
+      -DINSTALL_ARCHIVE_DESTINATION=${INSTALL_ARCHIVE_DESTINATION}
     )
   ### --- End Project specific additions
   set(${proj}_REPOSITORY ${git_protocol}://github.com/NIRALUser/niral_utilities.git)

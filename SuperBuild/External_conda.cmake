@@ -23,11 +23,11 @@ set(${extProjName}_REQUIRED_VERSION "")  #If a required version is necessary, th
 
 if(UNIX)
 	if(APPLE)
-		set(${extProjName}_SCRIPT Miniconda3-latest-MacOSX-x86_64.sh)
+		set(${extProjName}_SCRIPT Miniconda3-4.5.11-MacOSX-x86_64.sh)
 		set(${extProjName}_URL https://repo.continuum.io/miniconda/${${extProjName}_SCRIPT})
 		set(${extProjName}_URL_HASH 7f7613bf98023f7d6ffe5df53c3a00a0)
 	else()
-		set(${extProjName}_SCRIPT Miniconda3-latest-Linux-x86_64.sh)
+		set(${extProjName}_SCRIPT Miniconda3-4.5.11-Linux-x86_64.sh)
 		set(${extProjName}_URL https://repo.continuum.io/miniconda/${${extProjName}_SCRIPT})
 		set(${extProjName}_URL_HASH e1045ee415162f944b6aebfe560b8fee)
 	endif()

@@ -134,5 +134,8 @@ if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
   set(niral_utilities_DIR ${CMAKE_CURRENT_BINARY_DIR}/../DTIProcess-build/niral_utilities-install/lib/CMake/niral_utilities)
   
 else()
+  set(INSTALL_RUNTIME_DESTINATION bin)
+  set(INSTALL_LIBRARY_DESTINATION lib)
+  set(INSTALL_ARCHIVE_DESTINATION lib)
   set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES ITKv4 SlicerExecutionModel QtToCppXML ITKTransformTools VTK DTIProcess DTI-Reg ResampleDTIlogEuclidean conda Trafic)
 endif()

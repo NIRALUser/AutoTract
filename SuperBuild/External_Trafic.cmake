@@ -33,7 +33,7 @@ if(DEFINED ${extProjName}_DIR AND NOT EXISTS ${${extProjName}_DIR})
 endif()
 
 # Set dependency list
-set(${proj}_DEPENDENCIES ITKv4 SlicerExecutionModel VTK)
+set(${proj}_DEPENDENCIES ITKv4 SlicerExecutionModel VTK niral_utilities)
 
 # Include dependent projects if any
 SlicerMacroCheckExternalProjectDependency(${proj})

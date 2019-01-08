@@ -135,6 +135,7 @@ ExternalProject_Add(${proj}
     ${extension_args}
     ${${CMAKE_PROJECT_NAME}_SUPERBUILD_EP_ARGS}
     -D${PRIMARY_PROJECT_NAME}_SUPERBUILD:BOOL=OFF    #NOTE: VERY IMPORTANT reprocess top level CMakeList.txt
+    -DQt4_SUPPORT:BOOL=${Qt4_SUPPORT}
     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/${PRIMARY_PROJECT_NAME}-install
   )
 
