@@ -45,6 +45,7 @@ if(UNIX)
 
     set(${extProjName}_DIR ${CMAKE_BINARY_DIR}/conda-install)
 	
+	list(APPEND ${CMAKE_PROJECT_NAME}_SUPERBUILD_EP_VARS ${extProjName}_DIR:PATH)
 endif()
 
 

@@ -68,6 +68,18 @@ if(Trafic_FOUND)
         COMPONENT RUNTIME)      
     endif()
   endforeach()
+
+  if(Trafic_PY_DIR)
+    install(DIRECTORY ${Trafic_PY_DIR}
+      DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+      COMPONENT RUNTIME)
+  endif()
+
+  if(conda_DIR)
+    install(DIRECTORY ${conda_DIR}
+      DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+      COMPONENT RUNTIME)
+  endif()
   
 endif()
 

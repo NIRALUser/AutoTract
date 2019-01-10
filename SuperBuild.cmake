@@ -137,6 +137,7 @@ ExternalProject_Add(${proj}
     -D${PRIMARY_PROJECT_NAME}_SUPERBUILD:BOOL=OFF    #NOTE: VERY IMPORTANT reprocess top level CMakeList.txt
     -DQt4_SUPPORT:BOOL=${Qt4_SUPPORT}
     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/${PRIMARY_PROJECT_NAME}-install
+    -Dniral_utilities_DIR:PATH=${niral_utilities_DIR}
   )
 
 ## Force rebuilding of the main subproject every time building from super structure

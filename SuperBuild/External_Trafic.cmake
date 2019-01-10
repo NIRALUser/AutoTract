@@ -38,6 +38,11 @@ set(${proj}_DEPENDENCIES ITKv4 SlicerExecutionModel VTK niral_utilities)
 # Include dependent projects if any
 SlicerMacroCheckExternalProjectDependency(${proj})
 
+set(niral_utilities_INSTALL ON)
+if(${${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION})
+  set(niral_utilities_INSTALL OFF)
+endif()
+
 if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" ) )
   #message(STATUS "${__indent}Adding project ${proj}")
 
@@ -63,6 +68,7 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
       -DUSE_SYSTEM_VTK:BOOL=ON
       -DVTK_DIR:PATH=${VTK_DIR}
       -Dniral_utilities_DIR:PATH=${niral_utilities_DIR}
+      -Dniral_utilities_INSTALL:BOOL=${niral_utilities_INSTALL}
     )
   ### --- End Project specific additions
   set(${proj}_REPOSITORY ${git_protocol}://github.com/NIRALUser/Trafic.git)

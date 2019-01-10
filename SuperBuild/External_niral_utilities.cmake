@@ -93,7 +93,8 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
   set(${extProjName}_DIR ${EXTERNAL_BINARY_DIRECTORY}/${proj}-install/lib/CMake/niral_utilities)  
 else()
   if(${USE_SYSTEM_${extProjName}})
-    find_package(${extProjName} REQUIRED)
+    find_package(${extProjName} REQUIRED
+      HINTS ${CMAKE_CURRENT_BINARY_DIR}/../DTIProcess-build/niral_utilities-install/lib/CMake/niral_utilities)
     message("USING the system ${extProjName}, set ${extProjName}_DIR=${${extProjName}_DIR}")
   endif()
   # The project is provided using ${extProjName}_DIR, nevertheless since other

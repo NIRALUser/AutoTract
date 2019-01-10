@@ -131,7 +131,8 @@ if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
   set(INSTALL_ARCHIVE_DESTINATION ${Slicer_INSTALL_CLIMODULES_LIB_DIR})
 
   set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES ITKv4 SlicerExecutionModel QtToCppXML conda Trafic)
-  set(niral_utilities_DIR ${CMAKE_CURRENT_BINARY_DIR}/../DTIProcess-build/niral_utilities-install/lib/CMake/niral_utilities)
+
+  set(USE_SYSTEM_niral_utilities ON)
   
 else()
   set(INSTALL_RUNTIME_DESTINATION bin)
