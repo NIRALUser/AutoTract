@@ -38,6 +38,7 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
       -DUSE_SYSTEM_ITK:BOOL=ON
       -DSlicerExecutionModel_DIR:PATH=${SlicerExecutionModel_DIR}
       -DUSE_SYSTEM_SlicerExecutionModel:BOOL=ON
+      -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/${proj}-install
     )
   ### --- End Project specific additions
   set(${proj}_REPOSITORY "${git_protocol}://github.com/NIRALUser/ResampleDTIlogEuclidean.git")
@@ -59,8 +60,6 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
       ${${proj}_CMAKE_OPTIONS}
     DEPENDS
       ${${proj}_DEPENDENCIES}
-    INSTALL_COMMAND 
-      ""
     )
   set(${extProjName}_DIR ${EXTERNAL_BINARY_DIRECTORY}/${proj}-install)
 

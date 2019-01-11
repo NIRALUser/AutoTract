@@ -66,7 +66,7 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
       -DBUILD_EXAMPLES:BOOL=OFF
       -DBUILD_TESTING:BOOL=OFF
       -DANTS_SUPERBUILD:BOOL=OFF
-      -DBUILD_ALL_ANTS_APPS:BOOL=OFF
+      -DBUILD_ALL_ANTS_APPS:BOOL=ON
    )
   ### --- End Project specific additions
   set(${proj}_REPOSITORY "https://github.com/ANTsX/ANTs.git")
@@ -87,11 +87,9 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
       ${COMMON_EXTERNAL_PROJECT_ARGS}
       ${${proj}_CMAKE_OPTIONS}
     DEPENDS
-    ${${proj}_DEPENDENCIES}
-    INSTALL_COMMAND 
-      make -C ${CMAKE_CURRENT_BINARY_DIR}/${proj}-build/ANTS-build install
+      ${${proj}_DEPENDENCIES}
   )
-  set(${extProjName}_DIR ${CMAKE_CURRENT_BINARY_DIR}/${proj}-install/lib/cmake/)
+  set(${extProjName}_DIR ${CMAKE_CURRENT_BINARY_DIR}/${proj}-install/)
 else()
   
   find_package(${extProjName} REQUIRED)

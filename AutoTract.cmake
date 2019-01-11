@@ -42,6 +42,7 @@ INCLUDE(${SlicerExecutionModel_USE_FILE})
 find_package(QtToCppXML REQUIRED)
 include(${QtToCppXML_USE_FILE}) 
 
+
 find_package(Trafic)
 
 if(Trafic_FOUND)
@@ -78,9 +79,139 @@ if(Trafic_FOUND)
   if(conda_DIR)
     install(DIRECTORY ${conda_DIR}
       DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+      USE_SOURCE_PERMISSIONS
       COMPONENT RUNTIME)
   endif()
   
+endif()
+
+if(NOT ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
+
+  if(ANTs_DIR)
+    set(ants_tools
+      ANTS
+      WarpImageMultiTransform)
+
+    foreach(ants_bin ${ants_tools})
+      
+        install(PROGRAMS ${ANTs_DIR}/bin/${ants_bin}
+          DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+          COMPONENT RUNTIME)
+
+    endforeach()
+  endif()
+
+  
+  find_package(DTIProcess)
+  if(DTIProcess_FOUND)
+
+    install(PROGRAMS ${DTIProcess_dtiprocess_EXECUTABLE} 
+        DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+        COMPONENT RUNTIME)
+    
+    if(EXISTS "${DTIProcess_dtiprocess_EXECUTABLE}.xml")
+      install(FILES ${DTIProcess_dtiprocess_EXECUTABLE}.xml
+        DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+        COMPONENT RUNTIME)
+    endif()
+
+    install(PROGRAMS ${DTIProcess_fiberprocess_EXECUTABLE} 
+        DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+        COMPONENT RUNTIME)
+    
+    if(EXISTS "${DTIProcess_fiberprocess_EXECUTABLE}.xml")
+      install(FILES ${DTIProcess_fiberprocess_EXECUTABLE}.xml
+        DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+        COMPONENT RUNTIME)
+    endif()
+    
+    
+  endif()
+
+  
+  find_package(DTI-Reg)
+  if(DTI-Reg_FOUND)
+
+    foreach(dtir_lib ${DTI-Reg_LIBRARIES})
+
+      get_target_property(dtir_location ${dtir_lib} LOCATION_RELEASE)
+      if(NOT EXISTS ${dtir_location})
+        message(STATUS "skipping niral_utilities_lib install rule: [${dtir_location}] does not exist")
+        continue()
+      endif()
+
+      install(PROGRAMS ${dtir_location} 
+          DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+          COMPONENT RUNTIME)
+      
+      if(EXISTS "${dtir_location}.xml")
+        install(FILES ${dtir_location}.xml
+          DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+          COMPONENT RUNTIME)
+      endif()
+    endforeach()
+    
+  endif()
+
+  find_package(niral_utilities)
+  if(niral_utilities_FOUND)
+
+    foreach(niral_utilities_lib ${niral_utilities_LIBRARIES})
+
+      get_target_property(niral_utilities_location ${niral_utilities_lib} LOCATION_RELEASE)
+      if(NOT EXISTS ${niral_utilities_location})
+        message(STATUS "skipping niral_utilities_lib install rule: [${niral_utilities_location}] does not exist")
+        continue()
+      endif()
+      
+      if(EXISTS "${niral_utilities_location}.xml")
+        install(PROGRAMS ${niral_utilities_location} 
+          DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+          COMPONENT RUNTIME)
+
+        install(FILES ${niral_utilities_location}.xml
+          DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+          COMPONENT RUNTIME)
+      else()
+        install(PROGRAMS ${niral_utilities_location} 
+          DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+          COMPONENT RUNTIME)      
+      endif()
+    endforeach()
+    
+  endif()
+
+
+  if(DTIAtlasFiberAnalyzer_DIR)
+    install(PROGRAMS ${DTIAtlasFiberAnalyzer_DIR}/bin/FiberPostProcess
+          DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+          COMPONENT RUNTIME)
+
+    install(FILES ${DTIAtlasFiberAnalyzer_DIR}/bin/FiberPostProcess.xml
+          DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+          COMPONENT RUNTIME)
+  endif()
+
+  find_package(ITKTransformTools)
+
+  if(ITKTransformTools_DIR)
+    get_target_property(ITKTransformTools_location ITKTransformTools LOCATION_RELEASE)
+
+    install(PROGRAMS ${ITKTransformTools_location} 
+            DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+            COMPONENT RUNTIME)  
+  endif()
+
+  if(ResampleDTIlogEuclidean_DIR)
+    install(PROGRAMS ${ResampleDTIlogEuclidean_DIR}/bin/ResampleDTIlogEuclidean 
+            DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+            COMPONENT RUNTIME)  
+
+    install(PROGRAMS ${ResampleDTIlogEuclidean_DIR}/bin/ResampleDTIlogEuclidean.xml
+            DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+            COMPONENT RUNTIME) 
+  endif()
+
 endif()
 
 

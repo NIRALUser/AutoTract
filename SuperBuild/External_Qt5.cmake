@@ -42,7 +42,7 @@ find_package(${proj} ${${extProjName}_REQUIRED_VERSION} COMPONENTS Widgets Core 
 SlicerMacroEmptyExternalProject(${proj} "${${proj}_DEPENDENCIES}")
 
 list(APPEND ${CMAKE_PROJECT_NAME}_SUPERBUILD_EP_VARS 
-    QT_QMAKE_EXECUTABLE:PATH    
+    Qt5_DIR:PATH    
 )
 _expand_external_project_vars()
 set(COMMON_EXTERNAL_PROJECT_ARGS ${${CMAKE_PROJECT_NAME}_SUPERBUILD_EP_ARGS})

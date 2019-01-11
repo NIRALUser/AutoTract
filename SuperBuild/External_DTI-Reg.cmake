@@ -38,6 +38,7 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
       -DUSE_SYSTEM_ITK:BOOL=ON
       -DANTs_DIR:PATH=${ANTs_DIR}
       -DUSE_SYSTEM_ANTs:BOOL=ON
+      -DANTs_INSTALL:BOOL=OFF
       -DSlicerExecutionModel_DIR:PATH=${SlicerExecutionModel_DIR}
       -DUSE_SYSTEM_SlicerExecutionModel:BOOL=ON
       -DDTI-Reg_INSTALL_DIRECTORY:PATH=${EXTERNAL_BINARY_DIRECTORY}/${proj}-install
@@ -65,7 +66,7 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
     INSTALL_COMMAND 
       ""
     )
-  set(${extProjName}_DIR ${EXTERNAL_BINARY_DIRECTORY}/${proj}-install)
+  set(${extProjName}_DIR ${EXTERNAL_BINARY_DIRECTORY}/${proj}-install/lib/CMake/DTI-Reg)
 
 else()
   if(${USE_SYSTEM_${extProjName}})
