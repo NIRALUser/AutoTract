@@ -134,6 +134,7 @@ if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
 
   set(USE_SYSTEM_niral_utilities ON)
   
+  add_definitions(-DSlicer_CLIMODULES_BIN_DIR="${Slicer_CLIMODULES_BIN_DIR}")
 else()
   set(INSTALL_RUNTIME_DESTINATION bin)
   set(INSTALL_LIBRARY_DESTINATION lib)

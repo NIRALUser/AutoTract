@@ -23,7 +23,7 @@ public:
     void displayTracts();
     void checkSelectedTracts();
     void checkTracts();
-    void initSoftware();
+    void initSoftware(std::string commandDirectory=".");
 public slots:
     void UpdateTractPopulationDirectoryDisplay();
     void selectTracts(QListWidgetItem* item);

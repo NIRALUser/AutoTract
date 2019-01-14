@@ -150,52 +150,76 @@ void AutoTractDerivedWindow::closeEvent(QCloseEvent *event)
     }
 }
 
-void AutoTractDerivedWindow::initSoftware()
+void AutoTractDerivedWindow::initSoftware(std::string commandDirectory)
 {
+
+    std::vector<std::string> hints;
+    hints.push_back(commandDirectory);
+
+#ifdef Slicer_CLIMODULES_BIN_DIR
+    
+    hints.push_back(commandDirectory + "/../../../../ResampleDTIlogEuclidean/" + std::string(Slicer_CLIMODULES_BIN_DIR));
+    hints.push_back(commandDirectory + "/../../../../DTIAtlasFiberAnalyzer/" + std::string(Slicer_CLIMODULES_BIN_DIR));
+    hints.push_back(commandDirectory + "/../../../../DTIAtlasBuilder/" + std::string(Slicer_CLIMODULES_BIN_DIR));
+    hints.push_back(commandDirectory + "/../../../../DTI-Reg/" + std::string(Slicer_CLIMODULES_BIN_DIR));
+    hints.push_back(commandDirectory + "/../../../../DTIProcess/" + std::string(Slicer_CLIMODULES_BIN_DIR));
+    
+#endif
+
+    // This paths are used when is built as standalone and testing
+
+    hints.push_back(commandDirectory + "/../ResampleDTIlogEuclidean-install/bin");
+    hints.push_back(commandDirectory + "/../DTIAtlasFiberAnalyzer-install/bin");
+    hints.push_back(commandDirectory + "/../DTIAtlasBuilder-install/bin");
+    hints.push_back(commandDirectory + "/../DTI-Reg-install/bin");
+    hints.push_back(commandDirectory + "/../DTIProcess-install/bin");
+    
+    //
+
     std::string soft = "dtiprocess";
-    m_soft_m->setsoft_dtiprocess_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_dtiprocess_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "DTI-Reg";
-    m_soft_m->setsoft_DTIReg_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_DTIReg_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "FiberPostProcess";
-    m_soft_m->setsoft_FiberPostProcess_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_FiberPostProcess_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "fiberprocess";
-    m_soft_m->setsoft_fiberprocess_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_fiberprocess_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "ImageMath";
-    m_soft_m->setsoft_ImageMath_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_ImageMath_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "ResampleDTIlogEuclidean";
-    m_soft_m->setsoft_ResampleDTIlogEuclidean_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_ResampleDTIlogEuclidean_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "MaurerDistanceTransform";
-    m_soft_m->setsoft_MDT_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_MDT_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "polydatatransform";
-    m_soft_m->setsoft_polydatatransform_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_polydatatransform_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "python";
-    m_soft_m->setsoft_python_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_python_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "TractographyLabelMapSeeding";
-    m_soft_m->setsoft_TractographyLabelMapSeeding_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_TractographyLabelMapSeeding_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "unu";
-    m_soft_m->setsoft_unu_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_unu_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "Slicer";
-    m_soft_m->setsoft_slicer_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_slicer_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "ANTS";
-    m_soft_m->setsoft_ANTS_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_ANTS_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "ITKTransformTools";
-    m_soft_m->setsoft_ITKTransformTools_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
+    m_soft_m->setsoft_ITKTransformTools_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) ) ;
 
     soft = "docker";
-    m_soft_m->setsoft_docker_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) );
+    m_soft_m->setsoft_docker_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints ) ) );
 }
 
 
