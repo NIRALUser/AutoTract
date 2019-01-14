@@ -37,16 +37,22 @@ parser.add_argument('--dockerImage', action='store', dest='dockerImage', default
 
 try:
     import docker
+except ImportError:
+    print "Docker not found"
+    sys.exit(-1)
+
+try:
     import requests
 except ImportError:
+    print "Requests lib not found"
     sys.exit(-1)
+
 
 
 LOGGER = None
 container = None
-
 # the low-level API is used for building & exec, as it's the only way to get output stream
-CLI = docker.APIClient(timeout=10000000) 
+CLI = None
 
 def stop(signal, frame):
     LOGGER.info('*************** Signal stop received! ******************')
@@ -172,11 +178,46 @@ def generate_input_csv(input_list, output_directory, extracted_landmarks_path, d
 
 
 def run():
+
     signal.signal(signal.SIGINT, stop)
     signal.signal(signal.SIGTERM, stop)
 
+    args = parser.parse_args() 
+
+    if docker:
+        CLI = docker.APIClient(timeout=10000000) 
+        run_docker(args)
+    else:
+        run_native(args)
+
+def run_native():
+    input_directory = args.inputDirectory
+    output_directory = args.outputDirectory
+    displacement_field_path = args.displacementFieldPath
+    checkpoint_archive_path = args.checkpointArchivePath
+    extracted_model_directory = os.path.join(output_directory, 'model')
+    extracted_landmarks_path = os.path.join(extracted_model_directory_bind, 'landmarks.fcsv')
+    extracted_model_description_path = os.path.join(extracted_model_directory, 'model', 'dataset_description.json')
+    dockerImage=args.dockerImage
+
+    LOGGER.info('Extracting model information')
+    extract_model(checkpoint_archive_path, extracted_model_directory)
+
+    LOGGER.info('Generating input csv')
+    generate_input_csv(input_list=input_list,
+                       output_directory=output_directory,
+                       extracted_landmarks_path=extracted_landmarks_path,
+                       displacement_field_bind_path=displacement_field_bind_path)
+
+    LOGGER.info('Running classification natively')
+    arguments = ['python', '-u',
+                 os.path.join(docker_trafic_dir, 'TraficMulti/TraficMulti_cli.py'),
+                 '--input_csv', os.path.join(output_directory_bind_point , 'input.csv')]
+
+
+
+def run_docker(args):
     ## Parameters
-    args = parser.parse_args()   
     input_directory = args.inputDirectory
     output_directory = args.outputDirectory
     displacement_field_path = args.displacementFieldPath

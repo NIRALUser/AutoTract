@@ -79,7 +79,7 @@ void Pipeline::initializeMainScript()
 void Pipeline::defineSignalHandler()
 {
     m_script += "def signal_handler(signal, frame):\n";
-    m_script += "\tprint '***************You pressed Ctrl+C!******************'\n";
+    m_script += "\tprint('***************You pressed Ctrl+C!******************')\n";
     m_script += "\tif runningProcess.poll!=1:\n";
     m_script += "\t\trunningProcess.terminate()\n";
     m_script += "\tsys.exit(0)\n\n";
