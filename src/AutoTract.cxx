@@ -44,7 +44,7 @@ int main( int argc , char** argv )
         window.show() ;
         if(parameters.empty() && executables.empty())
         {
-            std::string commandDirectory = itksys::SystemTools::GetRealPath( itksys::SystemTools::GetFilenamePath(argv[0]).c_str() );
+            std::string commandDirectory = itksys::SystemTools::GetFilenamePath(itksys::SystemTools::GetRealPath( argv[0] ));
             if(commandDirectory==""){
                 commandDirectory=".";
             }
