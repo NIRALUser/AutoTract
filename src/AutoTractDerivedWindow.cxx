@@ -176,7 +176,6 @@ void AutoTractDerivedWindow::initSoftware(std::string commandDirectory)
     hints.push_back(commandDirectory + "/../../../DTI-Reg-build/ITKTransformTools-build");
     hints.push_back(commandDirectory + "/../../../DTIAtlasFiberAnalyzer-build/DTIAtlasFiberAnalyzer-inner-build/bin");
     hints.push_back(commandDirectory + "/../../../DTIProcess-build/niral_utilities-install/Slicer.app/Contents/" + std::string(Slicer_CLIMODULES_BIN_DIR));
-    hints.push_back(commandDirectory + "/../../conda-install/bin");
     
     
     // ../../../../../../../../../DTIAtlasFiberAnalyzer-build/DTIAtlasFiberAnalyzer-inner-build/bin
@@ -189,6 +188,7 @@ void AutoTractDerivedWindow::initSoftware(std::string commandDirectory)
     hints.push_back(commandDirectory + "/../DTIAtlasBuilder-install/bin/");
     hints.push_back(commandDirectory + "/../DTI-Reg-install/bin/");
     hints.push_back(commandDirectory + "/../DTIProcess-install/bin/");
+    hints.push_back(commandDirectory + "/../../conda-install/bin");
 
     
 
