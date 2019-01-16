@@ -78,7 +78,7 @@ if(Trafic_FOUND)
 
   if(Trafic_PY_DIR)
     install(DIRECTORY ${Trafic_PY_DIR}
-      DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+      DESTINATION ${INSTALL_RUNTIME_DESTINATION}/Trafic
       COMPONENT RUNTIME)
   endif()
 
