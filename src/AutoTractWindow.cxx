@@ -55,6 +55,7 @@ void AutoTractWindow::SyncUiToModelStructure()
     m_soft_m->setsoft_ANTS_lineEdit( soft_ANTS_lineEdit->text() );
     m_soft_m->setsoft_ITKTransformTools_lineEdit( soft_ITKTransformTools_lineEdit->text() );
     m_soft_m->setsoft_docker_lineEdit( soft_docker_lineEdit->text() );
+    m_soft_m->setsoft_Trafic_lineEdit( soft_Trafic_lineEdit->text() );
 
     /*4th tab: registration*/
     m_para_m->setpara_registration_type_comboBox( para_registration_type_comboBox->currentText() );
@@ -189,6 +190,7 @@ void AutoTractWindow::SyncUiToModelStructure( QString prefix )
         m_soft_m->setsoft_ANTS_lineEdit( soft_ANTS_lineEdit->text() );
         m_soft_m->setsoft_ITKTransformTools_lineEdit( soft_ITKTransformTools_lineEdit->text() );
         m_soft_m->setsoft_docker_lineEdit( soft_docker_lineEdit->text() );
+        m_soft_m->setsoft_Trafic_lineEdit( soft_Trafic_lineEdit->text() );
 
     }
     m_sync = 0 ;
@@ -239,6 +241,7 @@ std::cout<<it->second<<std::endl;
     soft_ANTS_lineEdit->setText( m_soft_m->getsoft_ANTS_lineEdit() );
     soft_ITKTransformTools_lineEdit->setText( m_soft_m->getsoft_ITKTransformTools_lineEdit() );
     soft_docker_lineEdit->setText( m_soft_m->getsoft_docker_lineEdit() );
+    soft_Trafic_lineEdit->setText( m_soft_m->getsoft_Trafic_lineEdit() );
 
     /*4th tab: registration*/
     para_registration_type_comboBox->setCurrentIndex(para_registration_type_comboBox->findText(m_para_m->getpara_registration_type_comboBox()));
@@ -376,6 +379,7 @@ void AutoTractWindow::SyncModelStructureToUi( QString prefix )
         soft_ANTS_lineEdit->setText( m_soft_m->getsoft_ANTS_lineEdit() );
         soft_ITKTransformTools_lineEdit->setText( m_soft_m->getsoft_ITKTransformTools_lineEdit() );
         soft_docker_lineEdit->setText( m_soft_m->getsoft_docker_lineEdit() );
+        soft_Trafic_lineEdit->setText( m_soft_m->getsoft_Trafic_lineEdit() );
     }
     m_sync = 0 ;
 }

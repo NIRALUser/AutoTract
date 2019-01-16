@@ -157,8 +157,6 @@ void AutoTractDerivedWindow::initSoftware(std::string commandDirectory)
     hints.push_back(commandDirectory);
     hints.push_back(commandDirectory + "/conda-install/bin/");
 
-    std::cout<<commandDirectory<<std::endl;
-
 #ifdef Slicer_CLIMODULES_BIN_DIR
     
     hints.push_back(commandDirectory + "/../../../../ResampleDTIlogEuclidean/" + std::string(Slicer_CLIMODULES_BIN_DIR));
@@ -166,6 +164,8 @@ void AutoTractDerivedWindow::initSoftware(std::string commandDirectory)
     hints.push_back(commandDirectory + "/../../../../DTIAtlasBuilder/" + std::string(Slicer_CLIMODULES_BIN_DIR));
     hints.push_back(commandDirectory + "/../../../../DTI-Reg/" + std::string(Slicer_CLIMODULES_BIN_DIR));
     hints.push_back(commandDirectory + "/../../../../DTIProcess/" + std::string(Slicer_CLIMODULES_BIN_DIR));
+    hints.push_back(commandDirectory + "/../../../../TractographyLabelMapSeeding/" + std::string(Slicer_CLIMODULES_BIN_DIR));
+    hints.push_back(commandDirectory + "/../ExternalBin/");
 
     // This path is used when is built as Slicer extension and in debug/build directory
     hints.push_back(commandDirectory + "/../../../ResampleDTIlogEuclidean-build/" + std::string(Slicer_CLIMODULES_BIN_DIR));
@@ -176,20 +176,24 @@ void AutoTractDerivedWindow::initSoftware(std::string commandDirectory)
     hints.push_back(commandDirectory + "/../../../DTI-Reg-build/ITKTransformTools-build");
     hints.push_back(commandDirectory + "/../../../DTIAtlasFiberAnalyzer-build/DTIAtlasFiberAnalyzer-inner-build/bin");
     hints.push_back(commandDirectory + "/../../../DTIProcess-build/niral_utilities-install/Slicer.app/Contents/" + std::string(Slicer_CLIMODULES_BIN_DIR));
+
+    //For Slicer executable
+    hints.push_back(commandDirectory + "/../../../../../");//LINUX
+    hints.push_back(commandDirectory + "/../../../../../MacOS");//MAC
     
-    
-    // ../../../../../../../../../DTIAtlasFiberAnalyzer-build/DTIAtlasFiberAnalyzer-inner-build/bin
 #endif
 
     // This paths are used when is built as standalone and testing
-
-    hints.push_back(commandDirectory + "/../ResampleDTIlogEuclidean-install/bin");
-    hints.push_back(commandDirectory + "/../DTIAtlasFiberAnalyzer-install/bin/");
-    hints.push_back(commandDirectory + "/../DTIAtlasBuilder-install/bin/");
-    hints.push_back(commandDirectory + "/../DTI-Reg-install/bin/");
-    hints.push_back(commandDirectory + "/../DTIProcess-install/bin/");
+    hints.push_back(commandDirectory + "/../../niral_utilities-install/bin");
+    hints.push_back(commandDirectory + "/../../ResampleDTIlogEuclidean-install/bin");
+    hints.push_back(commandDirectory + "/../../DTIAtlasFiberAnalyzer-install/bin/");
+    hints.push_back(commandDirectory + "/../../DTIAtlasBuilder-install/bin/");
+    hints.push_back(commandDirectory + "/../../DTI-Reg-install/bin/");
+    hints.push_back(commandDirectory + "/../../ITKTransformTools-install/bin/");
+    hints.push_back(commandDirectory + "/../../DTIProcess-install/bin/");
     hints.push_back(commandDirectory + "/../../conda-install/bin");
-
+    hints.push_back(commandDirectory + "/../../Teem-install/bin");
+    hints.push_back(commandDirectory + "/../../");
     
 
     std::string soft = "dtiprocess";
@@ -219,14 +223,14 @@ void AutoTractDerivedWindow::initSoftware(std::string commandDirectory)
     soft = "python";
     m_soft_m->setsoft_python_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints, true ) ) ) ;
 
+    soft = "Slicer";
+    m_soft_m->setsoft_slicer_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints, true ) ) ) ;
+
     soft = "TractographyLabelMapSeeding";
     m_soft_m->setsoft_TractographyLabelMapSeeding_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints, true ) ) ) ;
 
     soft = "unu";
     m_soft_m->setsoft_unu_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints, true ) ) ) ;
-
-    soft = "Slicer";
-    m_soft_m->setsoft_slicer_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints, true ) ) ) ;
 
     soft = "ANTS";
     m_soft_m->setsoft_ANTS_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints, true ) ) ) ;
@@ -236,6 +240,9 @@ void AutoTractDerivedWindow::initSoftware(std::string commandDirectory)
 
     soft = "docker";
     m_soft_m->setsoft_docker_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints, true ) ) );
+
+    soft = "Trafic";
+    m_soft_m->setsoft_Trafic_lineEdit(QString::fromStdString( itksys::SystemTools::FindDirectory( soft.c_str(), hints, true ) ) );
 }
 
 
@@ -520,6 +527,11 @@ void AutoTractDerivedWindow::resetExecutable(QString executable_name)
     if(executable_name == "docker")
     {
         m_soft_m->setsoft_docker_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( executable_name.toStdString().c_str() ) ) ) ;
+    }
+
+    if(executable_name == "Trafic")
+    {
+        m_soft_m->setsoft_Trafic_lineEdit(QString::fromStdString( itksys::SystemTools::FindDirectory( executable_name.toStdString().c_str() ) ) ) ;
     }
 
     SyncModelStructureToUi("soft");

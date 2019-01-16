@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>746</width>
-    <height>818</height>
+    <width>783</width>
+    <height>830</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,16 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>18</number>
+    </property>
+    <property name="topMargin">
+     <number>18</number>
+    </property>
+    <property name="rightMargin">
+     <number>18</number>
+    </property>
+    <property name="bottomMargin">
      <number>18</number>
     </property>
     <property name="verticalSpacing">
@@ -275,23 +284,10 @@
               <string>Executables</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_5">
-              <item row="13" column="3">
-               <widget class="QPushButton" name="reset_dtiprocess_pushButton">
+              <item row="3" column="0">
+               <widget class="QPushButton" name="DTIReg_pushButton">
                 <property name="text">
-                 <string>Reset</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QLineEdit" name="soft_ITKTransformTools_lineEdit"/>
-              </item>
-              <item row="2" column="2">
-               <widget class="QLineEdit" name="soft_slicer_lineEdit"/>
-              </item>
-              <item row="0" column="0">
-               <widget class="QPushButton" name="ITKTransformTools_pushButton">
-                <property name="text">
-                 <string>ITKTransformTools</string>
+                 <string>DTIReg</string>
                 </property>
                </widget>
               </item>
@@ -302,10 +298,23 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
-               <widget class="QPushButton" name="DTIReg_pushButton">
+              <item row="0" column="0">
+               <widget class="QPushButton" name="ITKTransformTools_pushButton">
                 <property name="text">
-                 <string>DTIReg</string>
+                 <string>ITKTransformTools</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QLineEdit" name="soft_slicer_lineEdit"/>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLineEdit" name="soft_ITKTransformTools_lineEdit"/>
+              </item>
+              <item row="13" column="3">
+               <widget class="QPushButton" name="reset_dtiprocess_pushButton">
+                <property name="text">
+                 <string>Reset</string>
                 </property>
                </widget>
               </item>
@@ -525,6 +534,23 @@
               </item>
               <item row="14" column="3">
                <widget class="QPushButton" name="reset_docker_pushButton">
+                <property name="text">
+                 <string>Reset</string>
+                </property>
+               </widget>
+              </item>
+              <item row="15" column="0">
+               <widget class="QPushButton" name="Trafic_pushButton">
+                <property name="text">
+                 <string>Trafic dir</string>
+                </property>
+               </widget>
+              </item>
+              <item row="15" column="2">
+               <widget class="QLineEdit" name="soft_Trafic_lineEdit"/>
+              </item>
+              <item row="15" column="3">
+               <widget class="QPushButton" name="reset_Trafic_pushButton">
                 <property name="text">
                  <string>Reset</string>
                 </property>
@@ -1606,7 +1632,16 @@ the fiber is removed</string>
            <property name="spacing">
             <number>0</number>
            </property>
-           <property name="margin">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
             <number>0</number>
            </property>
            <item>
@@ -1615,9 +1650,6 @@ the fiber is removed</string>
               <string/>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_23">
-              <property name="margin">
-               <number>9</number>
-              </property>
               <item>
                <widget class="QLabel" name="computingSystem_label">
                 <property name="text">
@@ -1730,12 +1762,6 @@ the fiber is removed</string>
               <string>Registration</string>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_22">
-              <property name="spacing">
-               <number>6</number>
-              </property>
-              <property name="margin">
-               <number>9</number>
-              </property>
               <item>
                <widget class="QLabel" name="label">
                 <property name="text">
@@ -1820,12 +1846,6 @@ the fiber is removed</string>
               <string>Tract Processing</string>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_16">
-              <property name="spacing">
-               <number>6</number>
-              </property>
-              <property name="margin">
-               <number>9</number>
-              </property>
               <item>
                <widget class="QLabel" name="nb_memory_label">
                 <property name="text">
@@ -1972,8 +1992,8 @@ the fiber is removed</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>746</width>
-     <height>24</height>
+     <width>783</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
