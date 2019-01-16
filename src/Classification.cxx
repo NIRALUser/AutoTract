@@ -67,6 +67,7 @@ void Classification::defineScriptParameters(){
     m_scriptParameters["@displacementFieldPath@"] = m_displacementFieldPath;
     m_scriptParameters["@checkpointArchivePath@"] = m_para_m->getpara_trafic_model_dir_lineEdit();
     m_scriptParameters["@log@"] = m_log_path;
+    m_scriptParameters["@traficDir@"] = m_soft_m->getsoft_Trafic_lineEdit();
     
     //flags
     if(m_para_m->getpara_no_tract_output_trafic_checkBox())

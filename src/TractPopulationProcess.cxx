@@ -76,7 +76,7 @@ void TractPopulationProcess::implementProcessTractPopulation()
     if(m_para_m->getpara_computingSystem_comboBox() == "local")
     {
         m_script += "def stop(signal, frame):\n";
-        m_script += "\tprint 'Signal received'\n";
+        m_script += "\tprint('Signal received')\n";
         m_script += "\tfor tract in runningTract:\n";
         m_script += "\t\t(tract.process).terminate()\n";
         m_script += "\tsys.exit(0)\n\n";
@@ -90,7 +90,7 @@ void TractPopulationProcess::implementProcessTractPopulation()
     if(m_para_m->getpara_computingSystem_comboBox() == "killdevil" || m_para_m->getpara_computingSystem_comboBox() == "killdevil interactive")
     {
         m_script += "def stop(signal, frame):\n";
-        m_script += "\tprint 'Signal received'\n";
+        m_script += "\tprint('Signal received')\n";
         m_script += "\tfor tract in runningTract:\n";
         m_script += "\t\tbkill_tract = subprocess.Popen(['bkill', tract.job])\n";
         m_script += "\tsys.exit(0)\n\n";
@@ -115,8 +115,8 @@ void TractPopulationProcess::implementProcessTractPopulation()
         m_script += "\tos.environ['ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS'] = str(nbCores)\n";
     }
 
-    m_script += "\trunningTract = []\n\n";
     m_script += "\tglobal runningTract\n";
+    m_script += "\trunningTract = []\n\n";
 
     if(m_para_m->getpara_computingSystem_comboBox() == "killdevil" || m_para_m->getpara_computingSystem_comboBox() == "killdevil interactive")
     {

@@ -32,19 +32,20 @@ parser.add_argument('--log', action='store', dest='log', default='@log@')
 parser.add_argument('--generateTracts', action='store', type=bool, dest='generateTracts',
                     default='@generateTracts@')
 parser.add_argument('--input_list', nargs='+', dest='inputList', default=['@inputList@'])
-
 parser.add_argument('--dockerImage', action='store', dest='dockerImage', default='trafic:trafic_cpu')
+parser.add_argument('--traficDir', action='store', dest='traficDir', default='@traficDir@')
+
 
 try:
     import docker
 except ImportError:
-    print "Docker not found"
+    print("Docker not found")
     sys.exit(-1)
 
 try:
     import requests
 except ImportError:
-    print "Requests lib not found"
+    print("Requests lib not found")
     sys.exit(-1)
 
 
@@ -211,10 +212,25 @@ def run_native():
 
     LOGGER.info('Running classification natively')
     arguments = ['python', '-u',
-                 os.path.join(docker_trafic_dir, 'TraficMulti/TraficMulti_cli.py'),
+                 os.path.join(args.traficDir, 'TraficMulti/TraficMulti_cli.py'),
                  '--input_csv', os.path.join(output_directory_bind_point , 'input.csv')]
 
+    execute(arguments)
 
+    if args.generateTracts:
+        LOGGER.info('Classification finished. extracting fibers')
+        for i in input_list:
+            fiber_name = os.path.basename(os.path.dirname(i))
+            arguments = ['python', '-u',
+                         os.path.join(args.traficDir, 'TraficLib/extractClassifiedFibers.py'),
+                         '--class_data',
+                         os.path.join(output_directory_bind_point,
+                                      fiber_name,
+                                      'classification_output.json'),
+                         '--input', i, '--output_dir',
+                         os.path.join(output_directory_bind_point, fiber_name, 'extracted_fibers')]
+
+            execute(arguments)
 
 def run_docker(args):
     ## Parameters
@@ -316,6 +332,27 @@ def run_docker(args):
     LOGGER.info('Removing container')
     container.remove()
     LOGGER.info('Done')
+
+def execute(args):
+    global runningProcess
+    LOGGER.debug(subprocess.list2cmdline(args))
+    runningProcess = subprocess.Popen(args,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+    stdout = ''
+    while True:
+        line = runningProcess.stdout.readline()
+        if line:
+            logger.debug(line.rstrip())
+            stdout = stdout + line
+        if not line: break
+    while True:
+        line = runningProcess.stderr.readline()
+        if line:
+            logger.error(line.rstrip())
+        if not line: break
+    runningProcess.wait()
+    LOGGER.debug('')
+
+    return stdout
 
 
 if __name__=="__main__":

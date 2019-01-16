@@ -129,7 +129,7 @@ void Script::implementExecute()
    m_script += "\t\tline = runningProcess.stdout.readline()\n";
    m_script += "\t\tif line:\n";
    m_script += "\t\t\tlogger.debug(line.rstrip())\n";
-   m_script += "\t\t\tstdout = stdout + line\n";
+   m_script += "\t\t\tstdout = stdout + str(line)\n";
    m_script += "\t\tif not line: break\n";
 
    m_script += "\twhile True:\n";
