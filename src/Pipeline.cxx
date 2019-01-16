@@ -227,12 +227,8 @@ void Pipeline::writeProcess()
 }
 
 void Pipeline::writeClassification()
-{   
-    if(!m_para_m->getpara_enable_trafic_checkBox() || m_soft_m->getsoft_docker_lineEdit().isEmpty())
-    {
-        return;
-    }
-
+{
+    
     QString directory_name = "4.Classification";
     QString directory_path = createModuleDirectory(directory_name);
 
