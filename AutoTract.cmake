@@ -64,9 +64,15 @@ if(Trafic_FOUND)
         DESTINATION ${INSTALL_RUNTIME_DESTINATION}
         COMPONENT RUNTIME)
     else()
-      install(PROGRAMS ${Trafic_location} 
-        DESTINATION ${INSTALL_RUNTIME_DESTINATION}/../ExternalBin
-        COMPONENT RUNTIME)      
+      if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
+        install(PROGRAMS ${Trafic_location} 
+          DESTINATION ${INSTALL_RUNTIME_DESTINATION}/../ExternalBin
+          COMPONENT RUNTIME)      
+      else()
+        install(PROGRAMS ${Teem_EXECUTABLE_DIRS} 
+          DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+          COMPONENT RUNTIME)
+      endif()
     endif()
   endforeach()
 
@@ -83,6 +89,19 @@ if(Trafic_FOUND)
       COMPONENT RUNTIME)
   endif()
   
+endif()
+
+
+if(Teem_DIR)
+  if (${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
+    install(PROGRAMS ${Teem_DIR}/../bin/unu 
+      DESTINATION ${INSTALL_RUNTIME_DESTINATION}/../ExternalBin
+      COMPONENT RUNTIME)
+  else()
+    install(PROGRAMS ${Teem_DIR}/../bin/unu 
+      DESTINATION ${INSTALL_RUNTIME_DESTINATION}
+      COMPONENT RUNTIME)
+  endif()
 endif()
 
 if(NOT ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION)
