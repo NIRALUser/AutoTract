@@ -155,7 +155,6 @@ void AutoTractDerivedWindow::initSoftware(std::string commandDirectory)
 
     std::vector<std::string> hints;
     hints.push_back(commandDirectory);
-    hints.push_back(commandDirectory + "/conda-install/bin/");
 
 #ifdef Slicer_CLIMODULES_BIN_DIR
     
@@ -191,7 +190,6 @@ void AutoTractDerivedWindow::initSoftware(std::string commandDirectory)
     hints.push_back(commandDirectory + "/../../DTI-Reg-install/bin/");
     hints.push_back(commandDirectory + "/../../ITKTransformTools-install/bin/");
     hints.push_back(commandDirectory + "/../../DTIProcess-install/bin/");
-    hints.push_back(commandDirectory + "/../../conda-install/bin");
     hints.push_back(commandDirectory + "/../../Teem-install/bin");
     hints.push_back(commandDirectory + "/../../");
     
@@ -220,8 +218,8 @@ void AutoTractDerivedWindow::initSoftware(std::string commandDirectory)
     soft = "polydatatransform";
     m_soft_m->setsoft_polydatatransform_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints, true ) ) ) ;
 
-    soft = "python";
-    m_soft_m->setsoft_python_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints, true ) ) ) ;
+    soft = "python3";
+    m_soft_m->setsoft_python_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str() ) ) ) ;
 
     soft = "Slicer";
     m_soft_m->setsoft_slicer_lineEdit(QString::fromStdString( itksys::SystemTools::FindProgram( soft.c_str(), hints, true ) ) ) ;

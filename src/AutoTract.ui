@@ -1530,9 +1530,9 @@ the fiber is removed</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>20</y>
+          <y>0</y>
           <width>688</width>
-          <height>191</height>
+          <height>231</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_12">
@@ -1545,43 +1545,21 @@ the fiber is removed</string>
             <property name="topMargin">
              <number>18</number>
             </property>
-            <item row="0" column="1">
-             <widget class="QLabel" name="enable_trafic_descr_label">
-              <property name="font">
-               <font>
-                <italic>true</italic>
-               </font>
-              </property>
-              <property name="text">
-               <string>Enable deep learning-based tract classification</string>
-              </property>
-             </widget>
-            </item>
             <item row="4" column="0">
-             <widget class="QPushButton" name="trafic_model_dir_pushButton">
-              <property name="text">
-               <string>Model Archive</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QCheckBox" name="para_enable_trafic_checkBox">
-              <property name="text">
-               <string>Enable Trafic</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
              <widget class="QCheckBox" name="para_no_tract_output_trafic_checkBox">
               <property name="text">
                <string>Don't output Tracts</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
-             <widget class="QLineEdit" name="para_trafic_model_dir_lineEdit"/>
+            <item row="7" column="0">
+             <widget class="QPushButton" name="trafic_model_dir_pushButton">
+              <property name="text">
+               <string>Model Archive</string>
+              </property>
+             </widget>
             </item>
-            <item row="3" column="1">
+            <item row="4" column="2">
              <widget class="QLabel" name="no_tract_output_trafic_descr_label">
               <property name="font">
                <font>
@@ -1599,18 +1577,52 @@ the fiber is removed</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
-             <spacer name="verticalSpacer_10">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
+            <item row="0" column="2">
+             <widget class="QLabel" name="enable_trafic_descr_label">
+              <property name="font">
+               <font>
+                <italic>true</italic>
+               </font>
               </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>698</width>
-                <height>40</height>
-               </size>
+              <property name="text">
+               <string>Enable deep learning-based tract classification</string>
               </property>
-             </spacer>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="para_enable_trafic_checkBox">
+              <property name="toolTipDuration">
+               <number>-3</number>
+              </property>
+              <property name="text">
+               <string>Enable Trafic</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="2">
+             <widget class="QLineEdit" name="para_trafic_model_dir_lineEdit"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="para_enable_docker_checkBox">
+              <property name="text">
+               <string>Enable docker</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="docker_label">
+              <property name="toolTip">
+               <string>If is running natively. tensorflow and vtk must be installed with python.</string>
+              </property>
+              <property name="text">
+               <string>Use docker to run the classification, will be run natively otherwise. 
+Check the documentation to find out how to install the dependencies 
+https://github.com/NIRALUser/AutoTract</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>

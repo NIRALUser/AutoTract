@@ -83,6 +83,7 @@ void AutoTractWindow::SyncUiToModelStructure()
     /*7th tab: classification*/
     m_para_m->setpara_trafic_model_dir_lineEdit( para_trafic_model_dir_lineEdit->text() );
     m_para_m->setpara_enable_trafic_checkBox(para_enable_trafic_checkBox->isChecked());
+    m_para_m->setpara_enable_docker_checkBox(para_enable_docker_checkBox->isChecked());
     m_para_m->setpara_no_tract_output_trafic_checkBox(para_no_tract_output_trafic_checkBox->isChecked());
         
     /*8th tab: Execution*/
@@ -156,6 +157,7 @@ void AutoTractWindow::SyncUiToModelStructure( QString prefix )
         /*7th tab: classification*/
         m_para_m->setpara_trafic_model_dir_lineEdit( para_trafic_model_dir_lineEdit->text() );
         m_para_m->setpara_enable_trafic_checkBox(para_enable_trafic_checkBox->isChecked());
+        m_para_m->setpara_enable_docker_checkBox(para_enable_docker_checkBox->isChecked());
         m_para_m->setpara_no_tract_output_trafic_checkBox(para_no_tract_output_trafic_checkBox->isChecked());
 
         /*8th tab: Execution*/
