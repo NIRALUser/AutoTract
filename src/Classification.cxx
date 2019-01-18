@@ -62,26 +62,35 @@ void Classification::setLogPath(QString path)
 //generates a dictionary to be used for replacement of parameters in the python script
 void Classification::defineScriptParameters(){ 
     //simple paths
-    m_scriptParameters["@inputDirectory@"] = m_postProcessPath;
-    m_scriptParameters["@outputDirectory@"] = m_module_path;
-    m_scriptParameters["@displacementFieldPath@"] = m_displacementFieldPath;
-    m_scriptParameters["@checkpointArchivePath@"] = m_para_m->getpara_trafic_model_dir_lineEdit();
-    m_scriptParameters["@log@"] = m_log_path;
-    m_scriptParameters["@traficDir@"] = m_soft_m->getsoft_Trafic_lineEdit();
+    m_scriptParameters["@inputDirectory@"] = QString("'") + m_postProcessPath + QString("'");
+    m_scriptParameters["@outputDirectory@"] = QString("'") + m_module_path + QString("'");
+    m_scriptParameters["@displacementFieldPath@"] = QString("'") + m_displacementFieldPath + QString("'");
+    m_scriptParameters["@checkpointArchivePath@"] = QString("'") + m_para_m->getpara_trafic_model_dir_lineEdit() + QString("'");
+    m_scriptParameters["@log@"] = QString("'") + m_log_path + QString("'");
+    m_scriptParameters["@traficDir@"] = QString("'") + m_soft_m->getsoft_Trafic_lineEdit() + QString("'");
     
     //flags
     if(m_para_m->getpara_no_tract_output_trafic_checkBox())
         m_scriptParameters["@generateTracts@"] = "False";
     else m_scriptParameters["@generateTracts@"] = "True";
 
+    if(m_para_m->getpara_enable_docker_checkBox()){
+        m_scriptParameters["@enableDocker@"] = "True";
+    }else{
+        m_scriptParameters["@enableDocker@"] = "False";
+    }
+
     //list
     QString inputList = "['";
     std::vector<QString>::iterator it;
     for (it = m_tractPopulation.begin(); it != m_tractPopulation.end(); ++it){
+        if(it != m_tractPopulation.begin()){
+            inputList += ",";
+        }
         QString tractFilename = *it;
         QFileInfo fi(tractFilename);
         QString base = fi.baseName();
-        inputList += base + "/" + base + "_cleanEnds.vtp','";
+        inputList += base + "/" + base + "_cleanEnds.vtp";
     }
     m_scriptParameters["@inputList@"] = inputList + "']";
 }

@@ -100,7 +100,8 @@ void Script::implementStop()
 {
    m_script += "def stop(signal, frame):\n";
    m_script += "\tprint('*************** Signal stop received! ******************')\n";
-   m_script += "\trunningProcess.terminate()\n";
+   m_script += "\tif runningProcess:\n";
+   m_script += "\t\trunningProcess.terminate()\n";
    m_script += "\tsys.exit(0)\n\n";
 }
 

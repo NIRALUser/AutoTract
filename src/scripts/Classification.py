@@ -22,35 +22,18 @@ docker_trafic_dir = '/Trafic'
 # parameters
 # @word@ default parameters are to be replaced by AutoTract.
 parser = argparse.ArgumentParser()
-parser.add_argument('--inputDirectory', action='store', dest='inputDirectory', default='@inputDirectory@')
-parser.add_argument('--outputDirectory', action='store', dest='outputDirectory', default='@outputDirectory@')
-parser.add_argument('--displacementFieldPath', action='store', dest='displacementFieldPath',
-                    default='@displacementFieldPath@')
-parser.add_argument('--checkpointArchivePath', action='store', dest='checkpointArchivePath',
-                    default='@checkpointArchivePath@')
-parser.add_argument('--log', action='store', dest='log', default='@log@')
-parser.add_argument('--generateTracts', action='store', type=bool, dest='generateTracts',
-                    default='@generateTracts@')
-parser.add_argument('--input_list', nargs='+', dest='inputList', default=['@inputList@'])
+parser.add_argument('--inputDirectory', action='store', dest='inputDirectory', default=@inputDirectory@)
+parser.add_argument('--outputDirectory', action='store', dest='outputDirectory', default=@outputDirectory@)
+parser.add_argument('--displacementFieldPath', action='store', dest='displacementFieldPath', default=@displacementFieldPath@)
+parser.add_argument('--checkpointArchivePath', action='store', dest='checkpointArchivePath', default=@checkpointArchivePath@)
+parser.add_argument('--log', action='store', dest='log', default=@log@)
+parser.add_argument('--generateTracts', action='store', type=bool, dest='generateTracts', default=@generateTracts@)
+parser.add_argument('--input_list', nargs='+', dest='inputList', default=@inputList@)
 parser.add_argument('--dockerImage', action='store', dest='dockerImage', default='trafic:trafic_cpu')
-parser.add_argument('--traficDir', action='store', dest='traficDir', default='@traficDir@')
+parser.add_argument('--traficDir', action='store', dest='traficDir', default=@traficDir@)
+parser.add_argument('--enableDocker', action='store', default=@enableDocker@)
 
 
-try:
-    import docker
-except ImportError:
-    print("Docker not found")
-    sys.exit(-1)
-
-try:
-    import requests
-except ImportError:
-    print("Requests lib not found")
-    sys.exit(-1)
-
-
-
-LOGGER = None
 container = None
 # the low-level API is used for building & exec, as it's the only way to get output stream
 CLI = None
@@ -171,9 +154,9 @@ def generate_input_csv(input_list, output_directory, extracted_landmarks_path, d
         for input_file in input_list:
             fiber_name = os.path.basename(os.path.dirname(input_file))
             csv_input_file.write(
-                input_file + ',' + os.path.join(output_directory_bind_point, fiber_name) + ','
-                + os.path.join(extracted_model_directory_bind, 'model') + ','
-                + os.path.join(output_directory_bind_point, 'summary') + ','
+                input_file + ',' + os.path.join(output_directory, fiber_name) + ','
+                + os.path.join(output_directory, 'model', 'model') + ','
+                + os.path.join(output_directory, 'model', 'summary') + ','
                 + displacement_field_bind_path + ','
                 + extracted_landmarks_path + '\n')
 
@@ -185,35 +168,50 @@ def run():
 
     args = parser.parse_args() 
 
-    if docker:
+    enableDocker = args.enableDocker
+
+    initializeLogging(args.log)
+
+    if(enableDocker):
+        try:
+            import docker
+            import requests
+        except ImportError:
+            LOGGER.error("Impor error for docker or requests library. Try running natively or make sure to install the packages in python.")
+            sys.exit(-1)
+
         CLI = docker.APIClient(timeout=10000000) 
         run_docker(args)
     else:
         run_native(args)
 
-def run_native():
+def run_native(args):
     input_directory = args.inputDirectory
     output_directory = args.outputDirectory
     displacement_field_path = args.displacementFieldPath
     checkpoint_archive_path = args.checkpointArchivePath
     extracted_model_directory = os.path.join(output_directory, 'model')
-    extracted_landmarks_path = os.path.join(extracted_model_directory_bind, 'landmarks.fcsv')
+    extracted_landmarks_path = os.path.join(extracted_model_directory, 'landmarks.fcsv')
     extracted_model_description_path = os.path.join(extracted_model_directory, 'model', 'dataset_description.json')
     dockerImage=args.dockerImage
 
     LOGGER.info('Extracting model information')
     extract_model(checkpoint_archive_path, extracted_model_directory)
 
+    input_list = []
+    for i in filter(None, args.inputList):
+        input_list.append(os.path.join(input_directory, i))
+
     LOGGER.info('Generating input csv')
     generate_input_csv(input_list=input_list,
                        output_directory=output_directory,
                        extracted_landmarks_path=extracted_landmarks_path,
-                       displacement_field_bind_path=displacement_field_bind_path)
+                       displacement_field_bind_path=displacement_field_path)
 
     LOGGER.info('Running classification natively')
-    arguments = ['python', '-u',
+    arguments = [sys.executable, '-u',
                  os.path.join(args.traficDir, 'TraficMulti/TraficMulti_cli.py'),
-                 '--input_csv', os.path.join(output_directory_bind_point , 'input.csv')]
+                 '--input_csv', os.path.join(output_directory , 'input.csv')]
 
     execute(arguments)
 
@@ -221,14 +219,14 @@ def run_native():
         LOGGER.info('Classification finished. extracting fibers')
         for i in input_list:
             fiber_name = os.path.basename(os.path.dirname(i))
-            arguments = ['python', '-u',
+            arguments = [sys.executable, '-u',
                          os.path.join(args.traficDir, 'TraficLib/extractClassifiedFibers.py'),
                          '--class_data',
-                         os.path.join(output_directory_bind_point,
+                         os.path.join(output_directory,
                                       fiber_name,
                                       'classification_output.json'),
                          '--input', i, '--output_dir',
-                         os.path.join(output_directory_bind_point, fiber_name, 'extracted_fibers')]
+                         os.path.join(output_directory, fiber_name, 'extracted_fibers')]
 
             execute(arguments)
 
@@ -260,8 +258,6 @@ def run_docker(args):
     # Copying the dField inside the output dir (so docker can access it)
     shutil.copyfile(displacement_field_path,
                     os.path.join(output_directory, os.path.basename(displacement_field_path)))
-
-    initializeLogging(args.log)
 
     LOGGER.info(args)
     LOGGER.info(dockerfile_local_path)
@@ -334,23 +330,11 @@ def run_docker(args):
     LOGGER.info('Done')
 
 def execute(args):
-    global runningProcess
+    
     LOGGER.debug(subprocess.list2cmdline(args))
-    runningProcess = subprocess.Popen(args,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-    stdout = ''
-    while True:
-        line = runningProcess.stdout.readline()
-        if line:
-            logger.debug(line.rstrip())
-            stdout = stdout + line
-        if not line: break
-    while True:
-        line = runningProcess.stderr.readline()
-        if line:
-            logger.error(line.rstrip())
-        if not line: break
-    runningProcess.wait()
-    LOGGER.debug('')
+    stdout, stderr = subprocess.Popen(args).communicate()
+    LOGGER.debug(stdout)
+    LOGGER.error(stderr)
 
     return stdout
 
