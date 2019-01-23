@@ -65,7 +65,7 @@ QString Pipeline::createModuleDirectory(QString directory_name)
 
 void Pipeline::initializeMainScript()
 {
-    m_script = "#!/usr/bin/env python\n\n";
+    m_script = "#!/usr/bin/env python3\n\n";
 
     m_script += "import os\n";
     m_script += "import sys\n";

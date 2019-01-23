@@ -76,7 +76,7 @@ QString Script::listToString(QStringList argumentsList)
 void Script::definePython()
 {
    m_script = "";
-   m_script += "#!/usr/bin/env python\n\n";
+   m_script += "#!/usr/bin/env python3\n\n";
 }
 
 void Script::importGeneralModules()
