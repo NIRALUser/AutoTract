@@ -44,10 +44,13 @@ int main( int argc , char** argv )
         window.show() ;
         if(parameters.empty() && executables.empty())
         {
-            std::string commandDirectory = itksys::SystemTools::GetFilenamePath(itksys::SystemTools::GetRealPath( argv[0] ));
-            if(commandDirectory==""){
-                commandDirectory=".";
+            std::string command = ""; 
+            std::string errorMsg = "";
+            if(!itksys::SystemTools::FindProgramPath(argv[0], command, errorMsg)){
+                std::cerr<<errorMsg<<std::endl;
             }
+            std::string commandDirectory = itksys::SystemTools::GetFilenamePath(itksys::SystemTools::GetRealPath( command ));
+
             window.initSoftware(commandDirectory);
             window.SyncModelStructureToUi("soft");
         }
