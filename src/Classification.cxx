@@ -85,14 +85,14 @@ void Classification::defineScriptParameters(){
     std::vector<QString>::iterator it;
     for (it = m_tractPopulation.begin(); it != m_tractPopulation.end(); ++it){
         if(it != m_tractPopulation.begin()){
-            inputList += ",";
+            inputList += ",'";
         }
         QString tractFilename = *it;
         QFileInfo fi(tractFilename);
         QString base = fi.baseName();
-        inputList += base + "/" + base + "_cleanEnds.vtp";
+        inputList += base + "/" + base + "_cleanEnds.vtp'";
     }
-    m_scriptParameters["@inputList@"] = inputList + "']";
+    m_scriptParameters["@inputList@"] = inputList + "]";
 }
 
 void Classification::update()
