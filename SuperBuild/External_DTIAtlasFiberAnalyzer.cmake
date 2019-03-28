@@ -99,16 +99,8 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
   )  
   set(${extProjName}_DIR ${EXTERNAL_BINARY_DIRECTORY}/${proj}-install/)
 else()
-  # message(STATUS ${USE_SYSTEM_${extProjName}}${${extProjName}_DIR})
-  # if(${USE_SYSTEM_${extProjName}})
-  #   find_package(${extProjName} ${${extProjName}_REQUIRED_VERSION} REQUIRED)
-  #   message("USING the system ${extProjName}, set ${extProjName}_DIR=${${extProjName}_DIR}")
-  # endif()
-  # if( NOT TARGET ${proj} )
-  #   # The project is provided using ${extProjName}_DIR, nevertheless since other
-  #   # project may depend on ${extProjName}, let's add an 'empty' one
-  #   SlicerMacroEmptyExternalProject(${proj} "${${proj}_DEPENDENCIES}")
-  # endif()
+  set(${extProjName}_DIR "" CACHE FILEPATH "Path to install directory of DTIAtlasFiberAnalyzer")
+  SlicerMacroEmptyExternalProject(${proj} "${${proj}_DEPENDENCIES}")
 endif()
 
 list(APPEND ${CMAKE_PROJECT_NAME}_SUPERBUILD_EP_VARS ${extProjName}_DIR:PATH)

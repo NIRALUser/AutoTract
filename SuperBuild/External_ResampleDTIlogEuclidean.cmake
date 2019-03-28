@@ -42,7 +42,7 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
     )
   ### --- End Project specific additions
   set(${proj}_REPOSITORY "${git_protocol}://github.com/NIRALUser/ResampleDTIlogEuclidean.git")
-  set(${proj}_GIT_TAG ce44dad4c85d24b7c630403afda356f57abd7aa5)
+  set(${proj}_GIT_TAG release)
   ExternalProject_Add(${proj}
     GIT_REPOSITORY ${${proj}_REPOSITORY}
     GIT_TAG ${${proj}_GIT_TAG}
@@ -64,15 +64,7 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
   set(${extProjName}_DIR ${EXTERNAL_BINARY_DIRECTORY}/${proj}-install)
 
 else()
-  if(${USE_SYSTEM_${extProjName}})
-    find_package(${extProjName} REQUIRED)
-    if(NOT ${extProjName}_DIR)
-      message(FATAL_ERROR "To use the system ${extProjName}, set ${extProjName}_DIR")
-    endif()
-    message("USING the system ${extProjName}, set ${extProjName}_DIR=${${extProjName}_DIR}")
-  endif()
-  # The project is provided using ${extProjName}_DIR, nevertheless since other
-  # project may depend on ${extProjName}v4, let's add an 'empty' one
+  set(${extProjName}_DIR "" CACHE FILEPATH "Path to install directory of ResampleDTIlogEuclidean")
   SlicerMacroEmptyExternalProject(${proj} "${${proj}_DEPENDENCIES}")
 endif()
 

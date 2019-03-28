@@ -130,7 +130,7 @@ if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
   set(INSTALL_LIBRARY_DESTINATION ${Slicer_INSTALL_CLIMODULES_LIB_DIR})
   set(INSTALL_ARCHIVE_DESTINATION ${Slicer_INSTALL_CLIMODULES_LIB_DIR})
 
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES ITKv4 SlicerExecutionModel QtToCppXML Trafic Teem)
+  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES ITKv4 SlicerExecutionModel QtToCppXML Trafic)
 
   set(USE_SYSTEM_niral_utilities ON)
   
@@ -139,5 +139,7 @@ else()
   set(INSTALL_RUNTIME_DESTINATION bin)
   set(INSTALL_LIBRARY_DESTINATION lib)
   set(INSTALL_ARCHIVE_DESTINATION lib)
-  set( ${PRIMARY_PROJECT_NAME}_DEPENDENCIES ITKv4 SlicerExecutionModel QtToCppXML ITKTransformTools VTK DTIProcess DTIAtlasFiberAnalyzer ANTs DTI-Reg ResampleDTIlogEuclidean Trafic Teem)
+
+  set(${PRIMARY_PROJECT_NAME}_DEPENDENCIES ITKv4 SlicerExecutionModel QtToCppXML VTK DTIProcess DTIAtlasFiberAnalyzer DTI-Reg ResampleDTIlogEuclidean Trafic)
+
 endif()

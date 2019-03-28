@@ -72,6 +72,7 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
       -DITK_USE_SYSTEM_TIFF:BOOL=OFF
       -DITK_USE_SYSTEM_JPEG:BOOL=OFF
       -DITK_USE_SYSTEM_ZLIB:BOOL=OFF
+      -DModule_MGHIO:BOOL=ON
     )
   ### --- End Project specific additions
   set(${proj}_REPOSITORY ${git_protocol}://itk.org/ITK.git)

@@ -36,7 +36,7 @@ if( DEFINED Slicer_DIR)
   endif()
 
 else()
-  option(Qt4_SUPPORT "Build with QT4 support." ON)
+  option(Qt4_SUPPORT "Build with QT4 support." OFF)
 endif()
 
 

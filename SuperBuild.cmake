@@ -67,6 +67,10 @@ option(USE_SYSTEM_SlicerExecutionModel "Build using an externally defined versio
 option(USE_SYSTEM_QtToCppXML "Build using an externally defined version of QtToCppXMLeq" OFF)
 option(USE_SYSTEM_VTK "Build using an externally defined version of VTK" ${USE_SYSTEM_LIBS})
 option(USE_SYSTEM_Trafic "Build using an externally defined version of Trafic" OFF)
+option(USE_SYSTEM_DTI-Reg "Build using an externally defined version of DTI-Reg" OFF)
+option(USE_SYSTEM_ResampleDTIlogEuclidean "Build using an externally defined version of ResampleDTIlogEuclidean" OFF)
+option(USE_SYSTEM_DTIAtlasFiberAnalyzer "Build using an externally defined version of DTIAtlasFiberAnalyzer" OFF)
+option(USE_SYSTEM_DTIProcess "Build using an externally defined version of DTIProcess" OFF)
 
 set(EXTERNAL_PROJECT_BUILD_TYPE "Release" CACHE STRING "Default build type for support libraries")
 

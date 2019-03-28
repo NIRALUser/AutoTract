@@ -30,6 +30,7 @@ ELSE()
   find_package(Qt5 REQUIRED Core Widgets Xml)
   include_directories(${Qt5Widgets_INCLUDES})
   include_directories(${Qt5Xml_INCLUDES})
+  add_definitions(${Qt5Widgets_DEFINITIONS})
 ENDIF()
 
 
@@ -265,13 +266,29 @@ include(${ITK_USE_FILE})
 
 option(BUILD_TESTING "Build the testing tree" ON)
 
+if(UNIX)
+
+  SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
+  SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+  SET(CMAKE_INSTALL_RPATH "../lib")
+  SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+  
+  get_target_property(QtWidgets_location Qt5::Widgets LOCATION)
+  get_target_property(QtGui_location Qt5::Gui LOCATION)
+  get_target_property(QtCore_location Qt5::Core LOCATION)
+
+  install(FILES ${QtWidgets_location} ${QtGui_location} ${QtCore_location}
+      DESTINATION lib
+      COMPONENT RUNTIME)
+
+endif()
+
 ADD_SUBDIRECTORY(src)
 
 IF(BUILD_TESTING)
   include(CTest)
   ADD_SUBDIRECTORY(Testing)
 ENDIF(BUILD_TESTING)
-
 
 if( ${LOCAL_PROJECT_NAME}_BUILD_SLICER_EXTENSION )
   set(CPACK_INSTALL_CMAKE_PROJECTS "${CPACK_INSTALL_CMAKE_PROJECTS};${CMAKE_BINARY_DIR};${EXTENSION_NAME};ALL;/")
