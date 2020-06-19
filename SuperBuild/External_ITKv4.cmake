@@ -75,7 +75,7 @@ if(NOT ( DEFINED "USE_SYSTEM_${extProjName}" AND "${USE_SYSTEM_${extProjName}}" 
       -DModule_MGHIO:BOOL=ON
     )
   ### --- End Project specific additions
-  set(${proj}_REPOSITORY ${git_protocol}://itk.org/ITK.git)
+  set(${proj}_REPOSITORY ${git_protocol}://github.com/InsightSoftwareConsortium/ITK)
   set(${proj}_GIT_TAG d92873e33e8a54e933e445b92151191f02feab42)
   set(ITK_VERSION_ID ITK-4.13)
 
